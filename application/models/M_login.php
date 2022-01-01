@@ -10,7 +10,7 @@ class M_login extends CI_Model
 
     public function get_division($e)
     {
-        $sql = "SELECT d.division_name FROM tbl_user u INNER JOIN tbl_division d ON u.division_id=d.division_id WHERE u.email='$e'";
+        $sql = "SELECT d.division_id, d.division_name FROM tbl_user u INNER JOIN tbl_division d ON u.division_id=d.division_id WHERE u.email='$e'";
         $query = $this->db->query($sql);
 
         if ($query->num_rows() > 0) {

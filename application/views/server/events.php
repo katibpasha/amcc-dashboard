@@ -19,84 +19,52 @@
 <!-- Page content -->
 <div class="container-fluid mt--6">
     <div class="row">
-        <div class="col-xl-12">
+        <div class="col-xl-8">
             <div class="card bg-default shadow">
                 <div class="table-responsive">
                     <table class="table align-items-center table-dark table-flush">
                         <thead class="thead-dark">
                             <tr>
                                 <th scope="col">Nama Event</th>
-                                <th scope="col">Deskripsi</th>
-                                <th scope="col">Lokasi</th>
                                 <th scope="col">Waktu</th>
-                                <th scope="col">Partisipan</th>
                                 <th scope="col" class="text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="list">
-                            <tr>
-                                <th scope="row">
-                                    Pelatihan Divisi Mobile Programming
-                                </th>
-                                <td>
-                                    Pelatihan tes
-                                </td>
-                                <td>
-                                    Google Meet
-                                </td>
-                                <td>
-                                    12.30 - 17.00
-                                </td>
-                                <td>
-                                    52
-                                </td>
-                                <td class="d-flex justify-content-center">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-event">Edit</button>
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-event">Hapus</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    Pelatihan Divisi Web Programming
-                                </th>
-                                <td>
-                                    Pelatihan tes
-                                </td>
-                                <td>
-                                    Google Meet
-                                </td>
-                                <td>
-                                    12.30 - 17.00
-                                </td>
-                                <td>
-                                    52
-                                </td>
-                                <td class="d-flex justify-content-center">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-event">Edit</button>
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-event">Hapus</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    Pelatihan Divisi Desktop Programming
-                                </th>
-                                <td>
-                                    Pelatihan tes
-                                </td>
-                                <td>
-                                    Google Meet
-                                </td>
-                                <td>
-                                    12.30 - 17.00
-                                </td>
-                                <td>
-                                    52
-                                </td>
-                                <td class="d-flex justify-content-center">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-event">Edit</button>
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-event">Hapus</button>
-                                </td>
-                            </tr>
+                            <?php foreach ($events as $item) : ?>
+                                <tr>
+                                    <th scope="row">
+                                        <?= $item->event_name ?>
+                                    </th>
+
+                                    <td>
+                                        <?= date('H:i', strtotime($item->event_start))  ?> - <?= date('H:i', strtotime($item->event_end))  ?>
+                                    </td>
+                                    <td class="d-flex justify-content-center">
+                                        <?php if ($item->status == 'off') { ?>
+                                            <div class="row">
+                                                <div class="col-12 d-flex justify-content-center">
+                                                    <span> <small>Saat status ini <?= $item->status ?></small></span>
+                                                </div>
+                                                <div class="col-12 d-flex justify-content-center">
+                                                    <a href="<?= site_url('Dashboard/turn_action/' . 'on' . '/' . $item->event_id) ?>" class="btn btn-success">Turn On</a>
+                                                </div>
+                                            </div>
+
+                                        <?php } else { ?>
+                                            <div class="row">
+                                                <div class="col-12 d-flex justify-content-center">
+                                                    <span> <small>Saat status ini <?= $item->status ?></small></span>
+                                                </div>
+                                                <div class="col-12 d-flex justify-content-center">
+                                                    <a href="<?= site_url('Dashboard/turn_action/' . 'off' . '/' . $item->event_id) ?>" class="btn btn-warning">Turn Off</a>
+                                                </div>
+                                            </div>
+                                        <?php } ?>
+
+                                    </td>
+                                </tr>
+                            <?php endforeach ?>
                         </tbody>
                     </table>
                 </div>

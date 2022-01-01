@@ -171,7 +171,7 @@
                 var nama = $(this).data('name');
                 var email = $(this).data('email');
 
-                $('#nim').val(nim);
+                $('#nimPengurus').val(nim);
                 $('#namaPengurus').val(nama);
                 $('#emailPengurus').val(email);
 

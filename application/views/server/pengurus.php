@@ -194,13 +194,20 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form role="form">
+                    <form role="form" action="<?= site_url('Dashboard/user_edit') ?>" method="POST">
+                        <div class="form-group mb-3">
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fab fa-glide-g"></i></span>
+                                </div>
+                                <input class="form-control" placeholder="NIM" type="text" id="nimPengurus" name="nim" readonly>
+                            </div>
+                        </div>
                         <div class="form-group mb-3">
                             <div class="input-group input-group-merge input-group-alternative">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
                                 </div>
-                                <input type="hidden" name="nim" id="nimPengurus">
                                 <input class="form-control" placeholder="Nama Pengurus" type="text" id="namaPengurus" name="nama">
                             </div>
                         </div>
@@ -209,7 +216,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Email" type="email" id="emailPengurus">
+                                <input class="form-control" placeholder="Email" type="email" id="emailPengurus" name="email">
                             </div>
                         </div>
                         <div class="form-group mb-3">
@@ -217,7 +224,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-key-25"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Password" type="password">
+                                <input class="form-control" placeholder="Password" type="password" name="pass1" required>
                             </div>
                         </div>
                         <div class="form-group mb-3">
@@ -225,15 +232,16 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-key-25"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Konfirmasi Password" type="password">
+                                <input class="form-control" placeholder="Konfirmasi Password" type="password" name="pass2" required>
                             </div>
+                        </div>
+                        <div class="modal-footer px-0">
+                            <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
                     </form>
                 </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Simpan</button>
-                </div>
+
 
             </div>
         </div>

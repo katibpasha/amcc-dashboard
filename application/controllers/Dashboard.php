@@ -33,6 +33,7 @@ class Dashboard extends CI_Controller
         $data['data_member_all'] = $this->db->get_where('tbl_user', array('role_user' => 'B'))->num_rows();
         $data['data_member_year'] = $this->db->get_where('tbl_user', array('role_user' => 'B', 'year' => date('Y')))->num_rows();
         $data['jmlh_devisi'] = $this->db->get('tbl_division')->num_rows();
+        $data['events'] = $this->db->get('tbl_event')->result();
         $data['title'] = 'Events';
         $this->template->load('template/template_admin', 'server/events', $data);
     }
@@ -129,6 +130,50 @@ class Dashboard extends CI_Controller
                 $this->session->set_flashdata('flash-gagal', 'Data pemgurus gagal ditambahkan');
                 redirect('Dashboard/pengurus');
             }
+        }
+    }
+
+    public function turn_action($param, $param2)
+    {
+        if ($param == 'on') {
+            $this->db->set('status', 'on');
+            $this->db->where('event_id', $param2);
+            $this->db->update('tbl_event');
+            redirect('Dashboard/events');
+        } else {
+            $this->db->set('status', 'off');
+            $this->db->where('event_id', $param2);
+            $this->db->update('tbl_event');
+            redirect('Dashboard/events');
+        }
+    }
+
+    public function user_edit()
+    {
+        $this->form_validation->set_rules('pass1', 'pass1', 'matches[pass2]');
+        $this->form_validation->set_rules('pass2', 'pass2', 'matches[pass1]');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('flash-gagal', 'Password Tidak Sama !!!');
+            redirect('Dashboard/pengurus');
+        } else {
+            $nim = $this->input->post('nim', true);
+            $nama = $this->input->post('nama', true);
+            $email = $this->input->post('email', true);
+            $pass = $this->input->post('pass1', true);
+
+            $data_update = array(
+                'nim' => $nim,
+                'name' => $nama,
+                'email' => $email,
+                'pass' => md5($pass)
+            );
+
+            $this->db->set($data_update);
+            $this->db->where('nim', $nim);
+            $this->db->update('tbl_user');
+            $this->session->set_flashdata('flash', 'Data pengurus berhasil diubah');
+            redirect('Dashboard/pengurus');
         }
     }
 }

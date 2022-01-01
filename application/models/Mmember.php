@@ -15,4 +15,30 @@ class Mmember extends CI_Model
             return array();
         }
     }
+
+    public function riwayat_presensi($nim)
+    {
+        $sql = "SELECT e.event_name, p.date_presence FROM tbl_presence p INNER JOIN tbl_event e ON p.event_id=e.event_id WHERE p.nim = '$nim' ORDER BY p.date_presence DESC";
+        $query = $this->db->query($sql);
+
+        if ($query->num_rows() > 0) {
+            $result = $query->result();
+            return $result;
+        } else {
+            return array();
+        }
+    }
+
+    public function cek_eventStatus($nim)
+    {
+        $sql = "SELECT e.status FROM tbl_presence p INNER JOIN tbl_event e ON p.event_id=e.event_id WHERE p.nim = '$nim'";
+        $query = $this->db->query($sql);
+
+        if ($query->num_rows() > 0) {
+            $result = $query->row_array();
+            return $result;
+        } else {
+            return array();
+        }
+    }
 }
