@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Dashboard untuk Member & Pengurus UKM AMCC">
     <meta name="author" content="Creative Tim">
-    <title><?= $title ?></title>a
+    <title><?= $title ?></title>
     <!-- Favicon -->
     <link rel="icon" href="<?= base_url('assets/argon') ?>/assets/img/brand/amcc-logo.png" type="image/png">
     <!-- Fonts -->
@@ -159,9 +159,23 @@
     <!-- Datatables -->
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-    <script>
+    <!-- <script>
         $(document).ready(function() {
             $('#my-datables').DataTable();
+        });
+    </script> -->
+    <script>
+        $(document).ready(function() {
+            $(document).on('click', '#editBtn', function() {
+                var nim = $(this).data('nim');
+                var nama = $(this).data('name');
+                var email = $(this).data('email');
+
+                $('#nim').val(nim);
+                $('#namaPengurus').val(nama);
+                $('#emailPengurus').val(email);
+
+            });
         });
     </script>
 </body>

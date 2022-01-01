@@ -16,6 +16,40 @@
 </div>
 <!-- Page content -->
 <div class="container-fluid mt--6">
+    <?php if (form_error('pass1') || form_error('pass2')) : ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Yahhh :( !</strong> Password Antum Tidak sama Borr !!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php endif ?>
+    <?php if (form_error('nim')) : ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Yahhh :( !</strong> NIM Antum sudah digunakan Borr !!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php endif ?>
+    <?php if ($this->session->flashdata('flash')) : ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Yeayyy !</strong> <?= $this->session->flashdata('flash') ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php unset($_SESSION['flash']);
+    endif ?>
+    <?php if ($this->session->flashdata('flash-gagal')) : ?>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Yahhhh :(</strong> <?= $this->session->flashdata('flash-gagal') ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php unset($_SESSION['flash-gagal']);
+    endif ?>
     <div class="row">
         <div class="col-xl-12">
             <div class="card bg-default shadow">
@@ -47,24 +81,26 @@
                             </tr>
                         </thead>
                         <tbody class="list">
-                            <tr>
-                                <th scope="row">
-                                    Ivan Nur Ilham Syah
-                                </th>
-                                <td>
-                                    ivan.syah@students.amikom.ac.id
-                                </td>
-                                <td>
-                                    2021/12/22
-                                </td>
-                                <td>
-                                    2021/12/22
-                                </td>
-                                <td class="d-flex justify-content-center">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-pengurus">Edit</button>
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-pengurus">Hapus</button>
-                                </td>
-                            </tr>
+                            <?php foreach ($pengurus as $item) : ?>
+                                <tr>
+                                    <th scope="row">
+                                        <?= $item->name ?>
+                                    </th>
+                                    <td>
+                                        <?= $item->email ?>
+                                    </td>
+                                    <td>
+                                        <?= date('d-m-Y', strtotime($item->created_at)) ?>
+                                    </td>
+                                    <td>
+                                        <?= date('d-m-Y', strtotime($item->mdd)) ?>
+                                    </td>
+                                    <td class="d-flex justify-content-center">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-pengurus" id="editBtn" data-name="<?= $item->name ?>" data-email="<?= $item->email ?>" data-nim="<?= $item->nim ?>">Edit</button>
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-pengurus">Hapus</button>
+                                    </td>
+                                </tr>
+                            <?php endforeach ?>
                         </tbody>
                     </table>
                 </div>
@@ -86,13 +122,21 @@
                 </div>
 
                 <div class="modal-body">
-                    <form role="form">
+                    <form role="form" action="<?= site_url('Dashboard/pengurus_action') ?>" method="POST">
+                        <div class="form-group mb-3">
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fab fa-glide-g"></i></span>
+                                </div>
+                                <input class="form-control" placeholder="NIM Pengurus" type="text" name="nim" required>
+                            </div>
+                        </div>
                         <div class="form-group mb-3">
                             <div class="input-group input-group-merge input-group-alternative">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Nama Pengurus" type="text">
+                                <input class="form-control" placeholder="Nama Pengurus" type="text" name="nama" required>
                             </div>
                         </div>
                         <div class="form-group mb-3">
@@ -100,7 +144,23 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Email" type="email">
+                                <input class="form-control" placeholder="Email" type="email" name="email" required>
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <select class="form-control input-group input-group-merge input-group-alternative" id="exampleFormControlSelect1" name="divisi" required>
+                                <option>Pilih Divisi</option>
+                                <?php foreach ($devisi as $item) : ?>
+                                    <option value="<?= $item->division_id ?>"><?= $item->division_name ?></option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-key-25"></i></span>
+                                </div>
+                                <input class="form-control" placeholder="Password" type="password" name="pass1" required>
                             </div>
                         </div>
                         <div class="form-group mb-3">
@@ -108,22 +168,13 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-key-25"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Password" type="password">
+                                <input class="form-control" placeholder="Konfirmasi Password" type="password" name="pass2" required>
                             </div>
                         </div>
-                        <div class="form-group mb-3">
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="ni ni-key-25"></i></span>
-                                </div>
-                                <input class="form-control" placeholder="Konfirmasi Password" type="password">
-                            </div>
+                        <div class="modal-footer px-0">
+                            <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
                     </form>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Simpan</button>
                 </div>
 
             </div>
@@ -149,7 +200,8 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Nama Pengurus" type="text">
+                                <input type="hidden" name="nim" id="nimPengurus">
+                                <input class="form-control" placeholder="Nama Pengurus" type="text" id="namaPengurus" name="nama">
                             </div>
                         </div>
                         <div class="form-group mb-3">
@@ -157,7 +209,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Email" type="email">
+                                <input class="form-control" placeholder="Email" type="email" id="emailPengurus">
                             </div>
                         </div>
                         <div class="form-group mb-3">

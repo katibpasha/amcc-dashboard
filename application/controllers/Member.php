@@ -8,6 +8,7 @@ class Member extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        $this->load->model('Mmember');
         if (!$this->session->logged_in) {
             redirect('Login');
         }
@@ -15,7 +16,10 @@ class Member extends CI_Controller
 
     public function index()
     {
+        $division = $this->session->userdata("division_name");
         $data['title'] = 'Dashboard Member';
+        $data['modul_pelatihan'] = $this->Mmember->tampil_material('MODUL', $division);
+        $data['modul_rekaman'] = $this->Mmember->tampil_material('RECORD', $division);
         $this->template->load('template/template_member', 'client/index', $data);
     }
 
@@ -29,5 +33,11 @@ class Member extends CI_Controller
     {
         $data['title'] = 'Member Profile';
         $this->template->load('template/template_member', 'client/profile', $data);
+    }
+
+    public function surpel()
+    {
+        $data['title'] = 'Member Surpel';
+        $this->template->load('template/template_member', 'client/surpel', $data);
     }
 }

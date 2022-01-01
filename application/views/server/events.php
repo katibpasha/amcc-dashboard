@@ -1,44 +1,16 @@
 <!-- Header -->
+<!-- Header -->
 <div class="header bg-blue-amcc pb-6">
     <div class="container-fluid">
         <div class="header-body">
             <!-- Card stats -->
+            <h6 class="h2 text-white d-inline-block mb-4">Event Pelatihan & Presensi</h6>
             <div class="row">
-                <div class="col-xl-3 col-md-6">
-                    <div class="card card-stats">
-                        <!-- Card body -->
-                        <div class="card-body py-4">
-                            <div class="row">
-                                <div class="col">
-                                    <h5 class="card-title text-uppercase text-muted mb-0">Jumlah Member</h5>
-                                    <span class="h2 font-weight-bold mb-0">456</span>
-                                </div>
-                                <div class="col-auto">
-                                    <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
-                                        <i class="fas fa-user-friends"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-md-6">
-                    <div class="card card-stats">
-                        <!-- Card body -->
-                        <div class="card-body py-4">
-                            <div class="row">
-                                <div class="col">
-                                    <h5 class="card-title text-uppercase text-muted mb-0">Jumlah Divisi</h5>
-                                    <span class="h2 font-weight-bold mb-0">5</span>
-                                </div>
-                                <div class="col-auto">
-                                    <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
-                                        <i class="fas fa-th-large"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-add-event">
+                        <span class="btn-inner--icon"><i class="ni ni-fat-add"></i></span>
+                        <span class="btn-inner--text">Buat Event Pelatihan</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -48,195 +20,239 @@
 <div class="container-fluid mt--6">
     <div class="row">
         <div class="col-xl-12">
-            <div class="card bg-default">
-                <div class="card-header bg-transparent">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <h6 class="text-light text-uppercase ls-1 mb-1">Visualisasi Data Member</h6>
-                            <h5 class="h3 text-white mb-0">Mobile Programming</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <!-- Chart -->
-                    <div class="chart">
-                        <!-- Chart wrapper -->
-                        <canvas id="chart-divisi-mobile" class="chart-canvas"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-4">
-            <div class="card bg-default">
-                <div class="card-header bg-transparent">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <h6 class="text-light text-uppercase ls-1 mb-1">Visualisasi Data</h6>
-                            <h5 class="h3 text-white mb-0">Tingkat Kesulitan Materi</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <!-- Chart -->
-                    <div class="chart">
-                        <!-- Chart wrapper -->
-                        <canvas id="chart-materi" class="chart-canvas"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-4">
-            <div class="card bg-default">
-                <div class="card-header bg-transparent">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <h6 class="text-light text-uppercase ls-1 mb-1">Visualisasi Data</h6>
-                            <h5 class="h3 text-white mb-0">Penyampaian Materi</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <!-- Chart -->
-                    <div class="chart">
-                        <!-- Chart wrapper -->
-                        <canvas id="chart-penyampaian" class="chart-canvas"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-4">
-            <div class="card bg-default">
-                <div class="card-header bg-transparent">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <h6 class="text-light text-uppercase ls-1 mb-1">Visualisasi Data</h6>
-                            <h5 class="h3 text-white mb-0">Suasana Kelas</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <!-- Chart -->
-                    <div class="chart">
-                        <!-- Chart wrapper -->
-                        <canvas id="chart-kelas" class="chart-canvas"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-12">
             <div class="card bg-default shadow">
-                <div class="card-header border-0 bg-default">
-                    <div class="row align-items-center justify-content-between">
-                        <div class="col-1">
-                            <select class="form-control" id="exampleFormControlSelect1">
-                                <option>5</option>
-                                <option>15</option>
-                                <option>25</option>
-                                <option>50</option>
-                                <option>100</option>
-                            </select>
-                        </div>
-                        <div class="col-5">
-                            <input type="text" class="form-control form-control-alternative" placeholder="Cari member">
-                        </div>
-                    </div>
-                </div>
                 <div class="table-responsive">
                     <table class="table align-items-center table-dark table-flush">
                         <thead class="thead-dark">
                             <tr>
-                                <th scope="col">Nama</th>
-                                <th scope="col">Divisi</th>
-                                <th scope="col">Tingat Kesulitan Materi</th>
-                                <th scope="col">Penyampaian Materi</th>
-                                <th scope="col">Suasana Kelas</th>
-                                <th scope="col">Kendala</th>
-                                <th scope="col">Kritik & Saran</th>
-                                <th scope="col">Tanggal</th>
+                                <th scope="col">Nama Event</th>
+                                <th scope="col">Deskripsi</th>
+                                <th scope="col">Lokasi</th>
+                                <th scope="col">Waktu</th>
+                                <th scope="col">Partisipan</th>
+                                <th scope="col" class="text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="list">
                             <tr>
                                 <th scope="row">
-                                    Ivan Nur Ilham Syah
+                                    Pelatihan Divisi Mobile Programming
                                 </th>
                                 <td>
-                                    Mobile Programming
+                                    Pelatihan tes
                                 </td>
                                 <td>
-                                    Sangat Mudah
+                                    Google Meet
                                 </td>
                                 <td>
-                                    Mudah Dipahami
+                                    12.30 - 17.00
                                 </td>
                                 <td>
-                                    Seru
+                                    52
                                 </td>
-                                <td>
-                                    Ga ada
-                                </td>
-                                <td>
-                                    Semangat kakak!
-                                </td>
-                                <td>
-                                    2022/01/08
+                                <td class="d-flex justify-content-center">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-event">Edit</button>
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-event">Hapus</button>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row">
-                                    Lutfi Asmara
+                                    Pelatihan Divisi Web Programming
                                 </th>
                                 <td>
-                                    Mobile Programming
+                                    Pelatihan tes
                                 </td>
                                 <td>
-                                    Sangat Mudah
+                                    Google Meet
                                 </td>
                                 <td>
-                                    Mudah Dipahami
+                                    12.30 - 17.00
                                 </td>
                                 <td>
-                                    SBL SBL SBL!
+                                    52
                                 </td>
-                                <td>
-                                    Ez pz, Ga ada
-                                </td>
-                                <td>
-                                    Semangat kakak!
-                                </td>
-                                <td>
-                                    2022/01/08
+                                <td class="d-flex justify-content-center">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-event">Edit</button>
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-event">Hapus</button>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row">
-                                    Taufiq Alfianto
+                                    Pelatihan Divisi Desktop Programming
                                 </th>
                                 <td>
-                                    Mobile Programming
+                                    Pelatihan tes
                                 </td>
                                 <td>
-                                    Mudah
+                                    Google Meet
                                 </td>
                                 <td>
-                                    Lumayan
+                                    12.30 - 17.00
                                 </td>
                                 <td>
-                                    Agak Garing ya!
+                                    52
                                 </td>
-                                <td>
-                                    Laptopnya ngehang
-                                </td>
-                                <td>
-                                    Semangat aja!
-                                </td>
-                                <td>
-                                    2022/01/08
+                                <td class="d-flex justify-content-center">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-event">Edit</button>
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-event">Hapus</button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <!-- 1. Modal tambah event -->
+
+    <div class="modal fade" id="modal-add-event" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h6 class="modal-title" id="modal-title-default">Event Pelatihan</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <form role="form">
+                        <div class="form-group mb-3">
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-tag"></i></span>
+                                </div>
+                                <input class="form-control" placeholder="Nama Event" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-time-alarm"></i></span>
+                                </div>
+                                <input class="form-control" placeholder="Waktu Mulai" type="time">
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-time-alarm"></i></span>
+                                </div>
+                                <input class="form-control" placeholder="Waktu Akhir" type="time">
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-pin-3"></i></span>
+                                </div>
+                                <input class="form-control" placeholder="Lokasi" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <textarea class="form-control" placeholder="Deskripsi" rows="5"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Simpan</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Modal Edit Event -->
+
+    <div class="modal fade" id="modal-edit-event" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h6 class="modal-title" id="modal-title-default" data-toggle="modal" data-target="#modal-edit-event">Edit Event Pelatihan</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria data-toggle="modal" data-target="#modal-delete-event" -label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <form role="form">
+                        <div class="form-group mb-3">
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-tag"></i></span>
+                                </div>
+                                <input class="form-control" placeholder="Nama Event" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-time-alarm"></i></span>
+                                </div>
+                                <input class="form-control" placeholder="Waktu Mulai" type="time">
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-time-alarm"></i></span>
+                                </div>
+                                <input class="form-control" placeholder="Waktu Akhir" type="time">
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-pin-3"></i></span>
+                                </div>
+                                <input class="form-control" placeholder="Lokasi" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <textarea class="form-control" placeholder="Deskripsi" rows="5"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Simpan</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Modal confirmation -->
+    <!-- 5. modal confirmation -->
+    <div class="modal fade" id="modal-delete-event" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h6 class="modal-title" id="modal-title-default">Hapus Data Pengurus</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <p>Apakah kamu yakin ingin menghapus data?</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger">YBL YBL YBL!</button>
+                    <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Ga!</button>
+                </div>
+
             </div>
         </div>
     </div>

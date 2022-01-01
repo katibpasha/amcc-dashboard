@@ -60,10 +60,10 @@
                 <div class="card-body">
                     <p class="text-white">Halo, hari ini ada pelatihan ke 5 Divisi Mobile Programming lho. Jangan lupa join
                         pelatihan dan presensi </p>
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-add-event">
+                    <a href="<?= site_url('Member/surpel') ?>" class="btn btn-success">
                         <span class="btn-inner--icon"><i class="fas fa-clipboard-check"></i></span>
                         <span class="btn-inner--text px-2">Presensi</span>
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -88,34 +88,22 @@
                                 </tr>
                             </thead>
                             <tbody class="list">
-                                <tr>
-                                    <th scope="row">
-                                        Modul Layout (Column, Row, Stack) <i class="mx-2 fas fa-link"></i>
-                                    </th>
-                                    <td>
-                                        1
-                                    </td>
-                                    <td>
-                                        Taufiq Alfianto
-                                    </td>
-                                    <td>
-                                        2022/01/08
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        Modul Container, Image, Padding <i class="mx-2 fas fa-link"></i>
-                                    </th>
-                                    <td>
-                                        2
-                                    </td>
-                                    <td>
-                                        Dewi Setyawati
-                                    </td>
-                                    <td>
-                                        2022/01/15
-                                    </td>
-                                </tr>
+                                <?php foreach ($modul_pelatihan as $item) : ?>
+                                    <tr>
+                                        <th scope="row">
+                                            <?= $item->modul ?> <a href="<?= $item->link ?>" target="_BLANK"><i class="mx-2 fas fa-link"></i></a>
+                                        </th>
+                                        <td>
+                                            <?= $item->training_to ?>
+                                        </td>
+                                        <td>
+                                            <?= $item->user ?>
+                                        </td>
+                                        <td>
+                                            <?= date('d-m-Y', strtotime($item->created_at)) ?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach ?>
                             </tbody>
                         </table>
                     </div>
@@ -141,22 +129,17 @@
                                 </tr>
                             </thead>
                             <tbody class="list">
-                                <tr>
-                                    <th scope="row">
-                                        Rekaman Pelatihan Layout <i class="mx-2 fas fa-link"></i>
-                                    </th>
-                                    <td>
-                                        1
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        Rekaman Membuat Halaman Home Bagian 1 <i class="mx-2 fas fa-link"></i>
-                                    </th>
-                                    <td>
-                                        2
-                                    </td>
-                                </tr>
+                                <?php foreach ($modul_rekaman as $item) : ?>
+                                    <tr>
+                                        <th scope="row">
+                                            <?= $item->modul ?> <a href="<?= $item->link ?>" target="_BLANK"><i class="mx-2 fas fa-link"></i></a>
+                                        </th>
+                                        <td>
+                                            <?= $item->training_to ?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach ?>
+
                             </tbody>
                         </table>
                     </div>

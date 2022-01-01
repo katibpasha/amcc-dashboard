@@ -17,7 +17,26 @@
     </div>
 </div>
 <!-- Page content -->
+
 <div class="container-fluid mt--6">
+    <?php if ($this->session->flashdata('flash')) : ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Yeayyy !</strong> <?= $this->session->flashdata('flash') ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php unset($_SESSION['flash']);
+    endif ?>
+    <?php if ($this->session->flashdata('flash-gagal')) : ?>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Yahhhh :(</strong> <?= $this->session->flashdata('flash-gagal') ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php unset($_SESSION['flash-gagal']);
+    endif ?>
     <div class="row">
         <div class="col-xl-12">
             <div class="card bg-default">
@@ -40,34 +59,22 @@
                                 </tr>
                             </thead>
                             <tbody class="list">
-                                <tr>
-                                    <th scope="row">
-                                        Modul Layout (Column, Row, Stack) <i class="mx-2 fas fa-link"></i>
-                                    </th>
-                                    <td>
-                                        1
-                                    </td>
-                                    <td>
-                                        Taufiq Alfianto
-                                    </td>
-                                    <td>
-                                        2022/01/08
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        Modul Container, Image, Padding <i class="mx-2 fas fa-link"></i>
-                                    </th>
-                                    <td>
-                                        2
-                                    </td>
-                                    <td>
-                                        Dewi Setyawati
-                                    </td>
-                                    <td>
-                                        2022/01/15
-                                    </td>
-                                </tr>
+                                <?php foreach ($modul_pelatihan as $item) : ?>
+                                    <tr>
+                                        <th scope="row">
+                                            <?= $item->modul ?> <a href="<?= $item->link ?>" target="_BLANK"><i class="mx-2 fas fa-link"></i></a>
+                                        </th>
+                                        <td>
+                                            <?= $item->training_to ?>
+                                        </td>
+                                        <td>
+                                            <?= $item->user ?>
+                                        </td>
+                                        <td>
+                                            <?= date('d-m-Y', strtotime($item->created_at)) ?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach ?>
                             </tbody>
                         </table>
                     </div>
@@ -95,34 +102,22 @@
                                 </tr>
                             </thead>
                             <tbody class="list">
-                                <tr>
-                                    <th scope="row">
-                                        Rekaman Pelatihan Layouting <i class="mx-2 fas fa-link"></i>
-                                    </th>
-                                    <td>
-                                        1
-                                    </td>
-                                    <td>
-                                        Ivan Nur Ilham Syah
-                                    </td>
-                                    <td>
-                                        2020/01/10
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        Rekaman Membuat Halaman Home Bagian 1 <i class="mx-2 fas fa-link"></i>
-                                    </th>
-                                    <td>
-                                        2
-                                    </td>
-                                    <td>
-                                        Ivan Nur Ilham Syah
-                                    </td>
-                                    <td>
-                                        2020/01/10
-                                    </td>
-                                </tr>
+                                <?php foreach ($modul_rekaman as $item) : ?>
+                                    <tr>
+                                        <th scope="row">
+                                            <?= $item->modul ?> <a href="<?= $item->link ?>" target="_BLANK"><i class="mx-2 fas fa-link"></i></a>
+                                        </th>
+                                        <td>
+                                            <?= $item->training_to ?>
+                                        </td>
+                                        <td>
+                                            <?= $item->user ?>
+                                        </td>
+                                        <td>
+                                            <?= date('d-m-Y', strtotime($item->created_at)) ?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach ?>
                             </tbody>
                         </table>
                     </div>
@@ -136,7 +131,6 @@
     <div class="modal fade" id="modal-add-material" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-" role="document">
             <div class="modal-content">
-
                 <div class="modal-header">
                     <h6 class="modal-title" id="modal-title-default">Tambah Materi</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -145,47 +139,45 @@
                 </div>
 
                 <div class="modal-body">
-                    <form role="form">
+                    <form role="form" action="<?= site_url('Dashboard/material_action') ?>" method="POST">
                         <div class="form-group mb-3">
                             <div class="input-group input-group-merge input-group-alternative">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-app"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Judul Materi" type="text">
+                                <input class="form-control" placeholder="Judul Materi" type="text" name="judul" required>
                             </div>
                         </div>
                         <div class="form-group mb-3">
-                            <select class="form-control input-group input-group-merge input-group-alternative" id="exampleFormControlSelect1">
+                            <select class="form-control input-group input-group-merge input-group-alternative" id="exampleFormControlSelect1" name="training" required>
                                 <option>Pilih Pelatihan</option>
-                                <option>Pelatihan Ke-1</option>
-                                <option>Pelatihan Ke-2</option>
-                                <option>Pelatihan Ke-3</option>
-                                <option>Pelatihan Ke-4</option>
-                                <option>Pelatihan Ke-5</option>
-                                <option>Pelatihan Ke-6</option>
-                                <option>Pelatihan Ke-7</option>
-                                <option>Pelatihan Ke-8</option>
-                                <option>Pelatihan Ke-9</option>
-                                <option>Pelatihan Ke-10</option>
-                                <option>Pelatihan Ke-11</option>
-                                <option>Pelatihan Ke-12</option>
+                                <option value="Pelatihan Ke-1">Pelatihan Ke-1</option>
+                                <option value="Pelatihan Ke-2">Pelatihan Ke-2</option>
+                                <option value="Pelatihan Ke-3">Pelatihan Ke-3</option>
+                                <option value="Pelatihan Ke-4">Pelatihan Ke-4</option>
+                                <option value="Pelatihan Ke-5">Pelatihan Ke-5</option>
+                                <option value="Pelatihan Ke-6">Pelatihan Ke-6</option>
+                                <option value="Pelatihan Ke-7">Pelatihan Ke-7</option>
+                                <option value="Pelatihan Ke-8">Pelatihan Ke-8</option>
+                                <option value="Pelatihan Ke-9">Pelatihan Ke-9</option>
+                                <option value="Pelatihan Ke-10">Pelatihan Ke-10</option>
+                                <option value="Pelatihan Ke-11">Pelatihan Ke-11</option>
+                                <option value="Pelatihan Ke-12">Pelatihan Ke-12</option>
                             </select>
                         </div>
                         <div class="form-group mb-3">
-                            <select class="form-control input-group input-group-merge input-group-alternative" id="exampleFormControlSelect1">
+                            <select class="form-control input-group input-group-merge input-group-alternative" id="exampleFormControlSelect1" name="divisi" required>
                                 <option>Pilih Divisi</option>
-                                <option>Divisi Mobile Programming</option>
-                                <option>Divisi Web Programming</option>
-                                <option>Divisi Desktop Programming</option>
-                                <option>Divisi Hardware & Software</option>
-                                <option>Divisi Computer Network</option>
+                                <?php foreach ($devisi as $item) : ?>
+                                    <option value="<?= $item->division_id ?>"><?= $item->division_name ?></option>
+                                <?php endforeach ?>
                             </select>
                         </div>
                         <div class="form-group mb-3">
-                            <select class="form-control input-group input-group-merge input-group-alternative" id="exampleFormControlSelect1">
+                            <select class="form-control input-group input-group-merge input-group-alternative" id="exampleFormControlSelect1" name="kategori" required>
                                 <option>Pilih Kategori</option>
                                 <option>Modul</option>
-                                <option>Rekaman</option>
+                                <option>Record</option>
                             </select>
                         </div>
                         <div class="form-group mb-3">
@@ -193,16 +185,14 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-link"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Link Materi (Modul/Rekaman)" type="text">
+                                <input class="form-control" placeholder="Link Materi (Modul/Rekaman)" type="text" name="link" required>
                             </div>
+                        </div>
+                        <div class="modal-footer px-0">
+                            <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
                     </form>
                 </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Simpan</button>
-                </div>
-
             </div>
         </div>
     </div>

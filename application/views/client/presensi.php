@@ -13,10 +13,10 @@
                 </div>
                 <div class="card-body">
                     <p class="text-white">Halo, hari ini tidak ada pelatihan Divisi Mobile Programming </p>
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-add-event">
+                    <a href="<?= site_url('Member/surpel') ?>" class="btn btn-success">
                         <span class="btn-inner--icon"><i class="fas fa-clipboard-check"></i></span>
                         <span class="btn-inner--text px-2">Presensi</span>
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
