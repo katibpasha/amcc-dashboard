@@ -12,7 +12,7 @@
                      </div>
                  </div>
                  <div class="card-body">
-                     <form>
+                     <form action="<?= site_url('Member/profile_action') ?>" method="POST">
                          <div class="row">
                              <div class="col-6">
                                  <div class="form-group mb-3">
@@ -20,7 +20,7 @@
                                          <div class="input-group-prepend">
                                              <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
                                          </div>
-                                         <input class="form-control" placeholder="Nama Member" type="text">
+                                         <input class="form-control" placeholder="Nama Member" type="text" value="<?= $user->name ?>" name="nama">
                                      </div>
                                  </div>
                                  <div class="form-group mb-3">
@@ -28,7 +28,7 @@
                                          <div class="input-group-prepend">
                                              <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                          </div>
-                                         <input class="form-control" placeholder="No. Hp" type="text">
+                                         <input class="form-control" placeholder="No. Hp" type="text" name="no_hp" value="<?= $user->phone ?>">
                                      </div>
                                  </div>
                              </div>
@@ -38,7 +38,7 @@
                                          <div class="input-group-prepend">
                                              <span class="input-group-text"><i class="ni ni-key-25"></i></span>
                                          </div>
-                                         <input class="form-control" placeholder="Password" type="text">
+                                         <input class="form-control" placeholder="<?= form_error('pass1') == true ? 'Password tidak sama' : 'Password' ?>" type="password" name="pass1">
                                      </div>
                                  </div>
                                  <div class="form-group mb-3">
@@ -46,13 +46,13 @@
                                          <div class="input-group-prepend">
                                              <span class="input-group-text"><i class="ni ni-key-25"></i></span>
                                          </div>
-                                         <input class="form-control" placeholder="Konfirmasi Password" type="text">
+                                         <input class="form-control" placeholder="<?= form_error('pass2') == true ? 'Password tidak sama' : 'Konfirmasi Password' ?>" type="password" name="pass2">
                                      </div>
                                  </div>
                              </div>
                          </div>
+                         <button type="submit" class="btn btn-primary my-4">Simpan perubahan</button>
                      </form>
-                     <button type="button" class="btn btn-primary my-4">Simpan perubahan</button>
                  </div>
              </div>
          </div>

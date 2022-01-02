@@ -32,7 +32,7 @@ class Member extends CI_Controller
 
         $get_time = $this->db->get_where('tbl_event', array('event_id' => 1))->row_array();
 
-        if ((date('D') == 'Sat' || date('D') == 'Sun') && (date('H') >= $get_time['event_start'] && date('H') <= $get_time['event_end'])) {
+        if ((date('D') == 'Sat' || date('D') == 'Sun') && (date('H') >= $get_time['event_start'] && date('H:i') <= $get_time['event_end'])) {
             $data['title'] = 'Member Surpel';
             $this->template->load('template/template_member', 'client/surpel', $data);
         } else {
@@ -48,6 +48,7 @@ class Member extends CI_Controller
         $data['modul_pelatihan'] = $this->Mmember->tampil_material('MODUL', $division);
         $data['modul_rekaman'] = $this->Mmember->tampil_material('RECORD', $division);
         $data['presensi'] = $this->Mmember->cek_eventStatus($this->session->userdata('nim'));
+        $data['jmh_presensi'] = $this->db->get_where('tbl_presence', array('nim' => $this->session->userdata('nim')))->num_rows();
         $this->template->load('template/template_member', 'client/index', $data);
     }
 

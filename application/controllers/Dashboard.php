@@ -17,7 +17,7 @@ class Dashboard extends CI_Controller
     {
         $data['title'] = 'Dashboard';
         $data['data_member_all'] = $this->db->get_where('tbl_user', array('role_user' => 'B'))->num_rows();
-        $data['data_member_year'] = $this->db->get_where('tbl_user', array('role_user' => 'B', 'year' => date('Y')))->num_rows();
+        $data['data_member_year'] = $this->db->get_where('tbl_user', array('role_user' => 'B', 'year' => date('Y', strtotime("-1 Year", strtotime(date('Y'))))))->num_rows();
         $data['jmlh_devisi'] = $this->db->get('tbl_division')->num_rows();
         $this->template->load('template/template_admin', 'server/index', $data);
     }
@@ -175,5 +175,13 @@ class Dashboard extends CI_Controller
             $this->session->set_flashdata('flash', 'Data pengurus berhasil diubah');
             redirect('Dashboard/pengurus');
         }
+    }
+
+    public function hapus_pengurus($nim)
+    {
+        $this->db->where('nim', $nim);
+        $this->db->delete('tbl_user');
+        $this->session->set_flashdata('flash', 'Data berhasil di hapus');
+        redirect('Dashboard/pengurus');
     }
 }

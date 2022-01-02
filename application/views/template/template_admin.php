@@ -177,6 +177,13 @@
 
             });
         });
+
+        $(document).ready(function() {
+            $(document).on('click', '#hapusBtn', function() {
+                var nim = $(this).data('nim');
+                $('#btnHapus').attr('href', '<?= site_url() ?>/Dashboard/hapus_pengurus/' + nim);
+            });
+        });
     </script>
 </body>
 

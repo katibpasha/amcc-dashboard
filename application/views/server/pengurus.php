@@ -97,7 +97,7 @@
                                     </td>
                                     <td class="d-flex justify-content-center">
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-pengurus" id="editBtn" data-name="<?= $item->name ?>" data-email="<?= $item->email ?>" data-nim="<?= $item->nim ?>">Edit</button>
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-pengurus">Hapus</button>
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-pengurus" id="hapusBtn" data-nim="<?= $item->nim ?>">Hapus</button>
                                     </td>
                                 </tr>
                             <?php endforeach ?>
@@ -265,7 +265,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger">YBL YBL YBL!</button>
+                    <a class="btn btn-danger text-white" id="btnHapus">YBL YBL YBL!</a>
                     <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Ga!</button>
                 </div>
 
