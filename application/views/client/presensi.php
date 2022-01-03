@@ -31,7 +31,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <p class="text-white">Halo, hari ini ada pelatihan Divisi Mobile Programming </p>
+                        <p class="text-white">Halo, hari ini ada pelatihan Divisi <?= $this->session->userdata('division_name') ?> </p>
                         <a href="<?= site_url('Member/surpel') ?>" class="btn btn-success">
                             <span class="btn-inner--icon"><i class="fas fa-clipboard-check"></i></span>
                             <span class="btn-inner--text px-2">Presensi</span>
@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <p class="text-white">Halo, hari ini tidak ada pelatihan Divisi Mobile Programming </p>
+                        <p class="text-white">Halo, hari ini tidak ada pelatihan Divisi <?= $this->session->userdata('division_name') ?> </p>
                     </div>
                 </div>
             <?php endif ?>
