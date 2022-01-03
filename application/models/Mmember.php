@@ -29,9 +29,9 @@ class Mmember extends CI_Model
         }
     }
 
-    public function cek_eventStatus($nim)
+    public function cek_eventStatus($division_name)
     {
-        $sql = "SELECT e.status FROM tbl_presence p INNER JOIN tbl_event e ON p.event_id=e.event_id WHERE p.nim = '$nim'";
+        $sql = "SELECT `status` FROM tbl_event WHERE event_name = '$division_name' ";
         $query = $this->db->query($sql);
 
         if ($query->num_rows() > 0) {

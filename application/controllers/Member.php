@@ -47,7 +47,7 @@ class Member extends CI_Controller
         $data['title'] = 'Dashboard Member';
         $data['modul_pelatihan'] = $this->Mmember->tampil_material('MODUL', $division);
         $data['modul_rekaman'] = $this->Mmember->tampil_material('RECORD', $division);
-        $data['presensi'] = $this->Mmember->cek_eventStatus($this->session->userdata('nim'));
+        $data['presensi'] = $this->Mmember->cek_eventStatus("Pelatihan" . " " . $this->session->userdata('division_name'));
         $data['jmh_presensi'] = $this->db->get_where('tbl_presence', array('nim' => $this->session->userdata('nim')))->num_rows();
         $this->template->load('template/template_member', 'client/index', $data);
     }
@@ -56,7 +56,7 @@ class Member extends CI_Controller
     {
         $data['title'] = 'Member Presensi';
         $data['riwayat_presensi'] = $this->Mmember->riwayat_presensi($this->session->userdata('nim'));
-        $data['presensi'] = $this->Mmember->cek_eventStatus($this->session->userdata('nim'));
+        $data['presensi'] = $this->Mmember->cek_eventStatus("Pelatihan" . " " . $this->session->userdata('division_name'));
         $this->template->load('template/template_member', 'client/presensi', $data);
     }
 
