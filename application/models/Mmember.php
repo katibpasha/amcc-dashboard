@@ -38,7 +38,6 @@ class Mmember extends CI_Model
             $result = $query->row_array();
             return $result;
         } else {
-            return array();
-        }
+            echo "Hiyaaa"; die;        }
     }
 }
