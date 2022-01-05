@@ -77,7 +77,7 @@
                         </a>
                     </div>
                 <?php endif ?>
-                <?php if ($presensi['status'] == 'off' && $presensi['status'] == true) : ?>
+                <?php if ($presensi['status'] == 'off') : ?>
                     <div class="card-header bg-transparent">
                         <div class="row align-items-center">
                             <div class="col">
@@ -87,7 +87,7 @@
                     </div>
 
                     <div class="card-body">
-                        <p class="text-white">Halo, hari ini tidak ada pelatihan. </p>
+                        <p class="text-white">maaf sayang, hari ini engga ada pelatihan</p>
                     </div>
                 <?php endif ?>
 

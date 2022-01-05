@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <p class="text-white">Halo, hari ini tidak ada pelatihan Divisi <?= $this->session->userdata('division_name') ?> </p>
+                        <p class="text-white">maaf sayang, hari ini engga ada pelatihan Divisi <?= $this->session->userdata('division_name') ?> </p>
                     </div>
                 </div>
             <?php endif ?>
