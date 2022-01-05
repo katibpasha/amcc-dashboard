@@ -6,4 +6,5 @@ Ivan Nur Ilhamsyah, Ahmad Fauzi, Vicky Irwanto, Titan Bagus Br.
 
 ## Technology
 - Backend		: PHP 7
-- Framework : Laravel 8/ Codeigniter 3
+- Framework : Codeigniter 3
+- Frontend	: Bootstrap
