@@ -11,6 +11,9 @@ class Dashboard extends CI_Controller
         if (!$this->session->logged_in) {
             redirect('Login');
         }
+        if ($this->session->userdata('role_user') != 'A' && $this->session->logged_in) {
+            redirect('Member');
+        }
     }
 
     public function index()
@@ -183,5 +186,9 @@ class Dashboard extends CI_Controller
         $this->db->delete('tbl_user');
         $this->session->set_flashdata('flash', 'Data berhasil di hapus');
         redirect('Dashboard/pengurus');
+    }
+
+    public function member_action()
+    {
     }
 }

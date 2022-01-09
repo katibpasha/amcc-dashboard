@@ -31,8 +31,8 @@ class Member extends CI_Controller
     {
 
         $get_time = $this->db->get_where('tbl_event', array('event_id' => 1))->row_array();
-
-        if ((date('D') == 'Sat' || date('D') == 'Sun') && (date('H') >= $get_time['event_start'] && date('H:i') <= $get_time['event_end'])) {
+    
+        if ((date('D') == 'Sat' || date('D') == 'Sun') && (date('H:i:s') >= $get_time['event_start'] && date('H:i:s') <= $get_time['event_end'])) {
             $data['title'] = 'Member Surpel';
             $this->template->load('template/template_member', 'client/surpel', $data);
         } else {
@@ -54,6 +54,7 @@ class Member extends CI_Controller
 
     public function presensi()
     {
+        // Ada masalah di bagian tampil nama divisi
         $data['title'] = 'Member Presensi';
         $data['riwayat_presensi'] = $this->Mmember->riwayat_presensi($this->session->userdata('nim'));
         $data['presensi'] = $this->Mmember->cek_eventStatus("Pelatihan" . " " . $this->session->userdata('division_name'));

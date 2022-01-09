@@ -87,54 +87,7 @@
                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-member">Hapus</button>
                                 </td>
                             </tr>
-                            <tr>
-                                <th scope="row">
-                                    Ivan Nur Ilham Syah
-                                </th>
-                                <td>
-                                    19.11.2742
-                                </td>
-                                <td>
-                                    ivan.syah@students.amikom.ac.id
-                                </td>
-                                <td>
-                                    081247484949
-                                </td>
-                                <td>
-                                    Mobile Programming
-                                </td>
-                                <td>
-                                    2019
-                                </td>
-                                <td class="d-flex justify-content-center">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-member">Edit</button>
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-member">Hapus</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    Ivan Nur Ilham Syah
-                                </th>
-                                <td>
-                                    19.11.2742
-                                </td>
-                                <td>
-                                    ivan.syah@students.amikom.ac.id
-                                </td>
-                                <td>
-                                    081247484949
-                                </td>
-                                <td>
-                                    Mobile Programming
-                                </td>
-                                <td>
-                                    2019
-                                </td>
-                                <td class="d-flex justify-content-center">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-member">Edit</button>
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-member">Hapus</button>
-                                </td>
-                            </tr>
+
 
                         </tbody>
                     </table>
@@ -158,13 +111,13 @@
                 </div>
 
                 <div class="modal-body">
-                    <form role="form">
+                    <form role="form" action="<?= site_url('Dashboard/member_action') ?>" method="POST">
                         <div class="form-group mb-3">
                             <div class="input-group input-group-merge input-group-alternative">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Nama Member" type="text">
+                                <input class="form-control" placeholder="Nama Member" type="text" name="nama">
                             </div>
                         </div>
                         <div class="form-group mb-3">
@@ -172,7 +125,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-credit-card"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="NIM" type="text">
+                                <input class="form-control" placeholder="NIM" type="text" name="nim">
                             </div>
                         </div>
                         <div class="form-group mb-3">
@@ -180,7 +133,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Email" type="email">
+                                <input class="form-control" placeholder="Email" type="email" name="email">
                             </div>
                         </div>
                         <div class="form-group mb-3">
@@ -188,7 +141,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-key-25"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Password" type="password">
+                                <input class="form-control" placeholder="Password" type="password" name="pass">
                             </div>
                         </div>
                         <div class="form-group mb-3">
@@ -196,7 +149,9 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-th-large"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Divisi" type="text">
+                                <select name="divisi" class="form-control">
+                                    <option value="null">Pilih Divisi</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group mb-3">
@@ -204,15 +159,16 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Tahun" type="text">
+                                <input class="form-control" placeholder="Tahun" type="text" name="tahun">
                             </div>
+                        </div>
+                        <div class="modal-footer px-0">
+                            <button type="button" class="btn btn-primary">Simpan</button>
                         </div>
                     </form>
                 </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Simpan</button>
-                </div>
+
             </div>
         </div>
     </div>

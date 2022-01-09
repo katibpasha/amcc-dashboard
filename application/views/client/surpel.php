@@ -131,11 +131,11 @@
                                 </div>
                                 <div class="my-4">
                                     <p class="text-white">Apa kendala kamu saat mengikuti pelatihan hari ini?</p>
-                                    <textarea rows="5" class="form-control form-control-alternative" placeholder="Kendala selama pelatihan" name="kendala"></textarea>
+                                    <textarea rows="5" class="text-dark form-control form-control-alternative" placeholder="Kendala selama pelatihan" name="kendala"></textarea>
                                 </div>
                                 <div class="my-4">
                                     <p class="text-white">Kritik dan saran buat pelatihan kedepannya lebih baik?</p>
-                                    <textarea rows="5" class="form-control form-control-alternative" placeholder="Kritik & Saran" name="kritik"></textarea>
+                                    <textarea rows="5" class="text-dark form-control form-control-alternative" placeholder="Kritik & Saran" name="kritik"></textarea>
                                 </div>
                                 <button type="submit" class="btn btn-success my-4">
                                     <span class="btn-inner--icon"><i class="fas fa-clipboard-check"></i></span>
