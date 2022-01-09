@@ -30,24 +30,29 @@
 </div>
 <!-- Page content -->
 <div class="container-fluid mt--6">
+    <?php if ($this->session->flashdata('flash')) : ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Yeayyy !</strong> <?= $this->session->flashdata('flash') ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php unset($_SESSION['flash']);
+    endif ?>
+    <?php if ($this->session->flashdata('flash-gagal')) : ?>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Yahhhh :(</strong> <?= $this->session->flashdata('flash-gagal') ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php unset($_SESSION['flash-gagal']);
+    endif ?>
     <div class="row">
         <div class="col-xl-12">
             <div class="card bg-default shadow">
                 <div class="card-header border-0 bg-default">
-                    <div class="row align-items-center justify-content-between">
-                        <div class="col-1">
-                            <select class="form-control" id="exampleFormControlSelect1">
-                                <option>5</option>
-                                <option>15</option>
-                                <option>25</option>
-                                <option>50</option>
-                                <option>100</option>
-                            </select>
-                        </div>
-                        <div class="col-5">
-                            <input type="text" class="form-control form-control-alternative" placeholder="Cari member">
-                        </div>
-                    </div>
+
                 </div>
                 <div class="table-responsive">
                     <table id="my-datables" class="table align-items-center table-dark table-flush display">
@@ -56,39 +61,37 @@
                                 <th scope="col">Nama</th>
                                 <th scope="col">NIM</th>
                                 <th scope="col">Email</th>
-                                <th scope="col">No. Hp</th>
                                 <th scope="col">Divisi</th>
                                 <th scope="col">Tahun</th>
                                 <th scope="col" class="text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="list">
-                            <tr>
-                                <th scope="row">
-                                    Ivan Nur Ilham Syah
-                                </th>
-                                <td>
-                                    19.11.2742
-                                </td>
-                                <td>
-                                    ivan.syah@students.amikom.ac.id
-                                </td>
-                                <td>
-                                    081247484949
-                                </td>
-                                <td>
-                                    Mobile Programming
-                                </td>
-                                <td>
-                                    2019
-                                </td>
-                                <td class="d-flex justify-content-center">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-member">Edit</button>
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-member">Hapus</button>
-                                </td>
-                            </tr>
-
-
+                            <?php foreach ($member as $item) : ?>
+                                <tr>
+                                    <th scope="row" width="10px">
+                                        <?= $item->name ?>
+                                    </th>
+                                    <td>
+                                        <?= $item->nim ?>
+                                    </td>
+                                    <td>
+                                        <?= $item->email ?>
+                                    </td>
+                                    <td>
+                                        <?= $item->division_name ?>
+                                    </td>
+                                    <td>
+                                        <?= $item->year ?>
+                                    </td>
+                                    <td class="d-flex justify-content-center">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-member">Edit</button>
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-member">Hapus</button>
+                                    </td>
+                                </tr>
+                            <?php endforeach ?>
+                        </tbody>
+                        </tbody>
                         </tbody>
                     </table>
                 </div>
@@ -117,7 +120,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Nama Member" type="text" name="nama">
+                                <input class="form-control" placeholder="Nama Member" type="text" name="nama" required>
                             </div>
                         </div>
                         <div class="form-group mb-3">
@@ -125,7 +128,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-credit-card"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="NIM" type="text" name="nim">
+                                <input class="form-control" placeholder="NIM" type="text" name="nim" required>
                             </div>
                         </div>
                         <div class="form-group mb-3">
@@ -133,7 +136,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Email" type="email" name="email">
+                                <input class="form-control" placeholder="Email" type="email" name="email" required>
                             </div>
                         </div>
                         <div class="form-group mb-3">
@@ -141,7 +144,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-key-25"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Password" type="password" name="pass">
+                                <input class="form-control" placeholder="Password" type="password" name="pass" required>
                             </div>
                         </div>
                         <div class="form-group mb-3">
@@ -151,6 +154,9 @@
                                 </div>
                                 <select name="divisi" class="form-control">
                                     <option value="null">Pilih Divisi</option>
+                                    <?php foreach ($division as $item) : ?>
+                                        <option value="<?= $item->division_id ?>"><?= $item->division_name ?></option>
+                                    <?php endforeach ?>
                                 </select>
                             </div>
                         </div>
@@ -159,11 +165,11 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Tahun" type="text" name="tahun">
+                                <input class="form-control" placeholder="Tahun" type="text" name="tahun" required>
                             </div>
                         </div>
                         <div class="modal-footer px-0">
-                            <button type="button" class="btn btn-primary">Simpan</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
                     </form>
                 </div>

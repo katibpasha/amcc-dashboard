@@ -54,6 +54,7 @@
                                 <tr>
                                     <th scope="col">Nama Modul</th>
                                     <th scope="col">Pelatihan Ke-</th>
+                                    <th scope="col">Divisi</th>
                                     <th scope="col">Pembuat</th>
                                     <th scope="col">Created At</th>
                                 </tr>
@@ -66,6 +67,9 @@
                                         </th>
                                         <td>
                                             <?= $item->training_to ?>
+                                        </td>
+                                        <td>
+                                            <?= $item->division_name ?>
                                         </td>
                                         <td>
                                             <?= $item->user ?>
@@ -97,6 +101,7 @@
                                 <tr>
                                     <th scope="col">Nama Rekaman</th>
                                     <th scope="col">Pelatihan Ke-</th>
+                                    <th scope="col">Divisi</th>
                                     <th scope="col">Pengupload</th>
                                     <th scope="col">Created At</th>
                                 </tr>
@@ -107,6 +112,9 @@
                                         <th scope="row">
                                             <?= $item->modul ?> <a href="<?= $item->link ?>" target="_BLANK"><i class="mx-2 fas fa-link"></i></a>
                                         </th>
+                                        <td>
+                                            <?= $item->division_name ?>
+                                        </td>
                                         <td>
                                             <?= $item->training_to ?>
                                         </td>

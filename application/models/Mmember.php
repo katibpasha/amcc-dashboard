@@ -38,6 +38,20 @@ class Mmember extends CI_Model
             $result = $query->row_array();
             return $result;
         } else {
-            echo "Hiyaaa"; die;        }
+            return array();
+        }
+    }
+
+    public function member()
+    {
+        $sql = "SELECT * FROM tbl_user u INNER JOIN tbl_division d ON u.division_id = d.division_id ORDER BY u.year DESC";
+        $query = $this->db->query($sql);
+
+        if ($query->num_rows() > 0) {
+            $result = $query->result();
+            return $result;
+        } else {
+            return array();
+        }
     }
 }

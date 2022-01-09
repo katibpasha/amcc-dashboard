@@ -8,6 +8,7 @@ class Dashboard extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Madmin');
+        $this->load->model('Mmember');
         if (!$this->session->logged_in) {
             redirect('Login');
         }
@@ -28,6 +29,8 @@ class Dashboard extends CI_Controller
     public function member()
     {
         $data['title'] = 'Member';
+        $data['division'] = $this->db->get('tbl_division')->result();
+        $data['member'] =  $this->Mmember->member();
         $this->template->load('template/template_admin', 'server/member', $data);
     }
 
@@ -190,5 +193,31 @@ class Dashboard extends CI_Controller
 
     public function member_action()
     {
+        $nama = $this->input->post('nama');
+        $nim = $this->input->post('nim');
+        $email = $this->input->post('email');
+        $pass = $this->input->post('pass');
+        $divisi = $this->input->post('divisi');
+        $tahun = $this->input->post('tahun');
+
+        $data_insert = array(
+            "nim" => $nim,
+            "role_user" => "B",
+            "name" => $nama,
+            "email" => $email,
+            "division_id" => $divisi,
+            "year" => $tahun,
+            "pass" => md5($pass),
+        );
+
+        $insert = $this->db->insert('tbl_user', $data_insert);
+
+        if ($insert) {
+            $this->session->set_flashdata('flash', 'data member berhasil di tambahkan');
+            redirect('Dashboard/member');
+        } else {
+            $this->session->set_flashdata('flash-gagal', 'data member gagal di tambahkan');
+            redirect('Dashboard/member');
+        }
     }
 }

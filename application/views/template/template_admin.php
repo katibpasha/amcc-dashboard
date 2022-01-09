@@ -27,7 +27,93 @@
     <link rel="stylesheet" href="<?= base_url('assets/argon') ?>/assets/css/argon.css?v=1.2.0" type="text/css">
     <link rel="stylesheet" href="<?= base_url('assets/argon') ?>/assets/css/custom-styles.css" type="text/css">
     <!-- Datatables -->
-    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"> -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+
+    <style>
+        table.dataTable.stripe tbody tr.odd,
+        table.dataTable.display tbody tr.odd {
+            background-color: #172b4d;
+        }
+
+        table.dataTable.stripe tbody tr.odd,
+        table.dataTable.display tbody tr.odd {
+            background-color: #172b4d;
+        }
+
+        table.dataTable tbody tr {
+            background-color: #172b4d;
+        }
+
+        table.dataTable.row-border tbody th,
+        table.dataTable.row-border tbody td,
+        table.dataTable.display tbody th,
+        table.dataTable.display tbody td {
+            border-top: none;
+        }
+
+        table.dataTable.hover tbody tr:hover,
+        table.dataTable.display tbody tr:hover {
+            background-color: #172b4d;
+        }
+
+        .dataTables_wrapper .dataTables_length select {
+            border-radius: 3px;
+            padding: 10px 30px 10px 5px;
+            background-color: white;
+            color: #848785;
+            margin-bottom: 10px;
+        }
+
+        label {
+            color: white;
+        }
+
+        .dataTables_wrapper .dataTables_filter input {
+            border-radius: 3px;
+            padding: 10px 30px 10px 10px;
+            background-color: white;
+            margin-left: 3px;
+            width: auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        .dataTables_wrapper .dataTables_length,
+        .dataTables_wrapper .dataTables_filter,
+        .dataTables_wrapper .dataTables_info,
+        .dataTables_wrapper .dataTables_processing,
+        .dataTables_wrapper .dataTables_paginate {
+            color: #fff;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current,
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+            color: #000 !important;
+            background: white !important;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+            background-color: #172b4d !important;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            color: white !important;
+        }
+
+        .dataTables_wrapper .dataTables_paginate {
+            margin-bottom: 20px;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
+        .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover,
+        .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
+            cursor: default;
+            color: #fff !important;
+            border: 1px solid transparent;
+            background: transparent;
+            box-shadow: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -159,12 +245,19 @@
     <!-- Datatables -->
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-    <!-- <script>
-        $(document).ready(function() {
-            $('#my-datables').DataTable();
-        });
-    </script> -->
+
     <script>
+        $(document).ready(function() {
+            $('#my-datables').DataTable({
+                "sorting": false,
+                language: {
+                    searchPlaceholder: "Cari Member",
+                    search: ""
+                },
+                "info": false,
+                "bInfo": false
+            });
+        });
         $(document).ready(function() {
             $(document).on('click', '#editBtn', function() {
                 var nim = $(this).data('nim');
