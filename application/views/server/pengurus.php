@@ -43,7 +43,7 @@
     endif ?>
     <?php if ($this->session->flashdata('flash-gagal')) : ?>
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <strong>Yahhhh :(</strong> <?= $this->session->flashdata('flash-gagal') ?>
+            <strong> <?= $this->session->flashdata('flash-gagal') ?></strong>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>

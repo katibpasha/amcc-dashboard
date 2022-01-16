@@ -31,7 +31,7 @@ class Member extends CI_Controller
     {
 
         $get_time = $this->db->get_where('tbl_event', array('event_id' => 1))->row_array();
-    
+
         if ((date('D') == 'Sat' || date('D') == 'Sun') && (date('H:i:s') >= $get_time['event_start'] && date('H:i:s') <= $get_time['event_end'])) {
             $data['title'] = 'Member Surpel';
             $this->template->load('template/template_member', 'client/surpel', $data);

@@ -156,11 +156,23 @@ class Dashboard extends CI_Controller
 
     public function user_edit()
     {
-        $this->form_validation->set_rules('pass1', 'pass1', 'matches[pass2]');
-        $this->form_validation->set_rules('pass2', 'pass2', 'matches[pass1]');
+        $this->form_validation->set_rules('pass1', 'pass1', 'matches[pass2]|min_length[5]', [
+            "min_length" => 'Panjang minimal password 5 karakter',
+            "matches" => 'Password yang kamu inputkan berbeda'
+        ]);
+        $this->form_validation->set_rules('pass2', 'pass2', 'matches[pass1]|min_length[5]', [
+            "min_length" => 'Panjang minimal password 5 karakter'
+        ]);
 
         if ($this->form_validation->run() == false) {
-            $this->session->set_flashdata('flash-gagal', 'Password Tidak Sama !!!');
+            $error1 = form_error('pass1');
+            $error2 = form_error('pass2');
+
+            if ($error1) {
+                $this->session->set_flashdata('flash-gagal', substr($error1, 3, 35));
+            } else if ($error2) {
+                $this->session->set_flashdata('flash-gagal', substr($error2, 3, 35));
+            }
             redirect('Dashboard/pengurus');
         } else {
             $nim = $this->input->post('nim', true);
@@ -218,6 +230,44 @@ class Dashboard extends CI_Controller
         } else {
             $this->session->set_flashdata('flash-gagal', 'data member gagal di tambahkan');
             redirect('Dashboard/member');
+        }
+    }
+
+    public function materi_edit()
+    {
+        $id = $this->input->post('id');
+        $judul = $this->input->post('judul');
+        $link = $this->input->post('link');
+
+        $data_update = array(
+            'name' => $judul,
+            'link' => $link
+        );
+
+        $update = $this->db->set($data_update)
+            ->where('id', $id)
+            ->update('tbl_material');
+
+        if ($update) {
+            $this->session->set_flashdata('flash', 'data materi berhasil di edit');
+            redirect('Dashboard/material');
+        } else {
+            $this->session->set_flashdata('flash-gagal', 'data materi gagal di edit');
+            redirect('Dashboard/material');
+        }
+    }
+
+    public function hapus_materi($id)
+    {
+        $hapus = $this->db->where('id', $id)
+            ->delete('tbl_material');
+
+        if ($hapus) {
+            $this->session->set_flashdata('flash', 'data materi berhasil di hapus');
+            redirect('Dashboard/material');
+        } else {
+            $this->session->set_flashdata('flash-gagal', 'data materi gagal di hapus');
+            redirect('Dashboard/material');
         }
     }
 }

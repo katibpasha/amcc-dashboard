@@ -57,6 +57,7 @@
                                     <th scope="col">Divisi</th>
                                     <th scope="col">Pembuat</th>
                                     <th scope="col">Created At</th>
+                                    <th scope="col" style="text-align: center;">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="list">
@@ -76,6 +77,10 @@
                                         </td>
                                         <td>
                                             <?= date('d-m-Y', strtotime($item->created_at)) ?>
+                                        </td>
+                                        <td align="center">
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-pengurus" id="btnMateri" data-modul="<?= $item->modul ?>" data-link="<?= $item->link ?>" data-id="<?= $item->id ?>">Edit</button>
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-pengurus" id="btnHapusMateri" data-id="<?= $item->id ?>">Hapus</button>
                                         </td>
                                     </tr>
                                 <?php endforeach ?>
@@ -104,6 +109,7 @@
                                     <th scope="col">Divisi</th>
                                     <th scope="col">Pengupload</th>
                                     <th scope="col">Created At</th>
+                                    <th scope="col" style="text-align: center;">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="list">
@@ -113,16 +119,20 @@
                                             <?= $item->modul ?> <a href="<?= $item->link ?>" target="_BLANK"><i class="mx-2 fas fa-link"></i></a>
                                         </th>
                                         <td>
-                                            <?= $item->division_name ?>
+                                            <?= $item->training_to ?>
                                         </td>
                                         <td>
-                                            <?= $item->training_to ?>
+                                            <?= $item->division_name ?>
                                         </td>
                                         <td>
                                             <?= $item->user ?>
                                         </td>
                                         <td>
                                             <?= date('d-m-Y', strtotime($item->created_at)) ?>
+                                        </td>
+                                        <td align="center">
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-pengurus" id="btnMateri" data-modul="<?= $item->modul ?>" data-link="<?= $item->link ?>" data-id="<?= $item->id ?>">Edit</button>
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-pengurus" id="btnHapusMateri" data-id="<?= $item->id ?>">Hapus</button>
                                         </td>
                                     </tr>
                                 <?php endforeach ?>
@@ -206,84 +216,47 @@
     </div>
 
     <!-- 2. modal edit -->
-
-    <div class="modal fade" id="modal-edit-material" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade" id="modal-edit-pengurus" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-" role="document">
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h6 class="modal-title" id="modal-title-default">Edit Data Pengurus</h6>
+                    <h6 class="modal-title" id="modal-title-default">Edit Data Materi</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-
                 <div class="modal-body">
-                    <form role="form">
+                    <form role="form" action="<?= site_url('Dashboard/materi_edit') ?>" method="POST">
                         <div class="form-group mb-3">
                             <div class="input-group input-group-merge input-group-alternative">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-app"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Judul Materi" type="text">
+                                <input class="form-control" type="hidden" id="idMateri" name="id">
+                                <input class="form-control" placeholder="Judul Materi" type="text" id="namaMateri" name="judul">
                             </div>
-                        </div>
-                        <div class="form-group mb-3">
-                            <select class="form-control input-group input-group-merge input-group-alternative" id="exampleFormControlSelect1">
-                                <option>Pilih Pelatihan</option>
-                                <option>Pelatihan Ke-1</option>
-                                <option>Pelatihan Ke-2</option>
-                                <option>Pelatihan Ke-3</option>
-                                <option>Pelatihan Ke-4</option>
-                                <option>Pelatihan Ke-5</option>
-                                <option>Pelatihan Ke-6</option>
-                                <option>Pelatihan Ke-7</option>
-                                <option>Pelatihan Ke-8</option>
-                                <option>Pelatihan Ke-9</option>
-                                <option>Pelatihan Ke-10</option>
-                                <option>Pelatihan Ke-11</option>
-                                <option>Pelatihan Ke-12</option>
-                            </select>
-                        </div>
-                        <div class="form-group mb-3">
-                            <select class="form-control input-group input-group-merge input-group-alternative" id="exampleFormControlSelect1">
-                                <option>Pilih Divisi</option>
-                                <option>Divisi Mobile Programming</option>
-                                <option>Divisi Web Programming</option>
-                                <option>Divisi Desktop Programming</option>
-                                <option>Divisi Hardware & Software</option>
-                                <option>Divisi Computer Network</option>
-                            </select>
-                        </div>
-                        <div class="form-group mb-3">
-                            <select class="form-control input-group input-group-merge input-group-alternative" id="exampleFormControlSelect1">
-                                <option>Pilih Kategori</option>
-                                <option>Modul</option>
-                                <option>Rekaman</option>
-                            </select>
                         </div>
                         <div class="form-group mb-3">
                             <div class="input-group input-group-merge input-group-alternative">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-link"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Link Materi (Modul/Rekaman)" type="text">
+                                <input class="form-control" placeholder="Link Materi" type="text" id="linkMateri" name="link">
                             </div>
+                        </div>
+                        <div class="modal-footer px-0">
+                            <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
                     </form>
                 </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Simpan</button>
-                </div>
-
             </div>
         </div>
     </div>
 
-    <!-- 3. modal confirmation -->
 
-    <div class="modal fade" id="modal-delete-material" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- 3. modal confirmation -->
+    <div class="modal fade" id="modal-delete-pengurus" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-" role="document">
             <div class="modal-content">
 
@@ -299,7 +272,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger">YBL YBL YBL!</button>
+                    <a class="btn btn-danger text-white" id="btnMateriHapus">YBL YBL YBL!</a>
                     <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Ga!</button>
                 </div>
 

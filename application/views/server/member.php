@@ -1,3 +1,13 @@
+<style>
+    td {
+        height: 50px;
+        font-size: 1rem !important;
+    }
+
+    th {
+        font-size: 1rem !important;
+    }
+</style>
 <!-- Header -->
 <!-- Header -->
 <div class="header bg-blue-amcc pb-6">
@@ -63,7 +73,6 @@
                                 <th scope="col">Email</th>
                                 <th scope="col">Divisi</th>
                                 <th scope="col">Tahun</th>
-                                <th scope="col" class="text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="list">
@@ -84,10 +93,7 @@
                                     <td>
                                         <?= $item->year ?>
                                     </td>
-                                    <td class="d-flex justify-content-center">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-member">Edit</button>
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-member">Hapus</button>
-                                    </td>
+
                                 </tr>
                             <?php endforeach ?>
                         </tbody>

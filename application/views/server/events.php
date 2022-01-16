@@ -7,7 +7,7 @@
             <h6 class="h2 text-white d-inline-block mb-4">Event Pelatihan & Presensi</h6>
             <div class="row">
                 <div class="col-xl-3 col-md-6 mb-4">
-                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-add-event">
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-add-event" disabled title="Punten under maintenance">
                         <span class="btn-inner--icon"><i class="ni ni-fat-add"></i></span>
                         <span class="btn-inner--text">Buat Event Pelatihan</span>
                     </button>
@@ -42,24 +42,9 @@
                                     </td>
                                     <td class="d-flex justify-content-center">
                                         <?php if ($item->status == 'off') { ?>
-                                            <div class="row">
-                                                <div class="col-12 d-flex justify-content-center">
-                                                    <span> <small>Saat status ini <?= $item->status ?></small></span>
-                                                </div>
-                                                <div class="col-12 d-flex justify-content-center">
-                                                    <a href="<?= site_url('Dashboard/turn_action/' . 'on' . '/' . $item->event_id) ?>" class="btn btn-success">Turn On</a>
-                                                </div>
-                                            </div>
-
+                                            <a href="<?= site_url('Dashboard/turn_action/' . 'on' . '/' . $item->event_id) ?>" class="btn btn-danger px-5" title="Click untuk mengaktifkan presensi">OFF</a>
                                         <?php } else { ?>
-                                            <div class="row">
-                                                <div class="col-12 d-flex justify-content-center">
-                                                    <span> <small>Saat status ini <?= $item->status ?></small></span>
-                                                </div>
-                                                <div class="col-12 d-flex justify-content-center">
-                                                    <a href="<?= site_url('Dashboard/turn_action/' . 'off' . '/' . $item->event_id) ?>" class="btn btn-warning">Turn Off</a>
-                                                </div>
-                                            </div>
+                                            <a href="<?= site_url('Dashboard/turn_action/' . 'off' . '/' . $item->event_id) ?>" class="btn btn-success px-5" title="Click untuk menonaktifkan presensi">ON</a>
                                         <?php } ?>
 
                                     </td>

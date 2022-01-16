@@ -277,6 +277,26 @@
                 $('#btnHapus').attr('href', '<?= site_url() ?>/Dashboard/hapus_pengurus/' + nim);
             });
         });
+
+        $(document).ready(function() {
+            $(document).on('click', '#btnMateri', function() {
+                var id = $(this).data('id');
+                var modul = $(this).data('modul');
+                var link = $(this).data('link');
+
+                $('#idMateri').val(id);
+                $('#namaMateri').val(modul);
+                $('#linkMateri').val(link);
+
+            });
+        });
+
+        $(document).ready(function() {
+            $(document).on('click', '#btnHapusMateri', function() {
+                var id = $(this).data('id');
+                $('#btnMateriHapus').attr('href', '<?= site_url() ?>/Dashboard/hapus_materi/' + id);
+            });
+        });
     </script>
 </body>
 
