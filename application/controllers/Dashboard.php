@@ -12,6 +12,7 @@ class Dashboard extends CI_Controller
         if (!$this->session->logged_in) {
             redirect('Login');
         }
+
         if ($this->session->userdata('role_user') != 'A' && $this->session->logged_in) {
             redirect('Member');
         }
@@ -23,6 +24,11 @@ class Dashboard extends CI_Controller
         $data['data_member_all'] = $this->db->get_where('tbl_user', array('role_user' => 'B'))->num_rows();
         $data['data_member_year'] = $this->db->get_where('tbl_user', array('role_user' => 'B', 'year' => date('Y', strtotime("-1 Year", strtotime(date('Y'))))))->num_rows();
         $data['jmlh_devisi'] = $this->db->get('tbl_division')->num_rows();
+        $data['presensi_network'] = $this->Madmin->dashboard_graph(4);
+        $data['presensi_desktop'] = $this->Madmin->dashboard_graph(2);
+        $data['presensi_hs'] = $this->Madmin->dashboard_graph(5);
+        $data['presensi_mobile'] = $this->Madmin->dashboard_graph(3);
+        $data['presensi_web'] = $this->Madmin->dashboard_graph(1);
         $this->template->load('template/template_admin', 'server/index', $data);
     }
 
@@ -44,9 +50,21 @@ class Dashboard extends CI_Controller
         $this->template->load('template/template_admin', 'server/events', $data);
     }
 
-    public function chart_details()
+    public function chart_details($param)
     {
+        $data['data_member_all'] = $this->db->get_where('tbl_user', array('role_user' => 'B'))->num_rows();
+        $data['divisi'] = $this->db->get_where('tbl_event', array('event_id' => $param))->row_object();
+        $data['surpel'] = $this->Madmin->surpel_get($param);
+        $data['presensi'] = $this->Madmin->dashboard_graph($param);
+        $data['data_member_year'] = $this->db->get_where('tbl_user', array('role_user' => 'B', 'year' => date('Y', strtotime("-1 Year", strtotime(date('Y'))))))->num_rows();
+        $data['jmlh_devisi'] = $this->db->get('tbl_division')->num_rows();
         $data['title'] = 'Chart Details';
+        $data['pie'] = [
+            "materi" => $this->Madmin->materi_graph('understanding', $param),
+            "penyampaian" => $this->Madmin->materi_graph('effectivity', $param),
+            "kelas" => $this->Madmin->materi_graph('interactive', $param),
+            "jawaban" => $this->Madmin->materi_graph('answer_satisfy', $param)
+        ];
         $this->template->load('template/template_admin', 'server/chart-details', $data);
     }
 
@@ -109,11 +127,13 @@ class Dashboard extends CI_Controller
         if ($this->form_validation->run() == false) {
             $data['title'] = 'Pengurus';
             $data['devisi'] = $this->db->get('tbl_division')->result();
+            $data['pengurus'] = $this->db->get_where('tbl_user', array('role_user' => 'A'))->result();
             $this->template->load('template/template_admin', 'server/pengurus', $data);
         } else {
             $nim = $this->input->post('nim', true);
             $nama = $this->input->post('nama', true);
             $email = $this->input->post('email', true);
+            $phone = $this->input->post('phone', true);
             $divisi = $this->input->post('divisi', true);
             $pass = md5($this->input->post('pass1', true));
             $year = date('Y');
@@ -123,6 +143,7 @@ class Dashboard extends CI_Controller
                 "role_user" => "A",
                 "name" => $nama,
                 "email" => $email,
+                "phone" => $phone,
                 "division_id" => $divisi,
                 "year" => $year,
                 "pass" => $pass
@@ -133,7 +154,7 @@ class Dashboard extends CI_Controller
                 $this->session->set_flashdata('flash', 'Data pengurus berhasil ditambahkan');
                 redirect('Dashboard/pengurus');
             } else {
-                $this->session->set_flashdata('flash-gagal', 'Data pemgurus gagal ditambahkan');
+                $this->session->set_flashdata('flash-gagal', 'Data pengurus gagal ditambahkan');
                 redirect('Dashboard/pengurus');
             }
         }
@@ -178,13 +199,15 @@ class Dashboard extends CI_Controller
             $nim = $this->input->post('nim', true);
             $nama = $this->input->post('nama', true);
             $email = $this->input->post('email', true);
+            $phone = $this->input->post('phone', true);
             $pass = $this->input->post('pass1', true);
 
             $data_update = array(
                 'nim' => $nim,
                 'name' => $nama,
                 'email' => $email,
-                'pass' => md5($pass)
+                'phone' => $phone,
+                'pass' => empty($pass) ? md5($phone) : md5($pass)
             );
 
             $this->db->set($data_update);
@@ -205,31 +228,49 @@ class Dashboard extends CI_Controller
 
     public function member_action()
     {
-        $nama = $this->input->post('nama');
-        $nim = $this->input->post('nim');
-        $email = $this->input->post('email');
-        $pass = $this->input->post('pass');
-        $divisi = $this->input->post('divisi');
-        $tahun = $this->input->post('tahun');
 
-        $data_insert = array(
-            "nim" => $nim,
-            "role_user" => "B",
-            "name" => $nama,
-            "email" => $email,
-            "division_id" => $divisi,
-            "year" => $tahun,
-            "pass" => md5($pass),
-        );
+        $this->form_validation->set_rules('pass1', 'pass1', 'matches[pass2]', [
+            'matches' => 'Password tidak sama'
+        ]);
+        $this->form_validation->set_rules('pass2', 'pass2', 'matches[pass1]', [
+            'matches' => 'Password tidak sama'
+        ]);
+        $this->form_validation->set_rules('nim', 'nim', 'is_unique[tbl_user.nim]', [
+            'is_unique' => 'NIM sudah digunakan'
+        ]);
 
-        $insert = $this->db->insert('tbl_user', $data_insert);
-
-        if ($insert) {
-            $this->session->set_flashdata('flash', 'data member berhasil di tambahkan');
-            redirect('Dashboard/member');
+        if ($this->form_validation->run() == false) {
+            $data['title'] = 'Member';
+            $data['division'] = $this->db->get('tbl_division')->result();
+            $data['member'] =  $this->Mmember->member();
+            $this->template->load('template/template_admin', 'server/member', $data);
         } else {
-            $this->session->set_flashdata('flash-gagal', 'data member gagal di tambahkan');
-            redirect('Dashboard/member');
+            $nama = $this->input->post('nama');
+            $nim = $this->input->post('nim');
+            $email = $this->input->post('email');
+            $pass = $this->input->post('pass1');
+            $divisi = $this->input->post('divisi');
+            $tahun = $this->input->post('tahun');
+
+            $data_insert = array(
+                "nim" => $nim,
+                "role_user" => "B",
+                "name" => $nama,
+                "email" => $email,
+                "division_id" => $divisi,
+                "year" => $tahun,
+                "pass" => md5($pass),
+            );
+
+            $insert = $this->db->insert('tbl_user', $data_insert);
+
+            if ($insert) {
+                $this->session->set_flashdata('flash', 'data member berhasil di tambahkan');
+                redirect('Dashboard/member');
+            } else {
+                $this->session->set_flashdata('flash-gagal', 'data member gagal di tambahkan');
+                redirect('Dashboard/member');
+            }
         }
     }
 

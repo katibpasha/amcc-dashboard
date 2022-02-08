@@ -26,7 +26,7 @@
     <?php endif ?>
     <?php if (form_error('nim')) : ?>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong>Yahhh :( !</strong> NIM Antum sudah digunakan Borr !!
+            <strong>Yahhh :( !</strong> NIM kamu sudah digunakan!
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -54,55 +54,52 @@
         <div class="col-xl-12">
             <div class="card bg-default shadow">
                 <div class="card-header border-0 bg-default">
-                    <div class="row align-items-center justify-content-between">
-                        <div class="col-1">
-                            <select class="form-control" id="exampleFormControlSelect1">
-                                <option>5</option>
-                                <option>15</option>
-                                <option>25</option>
-                                <option>50</option>
-                                <option>100</option>
-                            </select>
-                        </div>
-                        <div class="col-5">
-                            <input type="text" class="form-control form-control-alternative" placeholder="Cari Pengurus">
-                        </div>
-                    </div>
                 </div>
                 <div class="table-responsive">
-                    <table class="table align-items-center table-dark table-flush">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">Nama</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Created At</th>
-                                <th scope="col">Updated At</th>
-                                <th scope="col" class="text-center">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody class="list">
-                            <?php foreach ($pengurus as $item) : ?>
+                    <div class="table-responsive">
+                        <table id="my-datables" class="table align-items-center table-dark table-flush display">
+                            <thead class="thead-dark">
                                 <tr>
-                                    <th scope="row">
-                                        <?= $item->name ?>
-                                    </th>
-                                    <td>
-                                        <?= $item->email ?>
-                                    </td>
-                                    <td>
-                                        <?= date('d-m-Y', strtotime($item->created_at)) ?>
-                                    </td>
-                                    <td>
-                                        <?= date('d-m-Y', strtotime($item->mdd)) ?>
-                                    </td>
-                                    <td class="d-flex justify-content-center">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-pengurus" id="editBtn" data-name="<?= $item->name ?>" data-email="<?= $item->email ?>" data-nim="<?= $item->nim ?>">Edit</button>
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-pengurus" id="hapusBtn" data-nim="<?= $item->nim ?>">Hapus</button>
-                                    </td>
+                                    <th scope="col">NIM</th>
+                                    <th scope="col">Nama</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Nomor HP</th>
+                                    <th scope="col">Dibuat Pada</th>
+                                    <th scope="col">Diperbaharui Pada</th>
+                                    <th scope="col" class="text-center">Aksi</th>
                                 </tr>
-                            <?php endforeach ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody class="list">
+                                <?php foreach ($pengurus as $item) : ?>
+                                    <tr>
+                                        <th scope="row">
+                                            <?= $item->nim ?>
+                                        </th>
+                                        <th>
+                                            <?= $item->name ?>
+                                        </th>
+                                        <td>
+                                            <?= $item->email ?>
+                                        </td>
+                                        <td>
+                                            <?= $item->phone ?>
+                                        </td>
+                                        <td>
+                                            <?= date('d-m-Y', strtotime($item->created_at)) ?>
+                                        </td>
+                                        <td>
+                                            <?= date('d-m-Y', strtotime($item->mdd)) ?>
+                                        </td>
+                                        <td class="d-flex justify-content-center">
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-pengurus" id="editBtn" data-name="<?= $item->name ?>" data-email="<?= $item->email ?>" data-phone="<?= $item->phone ?>" data-nim="<?= $item->nim ?>">Edit</button>
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-pengurus" id="hapusBtn" data-nim="<?= $item->nim ?>">Hapus</button>
+                                        </td>
+                                    </tr>
+                                <?php endforeach ?>
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -145,6 +142,14 @@
                                     <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                 </div>
                                 <input class="form-control" placeholder="Email" type="email" name="email" required>
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                                </div>
+                                <input class="form-control" placeholder="Nomor HP" type="number" name="phone" required>
                             </div>
                         </div>
                         <div class="form-group mb-3">
@@ -222,9 +227,9 @@
                         <div class="form-group mb-3">
                             <div class="input-group input-group-merge input-group-alternative">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="ni ni-key-25"></i></span>
+                                    <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Password" type="password" name="pass1" required>
+                                <input class="form-control" placeholder="Nomor HP" type="number" id="phonePengurus" name="phone">
                             </div>
                         </div>
                         <div class="form-group mb-3">
@@ -232,7 +237,15 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-key-25"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Konfirmasi Password" type="password" name="pass2" required>
+                                <input class="form-control" placeholder="Password" type="password" name="pass1">
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-key-25"></i></span>
+                                </div>
+                                <input class="form-control" placeholder="Konfirmasi Password" type="password" name="pass2">
                             </div>
                         </div>
                         <div class="modal-footer px-0">
@@ -265,8 +278,8 @@
                 </div>
 
                 <div class="modal-footer">
-                    <a class="btn btn-danger text-white" id="btnHapus">YBL YBL YBL!</a>
-                    <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Ga!</button>
+                    <a class="btn btn-danger text-white" id="btnHapus">Yakin!</a>
+                    <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Batal</button>
                 </div>
 
             </div>

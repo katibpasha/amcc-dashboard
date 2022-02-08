@@ -1,5 +1,4 @@
 // Build Chart Each Division
-
 let buildChart = (element, type, data) => {
 
     var $chart = $(element)
@@ -23,22 +22,10 @@ let buildChart = (element, type, data) => {
 	}
 }
 
-
-let labels = ['Pelatihan 1', 'Pelatihan 2', 'Pelatihan 3', 'Pelatihan 4', 'Pelatihan 5', 'Pelatihan 6', 'Pelatihan 7', 'Pelatihan 8', 'Pelatihan 9', 'Pelatihan 10', 'Pelatihan 11', 'Pelatihan 12']
-let dataMember = {
-	labels: labels,
-	datasets: [
-		{
-			label: 'Member',
-			data: [10, 5, 15, 24, 32, 6, 10, 9, 6, 18, 68, 80]
-		}
-	]
-}
-var DivisiMobileChart   = buildChart('#chart-divisi-mobile', 'bar', dataMember)
-var DivisiWebChart      = buildChart('#chart-divisi-web', 'bar', dataMember)
-var DivisiDesktopChart  = buildChart('#chart-divisi-desktop', 'bar', dataMember)
-var DivisiHSpChart      = buildChart('#chart-divisi-hs', 'bar', dataMember)
-var DivisiNetworkChart  = buildChart('#chart-divisi-network', 'bar', dataMember)
+// load progress presensi tiap divisi
+chartData.forEach(el => {
+	buildChart(`#${el.id}`, 'bar', el.data)
+});
 
 // detail chart sample
 let labelMateri = ['sangat mudah', 'mudah', 'medium', 'sulit', 'sangat sulit']
@@ -78,12 +65,3 @@ var materi = buildChart('#chart-materi', 'pie', dataPie);
 var penyampaian = buildChart('#chart-penyampaian', 'pie', dataPie);
 var kelas = buildChart('#chart-kelas', 'pie', dataPie2);
 
-// Filepond upload files
-// FilePond.registerPlugin(
-// 	FilePondPluginImagePreview,
-// 	FilePondPluginFileValidateSize,
-// );
-
-// FilePond.create(
-// 	document.querySelector('#import-data')
-// );

@@ -12,6 +12,10 @@ class Login extends CI_Controller
 
     public function index()
     {
+        if ($this->session->logged_in) {
+            $this->session->set_flashdata("flash", "Kamu sudah login lohh");
+            redirect('Dashboard');
+        }
         $data['title'] = 'AMCC PRESENCE APP LOGIN';
         $this->load->view('form_login', $data);
     }
@@ -51,6 +55,7 @@ class Login extends CI_Controller
 
     public function logout()
     {
+
         session_destroy();
         redirect('Login');
     }

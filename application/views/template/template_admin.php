@@ -117,7 +117,6 @@
 </head>
 
 <body>
-    <!-- Sidenav -->
     <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
         <div class="scrollbar-inner">
             <!-- Brand -->
@@ -132,7 +131,7 @@
                     <!-- Nav items -->
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a <?= $this->uri->segment(1) == 'Dashboard' && $this->uri->segment(2) == ''  ? 'class="nav-link active"' : 'class="nav-link"' ?> href="<?= site_url('Dashboard') ?>">
+                            <a <?= (($this->uri->segment(1) == 'Dashboard' && $this->uri->segment(2) == '') || $this->uri->segment(2) == 'chart_details')  ? 'class="nav-link active"' : 'class="nav-link"' ?> href="<?= site_url('Dashboard') ?>">
                                 <i class="ni ni-tv-2 text-primary"></i>
                                 <span class="nav-link-text">Dashboard </span>
                             </a>
@@ -193,13 +192,12 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <div class="media align-items-center">
-                                    <span>
-                                        <!-- <img alt="Image placeholder" src="<?= base_url('assets/argon') ?>/assets/img/brand/ninja.png"> -->
-                                        ❤️
-                                    </span>
-                                    <div class="media-body  ml-2  d-none d-lg-block">
+                                    <div class="media-body mx-2 d-none d-lg-block">
                                         <span class="mb-0 text-sm  font-weight-bold"><?= $this->session->userdata('name') ?></span>
                                     </div>
+                                    <span>
+                                        <img class="rounded-circle" width="32" alt="Image placeholder" src="https://ui-avatars.com/api/?name=<?= $this->session->userdata('name') ?>&background=random&color=fff">
+                                    </span>
                                 </div>
                             </a>
                             <div class="dropdown-menu  dropdown-menu-right ">
@@ -213,6 +211,21 @@
                 </div>
             </div>
         </nav>
+        <!-- Argon Scripts -->
+        <!-- Core -->
+        <script src="<?= base_url('assets/argon') ?>/assets/vendor/jquery/dist/jquery.min.js"></script>
+        <script src="<?= base_url('assets/argon') ?>/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="<?= base_url('assets/argon') ?>/assets/vendor/js-cookie/js.cookie.js"></script>
+        <script src="<?= base_url('assets/argon') ?>/assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+        <script src="<?= base_url('assets/argon') ?>/assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
+        <!-- Optional JS -->
+        <script src="<?= base_url('assets/argon') ?>/assets/vendor/chart.js/dist/Chart.min.js"></script>
+        <script src="<?= base_url('assets/argon') ?>/assets/vendor/chart.js/dist/Chart.extension.js"></script>
+        <!-- Argon JS -->
+        <script src="<?= base_url('assets/argon') ?>/assets/js/argon.js?v=1.2.0"></script>
+        <!-- Datatables -->
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 
         <?= $contents ?>
 
@@ -221,30 +234,15 @@
             <div class="row align-items-center justify-content-lg-between">
                 <div class="col-lg-6">
                     <div class="copyright text-center  text-lg-left  text-muted">
-                        &copy; 2020 - Dept. IT AMCC 2021/2022
+                        &copy; <script>
+                            document.write(new Date().getFullYear())
+                        </script> Dept. IT AMCC 2021/2022
                     </div>
                 </div>
             </div>
         </footer>
     </div>
     </div>
-
-    <!-- Argon Scripts -->
-    <!-- Core -->
-    <script src="<?= base_url('assets/argon') ?>/assets/vendor/jquery/dist/jquery.min.js"></script>
-    <script src="<?= base_url('assets/argon') ?>/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="<?= base_url('assets/argon') ?>/assets/vendor/js-cookie/js.cookie.js"></script>
-    <script src="<?= base_url('assets/argon') ?>/assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
-    <script src="<?= base_url('assets/argon') ?>/assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
-    <!-- Optional JS -->
-    <script src="<?= base_url('assets/argon') ?>/assets/vendor/chart.js/dist/Chart.min.js"></script>
-    <script src="<?= base_url('assets/argon') ?>/assets/vendor/chart.js/dist/Chart.extension.js"></script>
-    <!-- Argon JS -->
-    <script src="<?= base_url('assets/argon') ?>/assets/js/argon.js?v=1.2.0"></script>
-    <script src="<?= base_url('assets/argon') ?>/assets/js/main.js"></script>
-    <!-- Datatables -->
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -258,15 +256,41 @@
                 "bInfo": false
             });
         });
+
+        $(document).ready(function() {
+            $('#my-datables-modul').DataTable({
+                "sorting": false,
+                language: {
+                    searchPlaceholder: "Cari Modul",
+                    search: ""
+                },
+                "info": false,
+                "bInfo": false
+            });
+        });
+
+        $(document).ready(function() {
+            $('#my-datables-rekaman').DataTable({
+                "sorting": false,
+                language: {
+                    searchPlaceholder: "Cari Rekaman",
+                    search: ""
+                },
+                "info": false,
+                "bInfo": false
+            });
+        });
         $(document).ready(function() {
             $(document).on('click', '#editBtn', function() {
                 var nim = $(this).data('nim');
                 var nama = $(this).data('name');
                 var email = $(this).data('email');
+                var phone = $(this).data('phone');
 
                 $('#nimPengurus').val(nim);
                 $('#namaPengurus').val(nama);
                 $('#emailPengurus').val(email);
+                $('#phonePengurus').val(phone);
 
             });
         });

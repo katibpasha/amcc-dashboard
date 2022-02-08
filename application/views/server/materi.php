@@ -49,14 +49,15 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table align-items-center table-dark table-flush">
+                        <table id="my-datables-modul" class="table align-items-center table-dark table-flush">
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">Nama Modul</th>
                                     <th scope="col">Pelatihan Ke-</th>
                                     <th scope="col">Divisi</th>
                                     <th scope="col">Pembuat</th>
-                                    <th scope="col">Created At</th>
+                                    <th scope="col">Dibuat Pada</th>
+                                    <th scope="col">Diperbaharui Pada</th>
                                     <th scope="col" style="text-align: center;">Aksi</th>
                                 </tr>
                             </thead>
@@ -77,6 +78,10 @@
                                         </td>
                                         <td>
                                             <?= date('d-m-Y', strtotime($item->created_at)) ?>
+                                        </td>
+                                        </td>
+                                        <td>
+                                            <?= date('d-m-Y', strtotime($item->updated_at)) ?>
                                         </td>
                                         <td align="center">
                                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-pengurus" id="btnMateri" data-modul="<?= $item->modul ?>" data-link="<?= $item->link ?>" data-id="<?= $item->id ?>">Edit</button>
@@ -101,14 +106,15 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table align-items-center table-dark table-flush">
+                        <table id="my-datables-rekaman" class="table align-items-center table-dark table-flush">
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">Nama Rekaman</th>
                                     <th scope="col">Pelatihan Ke-</th>
                                     <th scope="col">Divisi</th>
                                     <th scope="col">Pengupload</th>
-                                    <th scope="col">Created At</th>
+                                    <th scope="col">Dibuat Pada</th>
+                                    <th scope="col">Diperbaharui Pada</th>
                                     <th scope="col" style="text-align: center;">Aksi</th>
                                 </tr>
                             </thead>
@@ -129,6 +135,9 @@
                                         </td>
                                         <td>
                                             <?= date('d-m-Y', strtotime($item->created_at)) ?>
+                                        </td>
+                                        <td>
+                                            <?= date('d-m-Y', strtotime($item->updated_at)) ?>
                                         </td>
                                         <td align="center">
                                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-pengurus" id="btnMateri" data-modul="<?= $item->modul ?>" data-link="<?= $item->link ?>" data-id="<?= $item->id ?>">Edit</button>
@@ -272,8 +281,8 @@
                 </div>
 
                 <div class="modal-footer">
-                    <a class="btn btn-danger text-white" id="btnMateriHapus">YBL YBL YBL!</a>
-                    <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Ga!</button>
+                    <a class="btn btn-danger text-white" id="btnMateriHapus">Yakin</a>
+                    <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Batal</button>
                 </div>
 
             </div>

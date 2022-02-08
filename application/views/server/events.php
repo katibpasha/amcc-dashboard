@@ -19,7 +19,7 @@
 <!-- Page content -->
 <div class="container-fluid mt--6">
     <div class="row">
-        <div class="col-xl-8">
+        <div class="col-xl-12">
             <div class="card bg-default shadow">
                 <div class="table-responsive">
                     <table class="table align-items-center table-dark table-flush">
@@ -27,6 +27,7 @@
                             <tr>
                                 <th scope="col">Nama Event</th>
                                 <th scope="col">Waktu</th>
+                                <th scope="col">Keterangan</th>
                                 <th scope="col" class="text-center">Aksi</th>
                             </tr>
                         </thead>
@@ -40,6 +41,11 @@
                                     <td>
                                         <?= date('H:i', strtotime($item->event_start))  ?> - <?= date('H:i', strtotime($item->event_end))  ?>
                                     </td>
+
+                                    <td>
+                                        <p>Status event: <?= ($item->status == 'off') ? "<span class='text-danger'>$item->status</span>" : "<span class='text-success'>$item->status</span>" ?></p>
+                                    </td>
+
                                     <td class="d-flex justify-content-center">
                                         <?php if ($item->status == 'off') { ?>
                                             <a href="<?= site_url('Dashboard/turn_action/' . 'on' . '/' . $item->event_id) ?>" class="btn btn-danger px-5" title="Click untuk mengaktifkan presensi">OFF</a>

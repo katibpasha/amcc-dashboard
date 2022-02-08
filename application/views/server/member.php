@@ -1,11 +1,11 @@
 <style>
     td {
         height: 50px;
-        font-size: 1rem !important;
+        font-size: .8125 !important;
     }
 
     th {
-        font-size: 1rem !important;
+        font-size: .8125 !important;
     }
 </style>
 <!-- Header -->
@@ -17,7 +17,7 @@
             <h6 class="h2 text-white d-inline-block mb-4">Member AMCC</h6>
             <div class="row">
                 <div class="px-2 mb-4">
-                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-add-event">
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-add-member">
                         <span class="btn-inner--icon"><i class="ni ni-fat-add"></i></span>
                         <span class="btn-inner--text">Tambah Member Baru</span>
                     </button>
@@ -40,6 +40,22 @@
 </div>
 <!-- Page content -->
 <div class="container-fluid mt--6">
+    <?php if (form_error('pass1') || form_error('pass2')) : ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Yahhh :( !</strong> Password Anda Tidak sama!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php endif ?>
+    <?php if (form_error('nim')) : ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Yahhh :( !</strong> NIM kamu sudah digunakan!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php endif ?>
     <?php if ($this->session->flashdata('flash')) : ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong>Yeayyy !</strong> <?= $this->session->flashdata('flash') ?>
@@ -62,44 +78,44 @@
         <div class="col-xl-12">
             <div class="card bg-default shadow">
                 <div class="card-header border-0 bg-default">
-
                 </div>
                 <div class="table-responsive">
-                    <table id="my-datables" class="table align-items-center table-dark table-flush display">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">Nama</th>
-                                <th scope="col">NIM</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Divisi</th>
-                                <th scope="col">Tahun</th>
-                            </tr>
-                        </thead>
-                        <tbody class="list">
-                            <?php foreach ($member as $item) : ?>
+                    <div class="table-responsive">
+                        <table id="my-datables" class="table align-items-center table-dark table-flush display">
+                            <thead class="thead-dark">
                                 <tr>
-                                    <th scope="row" width="10px">
-                                        <?= $item->name ?>
-                                    </th>
-                                    <td>
-                                        <?= $item->nim ?>
-                                    </td>
-                                    <td>
-                                        <?= $item->email ?>
-                                    </td>
-                                    <td>
-                                        <?= $item->division_name ?>
-                                    </td>
-                                    <td>
-                                        <?= $item->year ?>
-                                    </td>
-
+                                    <th scope="col">NIM</th>
+                                    <th scope="col">Nama</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Divisi</th>
+                                    <th scope="col">Tahun</th>
                                 </tr>
-                            <?php endforeach ?>
-                        </tbody>
-                        </tbody>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody class="list">
+                                <?php foreach ($member as $item) : ?>
+                                    <tr>
+                                        <td scope="row">
+                                            <?= $item->nim ?>
+                                        </td>
+                                        <td>
+                                            <?= $item->name ?>
+                                        </td>
+                                        <td>
+                                            <?= $item->email ?>
+                                        </td>
+                                        <td>
+                                            <?= $item->division_name ?>
+                                        </td>
+                                        <td>
+                                            <?= $item->year ?>
+                                        </td>
+
+                                    </tr>
+                                <?php endforeach ?>
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -108,7 +124,7 @@
     <!-- modal -->
     <!-- 1. Modal Tambah Member -->
 
-    <div class="modal fade" id="modal-add-event" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade" id="modal-add-member" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-" role="document">
             <div class="modal-content">
 
@@ -148,14 +164,6 @@
                         <div class="form-group mb-3">
                             <div class="input-group input-group-merge input-group-alternative">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="ni ni-key-25"></i></span>
-                                </div>
-                                <input class="form-control" placeholder="Password" type="password" name="pass" required>
-                            </div>
-                        </div>
-                        <div class="form-group mb-3">
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-th-large"></i></span>
                                 </div>
                                 <select name="divisi" class="form-control">
@@ -172,6 +180,22 @@
                                     <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                 </div>
                                 <input class="form-control" placeholder="Tahun" type="text" name="tahun" required>
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-key-25"></i></span>
+                                </div>
+                                <input class="form-control" placeholder="Password" type="password" name="pass1" required>
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-key-25"></i></span>
+                                </div>
+                                <input class="form-control" placeholder="Konfirmasi Password" type="password" name="pass2" required>
                             </div>
                         </div>
                         <div class="modal-footer px-0">

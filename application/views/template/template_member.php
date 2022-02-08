@@ -95,13 +95,12 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <div class="media align-items-center">
-                                    <span>
-                                        <!-- <img alt="Image placeholder" src="<?= base_url('assets/argon') ?>/assets/img/brand/ninja.png"> -->
-                                        ❤️
-                                    </span>
-                                    <div class="media-body  ml-2  d-none d-lg-block">
+                                    <div class="media-body mx-2 d-none d-lg-block">
                                         <span class="mb-0 text-sm  font-weight-bold"><?= $this->session->userdata('name') ?></span>
                                     </div>
+                                    <span>
+                                        <img class="rounded-circle" width="32" alt="Image placeholder" src="https://ui-avatars.com/api/?name=<?= $this->session->userdata('name') ?>&background=random&color=fff">
+                                    </span>
                                 </div>
                             </a>
                             <div class="dropdown-menu  dropdown-menu-right ">
@@ -123,7 +122,7 @@
             <div class="row align-items-center justify-content-lg-between">
                 <div class="col-lg-6">
                     <div class="copyright text-center  text-lg-left  text-muted">
-                        &copy; 2020 - Dept. IT AMCC 2021/2022
+                        &copy; <script>document.write(new Date().getFullYear())</script> Dept. IT AMCC 2021/2022
                     </div>
                 </div>
             </div>

@@ -21,7 +21,7 @@
                                 <div class="my-4">
                                     <p class="text-white">Pilih Sesi Pelatihan</p>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="pilih-sesi-1" name="radio-sesi" class="custom-control-input" value="SIANG">
+                                        <input type="radio" id="pilih-sesi-1" name="radio-sesi" class="custom-control-input" value="SIANG" checked>
                                         <label class="custom-control-label text-white" for="pilih-sesi-1">Sesi Siang</label>
                                     </div>
                                     <div class="custom-control custom-radio">
@@ -49,7 +49,7 @@
                                             <label class="custom-control-label text-white" for="pilih-efektifitas-4">4</label>
                                         </div>
                                         <div class="col custom-control custom-radio">
-                                            <input type="radio" id="pilih-efektifitas-5" name="radio-efektifitas" class="custom-control-input" value="5">
+                                            <input type="radio" id="pilih-efektifitas-5" name="radio-efektifitas" class="custom-control-input" value="5" checked>
                                             <label class="custom-control-label text-white" for="pilih-efektifitas-5">5</label>
                                         </div>
                                     </div>
@@ -74,7 +74,7 @@
                                             <label class="custom-control-label text-white" for="pilih-penyampaian-4">4</label>
                                         </div>
                                         <div class="col custom-control custom-radio">
-                                            <input type="radio" id="pilih-penyampaian-5" name="radio-penyampaian" class="custom-control-input" value="5">
+                                            <input type="radio" id="pilih-penyampaian-5" name="radio-penyampaian" class="custom-control-input" value="5" checked>
                                             <label class="custom-control-label text-white" for="pilih-penyampaian-5">5</label>
                                         </div>
                                     </div>
@@ -99,7 +99,7 @@
                                             <label class="custom-control-label text-white" for="pilih-suasana-4">4</label>
                                         </div>
                                         <div class="col custom-control custom-radio">
-                                            <input type="radio" id="pilih-suasana-5" name="radio-suasana" class="custom-control-input" value="5">
+                                            <input type="radio" id="pilih-suasana-5" name="radio-suasana" class="custom-control-input" value="5" checked>
                                             <label class="custom-control-label text-white" for="pilih-suasana-5">5</label>
                                         </div>
                                     </div>
@@ -124,7 +124,7 @@
                                             <label class="custom-control-label text-white" for="pilih-responsibilitas-4">4</label>
                                         </div>
                                         <div class="col custom-control custom-radio">
-                                            <input type="radio" id="pilih-responsibilitas-5" name="radio-responsibilitas" class="custom-control-input" value="5">
+                                            <input type="radio" id="pilih-responsibilitas-5" name="radio-responsibilitas" class="custom-control-input" value="5" checked>
                                             <label class="custom-control-label text-white" for="pilih-responsibilitas-5">5</label>
                                         </div>
                                     </div>
