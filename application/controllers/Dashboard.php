@@ -24,11 +24,13 @@ class Dashboard extends CI_Controller
         $data['data_member_all'] = $this->db->get_where('tbl_user', array('role_user' => 'B'))->num_rows();
         $data['data_member_year'] = $this->db->get_where('tbl_user', array('role_user' => 'B', 'year' => date('Y', strtotime("-1 Year", strtotime(date('Y'))))))->num_rows();
         $data['jmlh_devisi'] = $this->db->get('tbl_division')->num_rows();
-        $data['presensi_network'] = $this->Madmin->dashboard_graph(4);
-        $data['presensi_desktop'] = $this->Madmin->dashboard_graph(2);
-        $data['presensi_hs'] = $this->Madmin->dashboard_graph(5);
-        $data['presensi_mobile'] = $this->Madmin->dashboard_graph(3);
-        $data['presensi_web'] = $this->Madmin->dashboard_graph(1);
+        $data['presensi'] = [
+            "web" => $this->Madmin->dashboard_graph(1),
+            "desktop" => $this->Madmin->dashboard_graph(2),
+            "mobile" => $this->Madmin->dashboard_graph(3),
+            "network" => $this->Madmin->dashboard_graph(4),
+            "hs" => $this->Madmin->dashboard_graph(5),
+        ];
         $this->template->load('template/template_admin', 'server/index', $data);
     }
 

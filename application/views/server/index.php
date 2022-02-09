@@ -77,244 +77,89 @@
     <?php unset($_SESSION['flash']);
     endif ?>
     <div class="row">
-        <div class="col-xl-6">
-            <div class="card bg-default">
-                <div class="card-header bg-transparent">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <h6 class="text-light text-uppercase ls-1 mb-1">Visualisasi Data Member</h6>
-                            <h5 class="h3 text-white mb-0">Mobile Programming</h5>
-                        </div>
-                        <div class="col">
-                            <ul class="nav nav-pills justify-content-end">
-                                <li class="nav-item" data-toggle="chart" data-target="#chart-divisi-mobile" data-update='{"data":{"datasets":[{"data":[<?php foreach ($presensi_mobile as $data) echo $data->presensi . ", " ?>]}]}}' data-prefix="$" data-suffix="k">
-                                    <a href="<?= site_url('Dashboard/chart_details/3') ?>" class="nav-link py-2 px-3">
-                                        <span class="d-none d-md-block">Lihat Detail</span>
-                                    </a>
-                                </li>
-                            </ul>
+        <?php foreach ($presensi as $key => $item) : ?>
+            <div <?php echo $key == "hs" ? 'class="col-xl-12"' : 'class="col-xl-6"' ?>">
+                <div class="card bg-default">
+                    <div class="card-header bg-transparent">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h6 class="text-light text-uppercase ls-1 mb-1">Visualisasi Data Member</h6>
+                                <h5 class="h3 text-white mb-0">
+                                    <?php switch ($key) {
+                                        case "web":
+                                            echo "Web Programming";
+                                            $id = 1;
+                                            break;
+                                        case "desktop":
+                                            echo "Desktop Programming";
+                                            $id = 2;
+                                            break;
+                                        case "mobile":
+                                            echo "Mobile Programming";
+                                            $id = 3;
+                                            break;
+                                        case "network":
+                                            echo "Network Programming";
+                                            $id = 4;
+                                            break;
+                                        default:
+                                            echo "Hardware - Software";
+                                            $id = 5;
+                                            break;
+                                    }
+                                    ?>
+                                </h5>
+                            </div>
+                            <div class="col">
+                                <ul class="nav nav-pills justify-content-end">
+                                    <li class="nav-item">
+                                        <a href="<?= site_url('Dashboard/chart_details/' . $id) ?>" class="nav-link py-2 px-3">
+                                            <span class="d-none d-md-block">Lihat Detail</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="card-body">
-                    <!-- Chart -->
-                    <div class="chart">
-                        <!-- Chart wrapper -->
-                        <canvas id="chart-mobile" class="chart-canvas"></canvas>
+                    <div class="card-body">
+                        <!-- Chart -->
+                        <div class="chart">
+                            <!-- Chart wrapper -->
+                            <canvas id="chart-<?= $key ?>" class="chart-canvas"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-xl-6">
-            <div class="card bg-default">
-                <div class="card-header bg-transparent">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <h6 class="text-light text-uppercase ls-1 mb-1">Visualisasi Data Member</h6>
-                            <h5 class="h3 text-white mb-0">Web Programming</h5>
-                        </div>
-                        <div class="col">
-                            <ul class="nav nav-pills justify-content-end">
-                                <li class="nav-item" data-toggle="chart" data-target="#chart-divisi-web" data-update='{"data":{"datasets":[{"data":[0, 20, 5, 25, 10, 30, 15, 40, 40]}]}}' data-prefix="$" data-suffix="k">
-                                    <a href="<?= site_url('Dashboard/chart_details/1') ?>" class="nav-link py-2 px-3">
-                                        <span class="d-none d-md-block">Lihat Detail</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <!-- Chart -->
-                    <div class="chart">
-                        <!-- Chart wrapper -->
-                        <canvas id="chart-web" class="chart-canvas"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-6">
-            <div class="card bg-default">
-                <div class="card-header bg-transparent">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <h6 class="text-light text-uppercase ls-1 mb-1">Visualisasi Data Member</h6>
-                            <h5 class="h3 text-white mb-0">Desktop Programming</h5>
-                        </div>
-                        <div class="col">
-                            <ul class="nav nav-pills justify-content-end">
-                                <li class="nav-item" data-toggle="chart" data-target="#chart-divisi-desktop" data-update='{"data":{"datasets":[{"data":[0, 20, 5, 25, 10, 30, 15, 40, 40]}]}}' data-prefix="$" data-suffix="k">
-                                    <a href="<?= site_url('Dashboard/chart_details/2') ?>" class="nav-link py-2 px-3">
-                                        <span class="d-none d-md-block">Lihat Detail</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <!-- Chart -->
-                    <div class="chart">
-                        <!-- Chart wrapper -->
-                        <canvas id="chart-dekstop" class="chart-canvas"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-6">
-            <div class="card bg-default">
-                <div class="card-header bg-transparent">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <h6 class="text-light text-uppercase ls-1 mb-1">Visualisasi Data Member</h6>
-                            <h5 class="h3 text-white mb-0">Hardware & Software</h5>
-                        </div>
-                        <div class="col">
-                            <ul class="nav nav-pills justify-content-end">
-                                <li class="nav-item" data-toggle="chart" data-target="#chart-divisi-hs" data-update='{"data":{"datasets":[{"data":[0, 20, 5, 25, 10, 30, 15, 40, 40]}]}}' data-prefix="$" data-suffix="k">
-                                    <a href="<?= site_url('Dashboard/chart_details/5') ?>" class="nav-link py-2 px-3">
-                                        <span class="d-none d-md-block">Lihat Detail</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <!-- Chart -->
-                    <div class="chart">
-                        <!-- Chart wrapper -->
-                        <canvas id="chart-hs" class="chart-canvas"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-12">
-            <div class="card bg-default">
-                <div class="card-header bg-transparent">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <h6 class="text-light text-uppercase ls-1 mb-1">Visualisasi Data Member</h6>
-                            <h5 class="h3 text-white mb-0">Computer Network</h5>
-                        </div>
-                        <div class="col">
-                            <ul class="nav nav-pills justify-content-end">
-                                <li class="nav-item" data-toggle="chart" data-target="#chart-divisi-network" data-update='{"data":{"datasets":[{"data":[0, 20, 5, 25, 10, 30, 15, 40, 40]}]}}' data-prefix="$" data-suffix="k">
-                                    <a href="<?= site_url('Dashboard/chart_details/4') ?>" class="nav-link py-2 px-3">
-                                        <span class="d-none d-md-block">Lihat Detail</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <!-- Chart -->
-                    <div class="chart">
-                        <!-- Chart wrapper -->
-                        <canvas id="chart-network" class="chart-canvas"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php endforeach ?>
+
     </div>
 
-    <?php
-    $data_mobile = '';
-    foreach ($presensi_mobile as $item) {
-        $data_mobile = $data_mobile . '"' . $item->total_presensi . '",';
-    }
-    $data_mobile = trim($data_mobile, ",");
-
-    $data_web = '';
-    foreach ($presensi_web as $item) {
-        $data_web = $data_web . '"' . $item->total_presensi . '",';
-    }
-    $data_web = trim($data_web, ",");
-
-    $data_hs = '';
-    foreach ($presensi_hs as $item) {
-        $data_hs = $data_hs . '"' . $item->total_presensi . '",';
-    }
-    $data_hs = trim($data_hs, ",");
-
-    $data_dekstop = '';
-    foreach ($presensi_desktop as $item) {
-        $data_dekstop = $data_dekstop . '"' . $item->total_presensi . '",';
-    }
-    $data_dekstop = trim($data_dekstop, ",");
-
-    $data_network = '';
-    foreach ($presensi_network as $item) {
-        $data_network = $data_network . '"' . $item->total_presensi . '",';
-    }
-    $data_network = trim($data_network, ",");
-    ?>
-
-
     <script>
-        let mobile = document.getElementById('chart-mobile').getContext('2d');
-        let chartMobile = new Chart(mobile, {
-            type: 'bar',
-            data: {
-                labels: ['Pelatihan 1', 'Pelatihan 2', 'Pelatihan 3', 'Pelatihan 4', 'Pelatihan 5', 'Pelatihan 6', 'Pelatihan 7', 'Pelatihan 8', 'Pelatihan 9', 'Pelatihan 10', 'Pelatihan 11', 'Pelatihan 12'],
-                datasets: [{
-                    label: 'Jumlah Member',
-                    data: [<?php echo $data_mobile ?>],
-                }]
+        <?php $data = [];
+        $x = 0;
 
+        foreach ($presensi as $key => $item) : ?>
+            <?php
+            $z = 0;
+            foreach ($item as $dataPresensi) {
+                $data[$x][$z] = $dataPresensi->total_presensi;
+                $z++;
             }
-        })
 
-        let web = document.getElementById('chart-web').getContext('2d');
-        let chartWeb = new Chart(web, {
-            type: 'bar',
-            data: {
-                labels: ['Pelatihan 1', 'Pelatihan 2', 'Pelatihan 3', 'Pelatihan 4', 'Pelatihan 5', 'Pelatihan 6', 'Pelatihan 7', 'Pelatihan 8', 'Pelatihan 9', 'Pelatihan 10', 'Pelatihan 11', 'Pelatihan 12'],
-                datasets: [{
-                    label: 'Jumlah Member',
-                    data: [<?php echo $data_web ?>],
-                }]
+            ?>
 
-            }
-        })
+            let <?= $key ?> = document.getElementById('chart-<?= $key ?>').getContext('2d');
+            let chart<?= $key ?> = new Chart(<?= $key ?>, {
+                type: 'bar',
+                data: {
+                    labels: ['Pelatihan 1', 'Pelatihan 2', 'Pelatihan 3', 'Pelatihan 4', 'Pelatihan 5', 'Pelatihan 6', 'Pelatihan 7', 'Pelatihan 8', 'Pelatihan 9', 'Pelatihan 10', 'Pelatihan 11', 'Pelatihan 12'],
+                    datasets: [{
+                        label: 'Jumlah Member',
+                        data: <?php echo json_encode($data[$x]) ?>,
+                    }]
 
-        let hs = document.getElementById('chart-hs').getContext('2d');
-        let chartHs = new Chart(hs, {
-            type: 'bar',
-            data: {
-                labels: ['Pelatihan 1', 'Pelatihan 2', 'Pelatihan 3', 'Pelatihan 4', 'Pelatihan 5', 'Pelatihan 6', 'Pelatihan 7', 'Pelatihan 8', 'Pelatihan 9', 'Pelatihan 10', 'Pelatihan 11', 'Pelatihan 12'],
-                datasets: [{
-                    label: 'Jumlah Member',
-                    data: [<?php echo $data_hs ?>],
-                }]
-
-            }
-        })
-
-        let dekstop = document.getElementById('chart-dekstop').getContext('2d');
-        let chartDesktop = new Chart(dekstop, {
-            type: 'bar',
-            data: {
-                labels: ['Pelatihan 1', 'Pelatihan 2', 'Pelatihan 3', 'Pelatihan 4', 'Pelatihan 5', 'Pelatihan 6', 'Pelatihan 7', 'Pelatihan 8', 'Pelatihan 9', 'Pelatihan 10', 'Pelatihan 11', 'Pelatihan 12'],
-                datasets: [{
-                    label: 'Jumlah Member',
-                    data: [<?php echo $data_dekstop ?>],
-                }]
-
-            }
-        })
-
-        let network = document.getElementById('chart-network').getContext('2d');
-        let chartNetwork = new Chart(network, {
-            type: 'bar',
-            data: {
-                labels: ['Pelatihan 1', 'Pelatihan 2', 'Pelatihan 3', 'Pelatihan 4', 'Pelatihan 5', 'Pelatihan 6', 'Pelatihan 7', 'Pelatihan 8', 'Pelatihan 9', 'Pelatihan 10', 'Pelatihan 11', 'Pelatihan 12'],
-                datasets: [{
-                    label: 'Jumlah Member',
-                    data: [<?php echo $data_network ?>],
-                }]
-
-            }
-        })
+                }
+            })
+        <?php $x++;
+        endforeach ?>
     </script>
