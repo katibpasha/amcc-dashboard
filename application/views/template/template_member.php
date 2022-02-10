@@ -46,19 +46,19 @@
                     <!-- Nav items -->
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a <?= $this->uri->segment(1) == 'Member' && $this->uri->segment(2) == '' ? 'class="nav-link active"' : 'class="nav-link"' ?> href="<?= site_url('Member') ?>">
+                            <a <?= $this->uri->segment(1) == 'dashboard' && $this->uri->segment(2) == 'member' ? 'class="nav-link active"' : 'class="nav-link"' ?> href="<?= site_url('dashboard/member') ?>">
                                 <i class="ni ni-tv-2 text-primary"></i>
                                 <span class="nav-link-text active">Dashboard</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a <?= $this->uri->segment(2) == 'presensi' ? 'class="nav-link active"' : 'class="nav-link"' ?> href="<?= site_url('Member/presensi') ?>">
+                            <a <?= $this->uri->segment(1) == 'presensi' ? 'class="nav-link active"' : 'class="nav-link"' ?> href="<?= site_url('presensi') ?>">
                                 <i class="ni ni-calendar-grid-58 text-yellow"></i>
                                 <span class="nav-link-text">Presensi</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a <?= $this->uri->segment(2) == 'profile' ? 'class="nav-link active"' : 'class="nav-link"' ?> href="<?= site_url('Member/profile') ?>">
+                            <a <?= $this->uri->segment(1) == 'profile' ? 'class="nav-link active"' : 'class="nav-link"' ?> href="<?= site_url('profile') ?>">
                                 <i class="fas fa-user-friends text-info"></i>
                                 <span class="nav-link-text">Profile</span>
                             </a>

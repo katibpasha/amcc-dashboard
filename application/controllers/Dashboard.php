@@ -14,7 +14,7 @@ class Dashboard extends CI_Controller
         }
 
         if ($this->session->userdata('role_user') != 'A' && $this->session->logged_in) {
-            redirect('Member');
+            redirect('dashboard/member');
         }
     }
 
@@ -52,20 +52,20 @@ class Dashboard extends CI_Controller
         $this->template->load('template/template_admin', 'server/events', $data);
     }
 
-    public function chart_details($param)
+    public function chart_details($division_id)
     {
-        $data['data_member_all'] = $this->db->get_where('tbl_user', array('role_user' => 'B'))->num_rows();
-        $data['divisi'] = $this->db->get_where('tbl_event', array('event_id' => $param))->row_object();
-        $data['surpel'] = $this->Madmin->surpel_get($param);
-        $data['presensi'] = $this->Madmin->dashboard_graph($param);
+        $data['data_member'] = $this->db->get_where('tbl_user', array('role_user' => 'B', 'division_id' => $division_id, 'year' => date('Y', strtotime("-1 Year", strtotime(date('Y'))))))->num_rows();
+        $data['divisi'] = $this->db->get_where('tbl_event', array('event_id' => $division_id))->row_object();
+        $data['surpel'] = $this->Madmin->surpel_get($division_id);
+        $data['presensi'] = $this->Madmin->dashboard_graph($division_id);
         $data['data_member_year'] = $this->db->get_where('tbl_user', array('role_user' => 'B', 'year' => date('Y', strtotime("-1 Year", strtotime(date('Y'))))))->num_rows();
         $data['jmlh_devisi'] = $this->db->get('tbl_division')->num_rows();
         $data['title'] = 'Chart Details';
         $data['pie'] = [
-            "materi" => $this->Madmin->materi_graph('understanding', $param),
-            "penyampaian" => $this->Madmin->materi_graph('effectivity', $param),
-            "kelas" => $this->Madmin->materi_graph('interactive', $param),
-            "jawaban" => $this->Madmin->materi_graph('answer_satisfy', $param)
+            "materi" => $this->Madmin->materi_graph('understanding', $division_id),
+            "penyampaian" => $this->Madmin->materi_graph('effectivity', $division_id),
+            "kelas" => $this->Madmin->materi_graph('interactive', $division_id),
+            "jawaban" => $this->Madmin->materi_graph('answer_satisfy', $division_id)
         ];
         $this->template->load('template/template_admin', 'server/chart-details', $data);
     }
@@ -107,10 +107,10 @@ class Dashboard extends CI_Controller
         $insert = $this->db->insert('tbl_material', $data_insert);
         if ($insert) {
             $this->session->set_flashdata('flash', 'Data materi berhasil ditambahkan');
-            redirect('Dashboard/material');
+            redirect('materi');
         } else {
             $this->session->set_flashdata('flash-gagal', 'Data materi gagal ditambahkan');
-            redirect('Dashboard/material');
+            redirect('materi');
         }
     }
 
@@ -154,10 +154,10 @@ class Dashboard extends CI_Controller
             $insert = $this->db->insert('tbl_user', $data_insert);
             if ($insert) {
                 $this->session->set_flashdata('flash', 'Data pengurus berhasil ditambahkan');
-                redirect('Dashboard/pengurus');
+                redirect('pengurus');
             } else {
                 $this->session->set_flashdata('flash-gagal', 'Data pengurus gagal ditambahkan');
-                redirect('Dashboard/pengurus');
+                redirect('pengurus');
             }
         }
     }
@@ -168,12 +168,12 @@ class Dashboard extends CI_Controller
             $this->db->set('status', 'on');
             $this->db->where('event_id', $param2);
             $this->db->update('tbl_event');
-            redirect('Dashboard/events');
+            redirect('events');
         } else {
             $this->db->set('status', 'off');
             $this->db->where('event_id', $param2);
             $this->db->update('tbl_event');
-            redirect('Dashboard/events');
+            redirect('events');
         }
     }
 
@@ -196,7 +196,7 @@ class Dashboard extends CI_Controller
             } else if ($error2) {
                 $this->session->set_flashdata('flash-gagal', substr($error2, 3, 35));
             }
-            redirect('Dashboard/pengurus');
+            redirect('pengurus');
         } else {
             $nim = $this->input->post('nim', true);
             $nama = $this->input->post('nama', true);
@@ -216,7 +216,7 @@ class Dashboard extends CI_Controller
             $this->db->where('nim', $nim);
             $this->db->update('tbl_user');
             $this->session->set_flashdata('flash', 'Data pengurus berhasil diubah');
-            redirect('Dashboard/pengurus');
+            redirect('pengurus');
         }
     }
 
@@ -225,7 +225,7 @@ class Dashboard extends CI_Controller
         $this->db->where('nim', $nim);
         $this->db->delete('tbl_user');
         $this->session->set_flashdata('flash', 'Data berhasil di hapus');
-        redirect('Dashboard/pengurus');
+        redirect('pengurus');
     }
 
     public function member_action()
@@ -268,10 +268,10 @@ class Dashboard extends CI_Controller
 
             if ($insert) {
                 $this->session->set_flashdata('flash', 'data member berhasil di tambahkan');
-                redirect('Dashboard/member');
+                redirect('member');
             } else {
                 $this->session->set_flashdata('flash-gagal', 'data member gagal di tambahkan');
-                redirect('Dashboard/member');
+                redirect('member');
             }
         }
     }
@@ -293,10 +293,10 @@ class Dashboard extends CI_Controller
 
         if ($update) {
             $this->session->set_flashdata('flash', 'data materi berhasil di edit');
-            redirect('Dashboard/material');
+            redirect('materi');
         } else {
             $this->session->set_flashdata('flash-gagal', 'data materi gagal di edit');
-            redirect('Dashboard/material');
+            redirect('materi');
         }
     }
 
@@ -307,10 +307,10 @@ class Dashboard extends CI_Controller
 
         if ($hapus) {
             $this->session->set_flashdata('flash', 'data materi berhasil di hapus');
-            redirect('Dashboard/material');
+            redirect('materi');
         } else {
             $this->session->set_flashdata('flash-gagal', 'data materi gagal di hapus');
-            redirect('Dashboard/material');
+            redirect('materi');
         }
     }
 }

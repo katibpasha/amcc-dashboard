@@ -52,3 +52,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $route['default_controller'] = 'Login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+// Dashboard Pengurus
+$route['dashboard/pengurus'] = 'Dashboard';
+$route['events'] = 'Dashboard/events';
+$route['materi'] = 'Dashboard/material';
+$route['member'] = 'Dashboard/member';
+$route['pengurus'] = 'Dashboard/pengurus';
+$route['dashboard/chart/(:num)'] = 'Dashboard/chart_details/$1';
+
+// Dashboard Pengurus
+$route['dashboard/member'] = 'Member';
+$route['presensi'] = 'Member/presensi';
+$route['profile'] = 'Member/profile';

@@ -32,7 +32,7 @@
                                     <span class="h2 font-weight-bold mb-0"><?= $jmlh_devisi ?></span>
                                 </div>
                                 <div class="col-auto">
-                                    <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                                    <div class="icon icon-shape bg-gradient-blue text-white rounded-circle shadow">
                                         <i class="fas fa-th-large"></i>
                                     </div>
                                 </div>
@@ -53,7 +53,7 @@
                                     <span class="h2 font-weight-bold mb-0"><?= $data_member_year ?></span>
                                 </div>
                                 <div class="col-auto">
-                                    <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                                    <div class="icon icon-shape bg-gradient-purple text-white rounded-circle shadow">
                                         <i class="fas fa-user-friends"></i>
                                     </div>
                                 </div>
@@ -113,7 +113,7 @@
                             <div class="col">
                                 <ul class="nav nav-pills justify-content-end">
                                     <li class="nav-item">
-                                        <a href="<?= site_url('Dashboard/chart_details/' . $id) ?>" class="nav-link py-2 px-3">
+                                        <a href="<?= site_url('dashboard/chart/' . $id) ?>" class="nav-link py-2 px-3">
                                             <span class="d-none d-md-block">Lihat Detail</span>
                                         </a>
                                     </li>

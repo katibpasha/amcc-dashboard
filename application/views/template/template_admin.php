@@ -131,31 +131,31 @@
                     <!-- Nav items -->
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a <?= (($this->uri->segment(1) == 'Dashboard' && $this->uri->segment(2) == '') || $this->uri->segment(2) == 'chart_details')  ? 'class="nav-link active"' : 'class="nav-link"' ?> href="<?= site_url('Dashboard') ?>">
+                            <a <?= (($this->uri->segment(1) == 'dashboard' && $this->uri->segment(2) == 'pengurus') || $this->uri->segment(2) == 'chart')  ? 'class="nav-link active"' : 'class="nav-link"' ?> href="<?= site_url('dashboard/pengurus') ?>">
                                 <i class="ni ni-tv-2 text-primary"></i>
                                 <span class="nav-link-text">Dashboard </span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a <?= $this->uri->segment(2) == 'events' ? 'class="nav-link active"' : 'class="nav-link"' ?> href="<?= site_url('Dashboard/events') ?>">
+                            <a <?= $this->uri->segment(1) == 'events' ? 'class="nav-link active"' : 'class="nav-link"' ?> href="<?= site_url('events') ?>">
                                 <i class="ni ni-calendar-grid-58 text-yellow"></i>
                                 <span class="nav-link-text">Event</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a <?= $this->uri->segment(2) == 'material' ? 'class="nav-link active"' : 'class="nav-link"' ?> href="<?= site_url('Dashboard/material') ?>">
+                            <a <?= $this->uri->segment(1) == 'materi' ? 'class="nav-link active"' : 'class="nav-link"' ?> href="<?= site_url('materi') ?>">
                                 <i class="ni ni-app text-brown"></i>
                                 <span class="nav-link-text">Materi</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a <?= $this->uri->segment(2) == 'member' ? 'class="nav-link active"' : 'class="nav-link"' ?>href="<?= site_url('Dashboard/member') ?>">
+                            <a <?= $this->uri->segment(1) == 'member' ? 'class="nav-link active"' : 'class="nav-link"' ?>href="<?= site_url('member') ?>">
                                 <i class="fas fa-user-friends text-info"></i>
                                 <span class="nav-link-text">Member</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a <?= $this->uri->segment(2) == 'pengurus' ? 'class="nav-link active"' : 'class="nav-link"' ?> href="<?= site_url('Dashboard/pengurus') ?>">
+                            <a <?= $this->uri->segment(1) == 'pengurus' ? 'class="nav-link active"' : 'class="nav-link"' ?> href="<?= site_url('pengurus') ?>">
                                 <i class="fas fa-user-friends text-orange"></i>
                                 <span class="nav-link-text">Pengurus</span>
                             </a>

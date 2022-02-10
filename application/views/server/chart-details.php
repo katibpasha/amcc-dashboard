@@ -20,49 +20,10 @@
                             <div class="row">
                                 <div class="col">
                                     <h5 class="card-title text-uppercase text-muted mb-0">Jumlah Member</h5>
-                                    <span class="h2 font-weight-bold mb-0"><?= $data_member_all ?></span>
+                                    <span class="h2 font-weight-bold mb-0"><?= $data_member ?></span>
                                 </div>
                                 <div class="col-auto">
-                                    <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
-                                        <i class="fas fa-user-friends"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-md-6">
-                    <div class="card card-stats">
-                        <!-- Card body -->
-                        <div class="card-body py-4">
-                            <div class="row">
-                                <div class="col">
-                                    <h5 class="card-title text-uppercase text-muted mb-0">Jumlah Divisi</h5>
-                                    <span class="h2 font-weight-bold mb-0"><?= $jmlh_devisi ?></span>
-                                </div>
-                                <div class="col-auto">
-                                    <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
-                                        <i class="fas fa-th-large"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-md-6">
-                    <div class="card card-stats">
-                        <!-- Card body -->
-                        <div class="card-body py-4">
-                            <div class="row">
-                                <div class="col">
-                                    <h5 class="card-title text-uppercase text-muted mb-0">Jumlah Member Tahun <script>
-                                            document.write(`${new Date().getFullYear()-1} / ${new Date().getFullYear()}`)
-                                        </script>
-                                    </h5>
-                                    <span class="h2 font-weight-bold mb-0"><?= $data_member_year ?></span>
-                                </div>
-                                <div class="col-auto">
-                                    <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                                    <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
                                         <i class="fas fa-user-friends"></i>
                                     </div>
                                 </div>
@@ -83,7 +44,7 @@
                     <div class="row align-items-center">
                         <div class="col">
                             <h6 class="text-light text-uppercase ls-1 mb-1">Visualisasi Data Member</h6>
-                            <h5 class="h3 text-white mb-0"><?= substr($divisi->event_name, 10) ?></h5>
+                            <h5 class="h3 text-white mb-0">Divisi <?= substr($divisi->event_name, 10) ?></h5>
                         </div>
                     </div>
                 </div>
@@ -243,7 +204,8 @@
                             '#f0be39', // medium
                             '#359d73', // sangat mudah
                             '#237f5d' // mudah
-                        ]
+                        ],
+                        borderWidth: 1.5,
                     }]
 
                 }

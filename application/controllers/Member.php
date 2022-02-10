@@ -14,6 +14,10 @@ class Member extends CI_Controller
         if (!$this->session->logged_in) {
             redirect('Login');
         }
+
+        if ($this->session->userdata('role_user') != 'B' && $this->session->logged_in) {
+            redirect('dashboard/pengurus');
+        }
     }
 
     private function convertDevisi()
@@ -37,7 +41,7 @@ class Member extends CI_Controller
             $this->template->load('template/template_member', 'client/surpel', $data);
         } else {
             $this->session->set_flashdata('flash-gagal', 'Pelatihan belum dimulai harap bersabar yahh');
-            redirect('Member/presensi');
+            redirect('presensi');
         }
     }
 
@@ -104,10 +108,10 @@ class Member extends CI_Controller
         $insert_presence = $this->db->insert('tbl_presence', $data_insert_presence);
         if ($insert_survey && $insert_presence) {
             $this->session->set_flashdata('flash', 'Presensi Berhasil');
-            redirect('Member/presensi');
+            redirect('presensi');
         } else {
             $this->session->set_flashdata('flash-gagal', 'Maaf Presensi Tidak Berhasil');
-            redirect('Member/presensi');
+            redirect('presensi');
         }
     }
 
@@ -141,7 +145,7 @@ class Member extends CI_Controller
             $this->db->update('tbl_user');
 
             $this->session->set_flashdata('flash', 'Data user berhasil diupdate');
-            redirect('Member');
+            redirect('dashboard/member');
         }
     }
 }
