@@ -154,11 +154,14 @@
                                 <span class="nav-link-text">Member</span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a <?= $this->uri->segment(1) == 'pengurus' ? 'class="nav-link active"' : 'class="nav-link"' ?> href="<?= site_url('pengurus') ?>">
-                                <i class="fas fa-user-friends text-orange"></i>
-                                <span class="nav-link-text">Pengurus</span>
+                        <li class="nav-item dropdown">
+                            <a <?= $this->uri->segment(2) == 'profiling' || $this->uri->segment(1) == 'pengurus'  ? 'class="nav-link active"' : 'class="nav-link"' ?> href="#" class="nav-link has-dropdown" data-toggle="dropdown">
+                                <i class="fas fa-user-friends text-orange"></i> <span>Pengurus</span>
                             </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="nav-link" href="<?= site_url('pengurus') ?>">Akun Pengurus</a></li>
+                                <li><a class="nav-link" href="<?= site_url('pengurus/profiling') ?>">Profiling Pengurus</a></li>
+                            </ul>
                         </li>
                     </ul>
                 </div>

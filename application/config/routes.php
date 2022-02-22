@@ -59,9 +59,10 @@ $route['events'] = 'Dashboard/events';
 $route['materi'] = 'Dashboard/material';
 $route['member'] = 'Dashboard/member';
 $route['pengurus'] = 'Dashboard/pengurus';
+$route['pengurus/profiling'] = 'Dashboard/profiling';
 $route['dashboard/chart/(:num)'] = 'Dashboard/chart_details/$1';
 
-// Dashboard Pengurus
+// Dashboard member
 $route['dashboard/member'] = 'Member';
 $route['presensi'] = 'Member/presensi';
 $route['profile'] = 'Member/profile';

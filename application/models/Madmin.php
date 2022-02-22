@@ -54,4 +54,62 @@ class Madmin extends CI_Model
             return array();
         }
     }
+
+    public function profiling()
+    {
+        $sql = "SELECT * FROM tbl_as_pengurus a 
+                INNER JOIN tbl_as_assessment b ON a.nim = b.nim
+                INNER JOIN tbl_as_skill c ON b.skill_id = c.skill_id
+                INNER JOIN tbl_as_portfolio d ON a.nim = d.nim
+                WHERE d.port_desc !=''";
+        $query = $this->db->query($sql);
+
+        if ($query->num_rows() > 0) {
+            $result = $query->result();
+            return $result;
+        } else {
+            return array();
+        }
+    }
+
+    public function pengurus_card()
+    {
+        $sql = "SELECT * FROM tbl_as_pengurus ORDER BY name ASC";
+        $query = $this->db->query($sql);
+
+        if ($query->num_rows() > 0) {
+            $result = $query->result();
+            return $result;
+        } else {
+            return array();
+        }
+    }
+
+    public function pengurus_assesment($id)
+    {
+        $sql = "SELECT s.skill_name FROM tbl_as_assessment a 
+                INNER JOIN tbl_as_skill s ON a.skill_id = s.skill_id
+                WHERE a.nim='$id'";
+        $query = $this->db->query($sql);
+
+        if ($query->num_rows() > 0) {
+            $result = $query->result();
+            return $result;
+        } else {
+            return array();
+        }
+    }
+
+    public function pengurus_portfolio($id)
+    {
+        $sql = "SELECT * FROM tbl_as_portfolio WHERE nim='$id'";
+        $query = $this->db->query($sql);
+
+        if ($query->num_rows() > 0) {
+            $result = $query->result();
+            return $result;
+        } else {
+            return array();
+        }
+    }
 }

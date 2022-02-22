@@ -313,4 +313,23 @@ class Dashboard extends CI_Controller
             redirect('materi');
         }
     }
+
+    public function profiling()
+    {
+        $data['title'] = 'Profiling Skill';
+        $data['pengurus_card'] = $this->Madmin->pengurus_card();
+        $this->template->load('template/template_admin', 'server/profiling', $data);
+    }
+
+    public function get_assesment($id)
+    {
+        $data = $this->Madmin->pengurus_assesment($id);
+        echo json_encode($data);
+    }
+
+    public function get_portfolio($id)
+    {
+        $data = $this->Madmin->pengurus_portfolio($id);
+        echo json_encode($data);
+    }
 }
