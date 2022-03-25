@@ -18,7 +18,7 @@ class Madmin extends CI_Model
 
     public function dashboard_graph($id_division)
     {
-        $sql = "SELECT COUNT(p.event_id) as total_presensi, p.date_presence FROM tbl_presence p INNER JOIN tbl_survey s ON p.survey_id=s.survey_id WHERE p.event_id='$id_division' GROUP BY DATE_FORMAT(p.date_presence,'%Y-%m-%d')";
+        $sql = "SELECT COUNT(p.event_id) as total_presensi, p.date_presence FROM tbl_presence p INNER JOIN tbl_survey s ON p.survey_id=s.survey_id WHERE p.event_id='$id_division' GROUP BY DATE_FORMAT(p.date_presence,'%Y-%m-%d') ORDER BY DATE_FORMAT(p.date_presence,'%Y-%m-%d') ASC";
         $query = $this->db->query($sql);
 
         if ($query->num_rows() > 0) {

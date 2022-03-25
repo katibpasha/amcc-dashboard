@@ -102,6 +102,7 @@ class Member extends CI_Controller
         $data_insert_presence = array(
             'nim' => $this->session->userdata('nim'),
             'event_id' => $event_id,
+            'date_presence' => date('Y-m-d'),
             'survey_id' => $id_survey
         );
         $insert_survey = $this->db->insert('tbl_survey', $data_insert_survey);

@@ -22,6 +22,8 @@
     <!-- Icons -->
     <link rel="stylesheet" href="<?= base_url('assets/argon') ?>/assets/vendor/nucleo/css/nucleo.css" type="text/css">
     <link rel="stylesheet" href="<?= base_url('assets/argon') ?>/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
+    <link rel="stylesheet" href="https://unpkg.com/placeholder-loading/dist/css/placeholder-loading.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
     <!-- Page plugins -->
     <!-- Argon CSS -->
     <link rel="stylesheet" href="<?= base_url('assets/argon') ?>/assets/css/argon.css?v=1.2.0" type="text/css">

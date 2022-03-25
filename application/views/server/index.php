@@ -115,6 +115,7 @@
                                     <li class="nav-item">
                                         <a href="<?= site_url('dashboard/chart/' . $id) ?>" class="nav-link py-2 px-3">
                                             <span class="d-none d-md-block">Lihat Detail</span>
+                                            <span class="d-lg-none d-md-block">Detail</span>
                                         </a>
                                     </li>
                                 </ul>

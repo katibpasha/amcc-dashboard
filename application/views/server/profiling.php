@@ -1,3 +1,10 @@
+<style>
+    .ph-item {
+        background-color: transparent !important;
+        border: none;
+        border-color: none !important;
+    }
+</style>
 <div class="header bg-blue-amcc pb-6">
     <div class="container-fluid">
         <div class="header-body">
@@ -8,11 +15,13 @@
         </div>
     </div>
 </div>
+
 <!-- Page content -->
 <div class="container-fluid mt--6">
+
     <div class="row">
         <?php foreach ($pengurus_card as $item) : ?>
-            <div class="col-3">
+            <div class="col-12 col-md-4 col-lg-3">
                 <div class="card bg-default">
                     <div class="card-header bg-transparent">
                         <div class="col">
@@ -66,7 +75,7 @@
                         </div>
                         <h3 style="text-align: left;">Keahlian</h3>
                         <div class="row mb-4">
-                            <div class="col" style="text-align: left;">
+                            <div class="col" style="text-align: left;" id="mySkeleton">
                                 <table>
                                     <tbody id="targetModal">
 
@@ -90,44 +99,74 @@
     </div>
     <script>
         $(document).ready(function() {
+
             $(document).on('click', '#btnDetail', function() {
+                $('#mySkeleton').html(makeSkeleton());
+                $('#portfolioProfile').html(makeSkeleton());
+
+                setTimeout(function() {
+                    load_content();
+                }, 3000);
+
+                function makeSkeleton() {
+                    var output = '';
+                    output += '<div class="ph-item">';
+
+                    output += '<div>';
+                    output += '<div class="ph-row">';
+                    output += '<div class="ph-col-12 big"></div>';
+                    output += '<div class="ph-col-12"></div>';
+                    output += '<div class="ph-col-12"></div>';
+                    output += '<div class="ph-col-12"></div>';
+                    output += '<div class="ph-col-12"></div>';
+                    output += '</div>';
+                    output += '</div>';
+                    output += '</div>';
+
+                    return output;
+                }
                 let nim = $(this).data('nim');
                 let name = $(this).data('nama');
                 let prodi = $(this).data('prodi');
-                $.ajax({
-                    type: 'ajax',
-                    url: "<?= site_url() . '/Dashboard/get_assesment/' ?>" + nim,
-                    dataType: 'json',
-                    success: function(data) {
-                        let baris = ''
-                        let baris2 = ''
-                        for (let i = 0; i < data.length; i++) {
-                            baris += '<tr>' +
-                                '<td>' + '<img src="<?= base_url('assets/argon') ?>/assets/img/icons/keahlian/user-check.svg" width="24px" alt="user-check"> ' + data[i].skill_name + '</td>'
-                            '</tr>'
-                        }
-                        $('#targetModal').html(baris);
 
-                    }
+                function load_content() {
+                    $.ajax({
+                        type: 'POST',
+                        url: "<?= site_url() . '/Dashboard/get_assesment/' ?>" + nim,
+                        dataType: 'json',
+                        success: function(data) {
+                            let myTable = ''
+                            let baris = ''
+                            let baris2 = ''
+                            for (let i = 0; i < data.length; i++) {
+                                baris += '<tr>' +
+                                    '<td>' + '<img src="<?= base_url('assets/argon') ?>/assets/img/icons/keahlian/user-check.svg" width="24px" alt="user-check"> ' + data[i].skill_name + '</td>'
+                                '</tr>'
+                            }
+                            myTable = '<table><tbody>' + baris + '</tbody></table>'
+                            $('#mySkeleton').html(myTable);
 
-                })
-                $.ajax({
-                    type: 'ajax',
-                    url: "<?= site_url() . '/Dashboard/get_portfolio/' ?>" + nim,
-                    dataType: 'json',
-                    success: function(data) {
-                        console.log(data)
-                        let port = ''
-
-                        for (let i = 0; i < data.length; i++) {
-                            port += '<li>' + data[i].port_desc + '</li>'
                         }
 
-                        $('#portfolioProfile').html(port);
+                    })
+                    $.ajax({
+                        type: 'POST',
+                        url: "<?= site_url() . '/Dashboard/get_portfolio/' ?>" + nim,
+                        dataType: 'json',
+                        success: function(data) {
 
-                    }
+                            let port = ''
 
-                })
+                            for (let i = 0; i < data.length; i++) {
+                                port += '<li>' + data[i].port_desc + '</li>'
+                            }
+                            port +=
+                                $('#portfolioProfile').html(port);
+
+                        }
+
+                    })
+                }
                 $('#namaProfile').html(': ' + name)
                 $('#nimProfile').html(': ' + nim)
                 $('#prodiProfile').html(': ' + prodi)

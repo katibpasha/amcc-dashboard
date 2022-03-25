@@ -107,7 +107,9 @@
             <div class="row align-items-center justify-content-xl-between">
                 <div class="col-xl-6 py-2">
                     <div class="copyright text-center text-xl-left text-muted">
-                        &copy; <script>document.write(new Date().getFullYear())</script> <a href="https://amcc.or.id" class="font-weight-bold ml-1" target="_blank">Dept IT AMCC</a>
+                        &copy; <script>
+                            document.write(new Date().getFullYear())
+                        </script> <a href="https://amcc.or.id" class="font-weight-bold ml-1" target="_blank">Dept IT AMCC</a>
                     </div>
                 </div>
                 <div class="col-xl-6 py-2 social-media-list">
