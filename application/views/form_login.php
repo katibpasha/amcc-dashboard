@@ -16,15 +16,15 @@
     <meta name="author" content="Creative Tim">
     <title><?= $title ?></title>
     <!-- Favicon -->
-    <link rel="icon" href="<?= base_url('assets/argon') ?>/assets/img/brand/amcc-logo.png" type="image/png">
+    <link rel="icon" href="<?= base_url('assets/') ?>img/brand/amcc-logo.png" type="image/png">
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
     <!-- Icons -->
-    <link rel="stylesheet" href="<?= base_url('assets/argon') ?>/assets/vendor/nucleo/css/nucleo.css" type="text/css">
-    <link rel="stylesheet" href="<?= base_url('assets/argon') ?>/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
+    <link rel="stylesheet" href="<?= base_url('assets/') ?>vendor/nucleo/css/nucleo.css" type="text/css">
+    <link rel="stylesheet" href="<?= base_url('assets/') ?>vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
     <!-- Argon CSS -->
-    <link rel="stylesheet" href="<?= base_url('assets/argon') ?>/assets/css/argon.css?v=1.2.0" type="text/css">
-    <link rel="stylesheet" href="<?= base_url('assets/argon') ?>/assets/css/custom-styles.css">
+    <link rel="stylesheet" href="<?= base_url('assets/') ?>css/argon.css?v=1.2.0" type="text/css">
+    <link rel="stylesheet" href="<?= base_url('assets/') ?>css/custom-styles.css">
 </head>
 
 <body class="bg-default">
@@ -54,7 +54,7 @@
                 <div class="col-lg-5 col-md-7">
                     <div class="card bg-secondary border-0 mb-0">
                         <div class="card-header bg-transparent py-4 d-block text-center">
-                            <img src="<?= base_url('assets/argon/') ?>assets/img/brand/amcc-logo.png" alt="" class="img-fluid login-logo">
+                            <img src="<?= base_url('assets/') ?>img/brand/amcc-logo.png" alt="" class="img-fluid login-logo">
                         </div>
                         <div class="card-body px-lg-5 py-lg-5">
                             <?php if ($this->session->flashdata('flash')) : ?>
@@ -141,13 +141,13 @@
     </footer>
     <!-- Argon Scripts -->
     <!-- Core -->
-    <script src="<?= base_url('assets/argon') ?>/assets/vendor/jquery/dist/jquery.min.js"></script>
-    <script src="<?= base_url('assets/argon') ?>/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="<?= base_url('assets/argon') ?>/assets/vendor/js-cookie/js.cookie.js"></script>
-    <script src="<?= base_url('assets/argon') ?>/assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
-    <script src="<?= base_url('assets/argon') ?>/assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
+    <script src="<?= base_url('assets/') ?>vendor/jquery/dist/jquery.min.js"></script>
+    <script src="<?= base_url('assets/') ?>vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= base_url('assets/') ?>vendor/js-cookie/js.cookie.js"></script>
+    <script src="<?= base_url('assets/') ?>vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+    <script src="<?= base_url('assets/') ?>vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
     <!-- Argon JS -->
-    <script src="<?= base_url('assets/argon') ?>/assets/js/argon.js?v=1.2.0"></script>
+    <script src="<?= base_url('assets/') ?>js/argon.js?v=1.2.0"></script>
 </body>
 
 </html>

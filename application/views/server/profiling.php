@@ -25,7 +25,7 @@
                 <div class="card bg-default">
                     <div class="card-header bg-transparent">
                         <div class="col">
-                            <img src="<?= base_url('assets/argon') ?>/assets/img/pengurus/<?= $item->photo ?>" width="100%" style="border-radius: 50%" alt="...">
+                            <img src="<?= base_url('assets/') ?>img/pengurus/<?= $item->photo ?>" width="100%" style="border-radius: 50%" alt="...">
                         </div>
                         <div class="card-body" align="center">
                             <div class="row align-items-center">
@@ -140,7 +140,7 @@
                             let baris2 = ''
                             for (let i = 0; i < data.length; i++) {
                                 baris += '<tr>' +
-                                    '<td>' + '<img src="<?= base_url('assets/argon') ?>/assets/img/icons/keahlian/user-check.svg" width="24px" alt="user-check"> ' + data[i].skill_name + '</td>'
+                                    '<td>' + '<img src="<?= base_url('assets/') ?>img/icons/keahlian/user-check.svg" width="24px" alt="user-check"> ' + data[i].skill_name + '</td>'
                                 '</tr>'
                             }
                             myTable = '<table><tbody>' + baris + '</tbody></table>'
