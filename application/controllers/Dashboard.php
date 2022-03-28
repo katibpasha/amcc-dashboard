@@ -202,7 +202,7 @@ class Dashboard extends CI_Controller
     *   - delete_pengurus: function untuk menghapus data pengurus
     *   - profiling: get all pengurus profile and display it
     *   - get_assesment: get data assesment by user id
-    *   - get_portofolio: get data portofolio by user id
+    *   - get_portfolio: get data portfolio by user id
     */
     public function pengurus()
     {

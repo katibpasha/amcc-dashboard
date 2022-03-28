@@ -77,7 +77,7 @@ $route['pengurus/add'] = 'Dashboard/add_pengurus';
 $route['pengurus/delete/(:any)'] = 'Dashboard/delete_pengurus/$1';
 $route['pengurus/profiling'] = 'Dashboard/profiling';
 $route['pengurus/assesment/(:any)'] = 'Dashboard/get_assesment/$1';
-$route['pengurus/portofolio/(:any)'] = 'Dashboard/get_portofolio/$1';
+$route['pengurus/portfolio/(:any)'] = 'Dashboard/get_portfolio/$1';
 
 // routes for user action
 $route['user/edit/(:any)'] = 'Dashboard/edit_user/$1';
