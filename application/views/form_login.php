@@ -87,7 +87,7 @@
                                     <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
                                 </div>
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-primary my-4">Sign in</button>
+                                    <button type="submit" class="btn btn-primary my-4">Sign In</button>
                                 </div>
                             </form>
                         </div>

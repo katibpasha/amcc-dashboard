@@ -58,7 +58,7 @@
             </div>
         </div>
         <?php foreach ($pie as $key => $item) : ?>
-            <div class="col-xl-3">
+            <div class="col-xl-6 col-xxl-3">
                 <div class="card bg-default">
                     <div class="card-header bg-transparent">
                         <div class="row align-items-center">

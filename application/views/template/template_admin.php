@@ -187,11 +187,6 @@
                                 </div>
                             </div>
                         </li>
-                        <li class="nav-item d-sm-none">
-                            <a class="nav-link" href="#" data-action="search-show" data-target="#navbar-search-main">
-                                <i class="ni ni-zoom-split-in"></i>
-                            </a>
-                        </li>
                     </ul>
                     <ul class="navbar-nav align-items-center  ml-auto ml-md-0 ">
                         <li class="nav-item dropdown">
@@ -292,10 +287,10 @@
                 var email = $(this).data('email');
                 var phone = $(this).data('phone');
 
-                $('#nimPengurus').val(nim);
-                $('#namaPengurus').val(nama);
-                $('#emailPengurus').val(email);
-                $('#phonePengurus').val(phone);
+                $('#nim-field').val(nim);
+                $('#name-field').val(nama);
+                $('#email-field').val(email);
+                $('#phone-field').val(phone);
 
             });
         });
@@ -324,6 +319,14 @@
             $(document).on('click', '#btnHapusMateri', function() {
                 var id = $(this).data('id');
                 $('#btnMateriHapus').attr('href', '<?= site_url() ?>/Dashboard/hapus_materi/' + id);
+            });
+            $(document).on('click', '#btn-promote', function() {
+                var nim = $(this).data('nim');
+                $('#btn-promote-admin').attr('href', '<?= site_url() ?>/Dashboard/promote_admin/' + nim);
+            });
+            $(document).on('click', '#btn-demote', function() {
+                var nim = $(this).data('nim');
+                $('#btn-demote-admin').attr('href', '<?= site_url() ?>/Dashboard/demote_member/' + nim);
             });
         });
     </script>

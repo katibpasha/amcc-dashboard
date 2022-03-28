@@ -57,7 +57,7 @@
                                     <th scope="col">Divisi</th>
                                     <th scope="col">Pembuat</th>
                                     <th scope="col">Dibuat Pada</th>
-                                    <th scope="col">Diperbaharui Pada</th>
+                                     <th scope="col">Diperbaharui Pada</th>
                                     <th scope="col" style="text-align: center;">Aksi</th>
                                 </tr>
                             </thead>
@@ -270,7 +270,7 @@
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h6 class="modal-title" id="modal-title-default">Hapus Data Pengurus</h6>
+                    <h6 class="modal-title" id="modal-title-default">Hapus Modul/Rekaman</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>

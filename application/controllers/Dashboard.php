@@ -177,7 +177,7 @@ class Dashboard extends CI_Controller
         }
     }
 
-    public function user_edit()
+    public function user_edit($role)
     {
         $this->form_validation->set_rules('pass1', 'pass1', 'matches[pass2]|min_length[5]', [
             "min_length" => 'Panjang minimal password 5 karakter',
@@ -196,7 +196,7 @@ class Dashboard extends CI_Controller
             } else if ($error2) {
                 $this->session->set_flashdata('flash-gagal', substr($error2, 3, 35));
             }
-            redirect('pengurus');
+            redirect($role);
         } else {
             $nim = $this->input->post('nim', true);
             $nama = $this->input->post('nama', true);
@@ -215,8 +215,8 @@ class Dashboard extends CI_Controller
             $this->db->set($data_update);
             $this->db->where('nim', $nim);
             $this->db->update('tbl_user');
-            $this->session->set_flashdata('flash', 'Data pengurus berhasil diubah');
-            redirect('pengurus');
+            $this->session->set_flashdata('flash', "Data $role berhasil diubah");
+            redirect($role);
         }
     }
 
@@ -226,6 +226,28 @@ class Dashboard extends CI_Controller
         $this->db->delete('tbl_user');
         $this->session->set_flashdata('flash', 'Data berhasil di hapus');
         redirect('pengurus');
+    }
+
+    public function promote_admin($nim)
+    {
+        $data = array(
+            'role_user' => 'A',
+        );
+        $this->db->where('nim', $nim);
+        $this->db->update('tbl_user', $data);
+        $this->session->set_flashdata('flash', 'Berhasil Promote to Admin');
+        redirect('member');
+    }
+
+    public function demote_member($nim)
+    {
+        $data = array(
+            'role_user' => 'B',
+        );
+        $this->db->where('nim', $nim);
+        $this->db->update('tbl_user', $data);
+        $this->session->set_flashdata('flash', 'Berhasil Demote to Member');
+        redirect('member');
     }
 
     public function member_action()

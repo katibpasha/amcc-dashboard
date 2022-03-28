@@ -91,7 +91,7 @@
                                             <?= date('d-m-Y', strtotime($item->mdd)) ?>
                                         </td>
                                         <td class="d-flex justify-content-center">
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-pengurus" id="editBtn" data-name="<?= $item->name ?>" data-email="<?= $item->email ?>" data-phone="<?= $item->phone ?>" data-nim="<?= $item->nim ?>">Edit</button>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-pengurus" id="editBtn" data-name="<?= $item->name ?>" data-email="<?= $item->email ?>" data-phone="<?= $item->phone ?>" data-nim="<?= $item->nim ?>" data-role="pengurus">Edit</button>
                                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-pengurus" id="hapusBtn" data-nim="<?= $item->nim ?>">Hapus</button>
                                         </td>
                                     </tr>
@@ -199,13 +199,13 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form role="form" action="<?= site_url('Dashboard/user_edit') ?>" method="POST">
+                    <form role="form" action="<?= site_url('Dashboard/user_edit/pengurus') ?>" method="POST">
                         <div class="form-group mb-3">
                             <div class="input-group input-group-merge input-group-alternative">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fab fa-glide-g"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="NIM" type="text" id="nimPengurus" name="nim" readonly>
+                                <input class="form-control" placeholder="NIM" type="text" id="nim-field" name="nim" readonly>
                             </div>
                         </div>
                         <div class="form-group mb-3">
@@ -213,7 +213,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Nama Pengurus" type="text" id="namaPengurus" name="nama">
+                                <input class="form-control" placeholder="Nama Pengurus" type="text" id="name-field" name="nama">
                             </div>
                         </div>
                         <div class="form-group mb-3">
@@ -221,7 +221,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Email" type="email" id="emailPengurus" name="email">
+                                <input class="form-control" placeholder="Email" type="email" id="email-field" name="email">
                             </div>
                         </div>
                         <div class="form-group mb-3">
@@ -229,7 +229,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Nomor HP" type="number" id="phonePengurus" name="phone">
+                                <input class="form-control" placeholder="Nomor HP" type="number" id="phone-field" name="phone">
                             </div>
                         </div>
                         <div class="form-group mb-3">
@@ -253,9 +253,6 @@
                         </div>
                     </form>
                 </div>
-
-
-
             </div>
         </div>
     </div>

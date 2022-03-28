@@ -48,9 +48,9 @@
 
                                     <td class="d-flex justify-content-center">
                                         <?php if ($item->status == 'off') { ?>
-                                            <a href="<?= site_url('Dashboard/turn_action/' . 'on' . '/' . $item->event_id) ?>" class="btn btn-danger px-5" title="Click untuk mengaktifkan presensi">OFF</a>
+                                            <a href="<?= site_url('Dashboard/turn_action/' . 'on' . '/' . $item->event_id) ?>" class="btn btn-success px-5" title="Click untuk mengaktifkan presensi">Turn On</a>
                                         <?php } else { ?>
-                                            <a href="<?= site_url('Dashboard/turn_action/' . 'off' . '/' . $item->event_id) ?>" class="btn btn-success px-5" title="Click untuk menonaktifkan presensi">ON</a>
+                                            <a href="<?= site_url('Dashboard/turn_action/' . 'off' . '/' . $item->event_id) ?>" class="btn btn-danger px-5" title="Click untuk menonaktifkan presensi">Turn Off</a>
                                         <?php } ?>
 
                                     </td>

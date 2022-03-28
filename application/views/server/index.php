@@ -4,7 +4,7 @@
         <div class="header-body">
             <!-- Card stats -->
             <div class="row">
-                <div class="col-xl-3 col-md-6">
+                <div class="col-xl-4 col-md-6">
                     <div class="card card-stats">
                         <!-- Card body -->
                         <div class="card-body py-4">
@@ -22,7 +22,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-md-6">
+                <div class="col-xl-4 col-md-6">
                     <div class="card card-stats">
                         <!-- Card body -->
                         <div class="card-body py-4">
@@ -46,7 +46,7 @@
                         <div class="card-body py-4">
                             <div class="row">
                                 <div class="col">
-                                    <h5 class="card-title text-uppercase text-muted mb-0">Jumlah Member Tahun <script>
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Jumlah Member <script>
                                             document.write(`${new Date().getFullYear()-1} / ${new Date().getFullYear()}`)
                                         </script>
                                     </h5>
@@ -82,7 +82,7 @@
                 <div class="card bg-default">
                     <div class="card-header bg-transparent">
                         <div class="row align-items-center">
-                            <div class="col">
+                            <div class="col-12 col-lg">
                                 <h6 class="text-light text-uppercase ls-1 mb-1">Visualisasi Data Member</h6>
                                 <h5 class="h3 text-white mb-0">
                                     <?php switch ($key) {
@@ -110,9 +110,9 @@
                                     ?>
                                 </h5>
                             </div>
-                            <div class="col">
-                                <ul class="nav nav-pills justify-content-end">
-                                    <li class="nav-item">
+                            <div class="col-12 col-lg-4 py-3">
+                                <ul class="nav nav-pills justify-content-lg-end">
+                                    <li class="nav-item text-center w-100">
                                         <a href="<?= site_url('dashboard/chart/' . $id) ?>" class="nav-link py-2 px-3">
                                             <span class="d-none d-md-block">Lihat Detail</span>
                                             <span class="d-lg-none d-md-block">Detail</span>
