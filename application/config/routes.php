@@ -64,23 +64,23 @@ $route['events/edit'] = 'Dashboard/events_edit';
 
 // routes for member
 $route['member'] = 'Dashboard/member';
-$route['member/add'] = 'Dashboard/member_action';
+$route['member/add'] = 'Dashboard/add_member';
 
 // routes for material
-$route['materi/add'] = 'Dashboard/material_action';
-$route['materi/delete/(:any)'] = 'Dashboard/hapus_materi/$1';
-$route['materi/edit'] = 'Dashboard/materi_edit';
+$route['materi/add'] = 'Dashboard/add_material';
+$route['materi/delete/(:any)'] = 'Dashboard/delete_material/$1';
+$route['materi/edit'] = 'Dashboard/edit_material';
 
 // routes for pengurus
 $route['pengurus'] = 'Dashboard/pengurus';
-$route['pengurus/add'] = 'Dashboard/pengurus_action';
-$route['pengurus/delete/(:any)'] = 'Dashboard/hapus_pengurus/$1';
+$route['pengurus/add'] = 'Dashboard/add_pengurus';
+$route['pengurus/delete/(:any)'] = 'Dashboard/delete_pengurus/$1';
 $route['pengurus/profiling'] = 'Dashboard/profiling';
 $route['pengurus/assesment/(:any)'] = 'Dashboard/get_assesment/$1';
 $route['pengurus/portofolio/(:any)'] = 'Dashboard/get_portofolio/$1';
 
 // routes for user action
-$route['user/edit/(:any)'] = 'Dashboard/user_edit/$1';
+$route['user/edit/(:any)'] = 'Dashboard/edit_user/$1';
 $route['user/promote/(:any)'] = 'Dashboard/promote_admin/$1';
 $route['user/demote/(:any)'] = 'Dashboard/demote_member/$1';
 

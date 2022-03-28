@@ -7,17 +7,23 @@ class Dashboard extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Madmin');
-        $this->load->model('Mmember');
+        $this->load->model('Admin_model');
+        $this->load->model('Member_model');
         if (!$this->session->logged_in) {
             redirect('Login');
         }
 
+        // check user role
         if ($this->session->userdata('role_user') != 'A' && $this->session->logged_in) {
             redirect('dashboard/member');
         }
     }
 
+    /*
+    *   Dashboard Data related action
+    *   - index: get all member and division data, and display it
+    *   - chart_details: get division progress (presence, survey pelatihan)
+    */
     public function index()
     {
         $data['title'] = 'Dashboard';
@@ -25,23 +31,103 @@ class Dashboard extends CI_Controller
         $data['data_member_year'] = $this->db->get_where('tbl_user', array('role_user' => 'B', 'year' => date('Y', strtotime("-1 Year", strtotime(date('Y'))))))->num_rows();
         $data['jmlh_devisi'] = $this->db->get('tbl_division')->num_rows();
         $data['presensi'] = [
-            "web" => $this->Madmin->dashboard_graph(1),
-            "desktop" => $this->Madmin->dashboard_graph(2),
-            "mobile" => $this->Madmin->dashboard_graph(3),
-            "network" => $this->Madmin->dashboard_graph(4),
-            "hs" => $this->Madmin->dashboard_graph(5),
+            "web" => $this->Admin_model->dashboard_graph(1),
+            "desktop" => $this->Admin_model->dashboard_graph(2),
+            "mobile" => $this->Admin_model->dashboard_graph(3),
+            "network" => $this->Admin_model->dashboard_graph(4),
+            "hs" => $this->Admin_model->dashboard_graph(5),
         ];
         $this->template->load('template/template_admin', 'server/index', $data);
     }
 
+    public function chart_details($division_id)
+    {
+        $data['data_member'] = $this->db->get_where('tbl_user', array('role_user' => 'B', 'division_id' => $division_id, 'year' => date('Y', strtotime("-1 Year", strtotime(date('Y'))))))->num_rows();
+        $data['divisi'] = $this->db->get_where('tbl_event', array('event_id' => $division_id))->row_object();
+        $data['surpel'] = $this->Admin_model->surpel_get($division_id);
+        $data['presensi'] = $this->Admin_model->dashboard_graph($division_id);
+        $data['data_member_year'] = $this->db->get_where('tbl_user', array('role_user' => 'B', 'year' => date('Y', strtotime("-1 Year", strtotime(date('Y'))))))->num_rows();
+        $data['jmlh_devisi'] = $this->db->get('tbl_division')->num_rows();
+        $data['title'] = 'Chart Details';
+        $data['pie'] = [
+            "materi" => $this->Admin_model->materi_graph('understanding', $division_id),
+            "penyampaian" => $this->Admin_model->materi_graph('effectivity', $division_id),
+            "kelas" => $this->Admin_model->materi_graph('interactive', $division_id),
+            "jawaban" => $this->Admin_model->materi_graph('answer_satisfy', $division_id)
+        ];
+        $this->template->load('template/template_admin', 'server/chart-details', $data);
+    }
+
+    /*
+    *   Member Data related action
+    *   - member: get all member data, and display it
+    *   - add_member: function untuk menambahkan member ke database satu persatu
+    */
     public function member()
     {
         $data['title'] = 'Member';
         $data['division'] = $this->db->get('tbl_division')->result();
-        $data['member'] =  $this->Mmember->member();
+        $data['member'] =  $this->Member_model->member();
         $this->template->load('template/template_admin', 'server/member', $data);
     }
 
+    public function add_member()
+    {
+
+        // validate, ensure that password and the password confirmation is matches
+        $this->form_validation->set_rules('pass1', 'pass1', 'matches[pass2]', [
+            'matches' => 'Password tidak sama'
+        ]);
+        $this->form_validation->set_rules('pass2', 'pass2', 'matches[pass1]', [
+            'matches' => 'Password tidak sama'
+        ]);
+
+        // validate that NIM is unique (not exist in DB)
+        $this->form_validation->set_rules('nim', 'nim', 'is_unique[tbl_user.nim]', [
+            'is_unique' => 'NIM sudah digunakan'
+        ]);
+
+        if ($this->form_validation->run() == false) {
+            $data['title'] = 'Member';
+            $data['division'] = $this->db->get('tbl_division')->result();
+            $data['member'] =  $this->Member_model->member();
+            $this->template->load('template/template_admin', 'server/member', $data);
+        } else {
+            $nama = $this->input->post('nama');
+            $nim = $this->input->post('nim');
+            $email = $this->input->post('email');
+            $pass = $this->input->post('pass1');
+            $divisi = $this->input->post('divisi');
+            $tahun = $this->input->post('tahun');
+
+            $data_insert = array(
+                "nim" => $nim,
+                "role_user" => "B",
+                "name" => $nama,
+                "email" => $email,
+                "division_id" => $divisi,
+                "year" => $tahun,
+                "pass" => md5($pass),
+            );
+
+            $insert = $this->db->insert('tbl_user', $data_insert);
+
+            if ($insert) {
+                $this->session->set_flashdata('flash', 'data member berhasil di tambahkan');
+                redirect('member');
+            } else {
+                $this->session->set_flashdata('flash-gagal', 'data member gagal di tambahkan');
+                redirect('member');
+            }
+        }
+    }
+
+    /*
+    *   Events Data related action
+    *   - events: get all events data and display it
+    *   - events_edit: function untuk mengedit data event
+    *   - turn_action: fucntion untuk update state event (ON/OFF)
+    */
     public function events()
     {
         $data['data_member_all'] = $this->db->get_where('tbl_user', array('role_user' => 'B'))->num_rows();
@@ -54,8 +140,6 @@ class Dashboard extends CI_Controller
 
     public function events_edit()
     {
-
-        
         $start = $this->input->post('event-start', true);
         $end = $this->input->post('event-end', true);
 
@@ -63,20 +147,17 @@ class Dashboard extends CI_Controller
         $error_message = '';
 
 
-        if($start >= $end) {
+        if ($start >= $end) {
             $error = true;
-            $error_message = 'Event Start tidak boleh sama/lebih dari Event End';
-        } 
-        
-        if($end <= $start) {
+            $error_message = 'Jam Mulai tidak boleh sama/lebih dari Jam Akhir';
+        }
+
+        if ($end <= $start) {
             $error = true;
-            $error_message = 'Event End tidak boleh sama/lebih dari Event Start';
+            $error_message = 'Jam Akhir tidak boleh sama/kurang dari Jam Mulai';
         }
 
         if ($error) {
-            $error1 = form_error('event-start');
-            $error2 = form_error('event-end');
-
             $this->session->set_flashdata('flash-gagal', $error_message);
             redirect('events');
         } else {
@@ -99,24 +180,30 @@ class Dashboard extends CI_Controller
         }
     }
 
-    public function chart_details($division_id)
+    public function turn_action($param, $param2)
     {
-        $data['data_member'] = $this->db->get_where('tbl_user', array('role_user' => 'B', 'division_id' => $division_id, 'year' => date('Y', strtotime("-1 Year", strtotime(date('Y'))))))->num_rows();
-        $data['divisi'] = $this->db->get_where('tbl_event', array('event_id' => $division_id))->row_object();
-        $data['surpel'] = $this->Madmin->surpel_get($division_id);
-        $data['presensi'] = $this->Madmin->dashboard_graph($division_id);
-        $data['data_member_year'] = $this->db->get_where('tbl_user', array('role_user' => 'B', 'year' => date('Y', strtotime("-1 Year", strtotime(date('Y'))))))->num_rows();
-        $data['jmlh_devisi'] = $this->db->get('tbl_division')->num_rows();
-        $data['title'] = 'Chart Details';
-        $data['pie'] = [
-            "materi" => $this->Madmin->materi_graph('understanding', $division_id),
-            "penyampaian" => $this->Madmin->materi_graph('effectivity', $division_id),
-            "kelas" => $this->Madmin->materi_graph('interactive', $division_id),
-            "jawaban" => $this->Madmin->materi_graph('answer_satisfy', $division_id)
-        ];
-        $this->template->load('template/template_admin', 'server/chart-details', $data);
+        if ($param == 'on') {
+            $this->db->set('status', 'on');
+            $this->db->where('event_id', $param2);
+            $this->db->update('tbl_event');
+            redirect('events');
+        } else {
+            $this->db->set('status', 'off');
+            $this->db->where('event_id', $param2);
+            $this->db->update('tbl_event');
+            redirect('events');
+        }
     }
 
+    /*
+    *   Pengurus Data related action
+    *   - pengurus: get all pengurus data and display it
+    *   - add_pengurus: function untuk add data pengurus ke database
+    *   - delete_pengurus: function untuk menghapus data pengurus
+    *   - profiling: get all pengurus profile and display it
+    *   - get_assesment: get data assesment by user id
+    *   - get_portofolio: get data portofolio by user id
+    */
     public function pengurus()
     {
         $data['title'] = 'Pengurus';
@@ -125,43 +212,7 @@ class Dashboard extends CI_Controller
         $this->template->load('template/template_admin', 'server/pengurus', $data);
     }
 
-    public function material()
-    {
-        $data['title'] = 'Material';
-        $data['devisi'] = $this->db->get('tbl_division')->result();
-        $data['modul_pelatihan'] = $this->Madmin->tampil_material('MODUL');
-        $data['modul_rekaman'] = $this->Madmin->tampil_material('RECORD');
-        $this->template->load('template/template_admin', 'server/materi', $data);
-    }
-
-    public function material_action()
-    {
-        $judul = $this->input->post('judul', true);
-        $training = $this->input->post('training', true);
-        $divisi = $this->input->post('divisi', true);
-        $kategori = $this->input->post('kategori', true);
-        $kategori = $this->input->post('kategori', true);
-        $link = $this->input->post('link', true);
-
-        $data_insert = array(
-            "name" => $judul,
-            "division_id" => $divisi,
-            "category" => $kategori,
-            "training_to" => $training,
-            "link" => $link,
-            "users_id" => $this->session->userdata('nim')
-        );
-        $insert = $this->db->insert('tbl_material', $data_insert);
-        if ($insert) {
-            $this->session->set_flashdata('flash', 'Data materi berhasil ditambahkan');
-            redirect('materi');
-        } else {
-            $this->session->set_flashdata('flash-gagal', 'Data materi gagal ditambahkan');
-            redirect('materi');
-        }
-    }
-
-    public function pengurus_action()
+    public function add_pengurus()
     {
         $this->form_validation->set_rules('pass1', 'pass1', 'matches[pass2]', [
             'matches' => 'Password tidak sama'
@@ -209,23 +260,124 @@ class Dashboard extends CI_Controller
         }
     }
 
-    public function turn_action($param, $param2)
+    public function delete_pengurus($nim)
     {
-        if ($param == 'on') {
-            $this->db->set('status', 'on');
-            $this->db->where('event_id', $param2);
-            $this->db->update('tbl_event');
-            redirect('events');
+        $this->db->where('nim', $nim);
+        $this->db->delete('tbl_user');
+        $this->session->set_flashdata('flash', 'Data berhasil di hapus');
+        redirect('pengurus');
+    }
+
+    public function profiling()
+    {
+        $data['title'] = 'Profiling Skill';
+        $data['pengurus_card'] = $this->Admin_model->pengurus_card();
+        $this->template->load('template/template_admin', 'server/profiling', $data);
+    }
+
+    public function get_assesment($id)
+    {
+        $data = $this->Admin_model->pengurus_assesment($id);
+        echo json_encode($data);
+    }
+
+    public function get_portfolio($id)
+    {
+        $data = $this->Admin_model->pengurus_portfolio($id);
+        echo json_encode($data);
+    }
+
+    /*
+    *   Material Data related action
+    *   - material: get all material data and display it
+    *   - add_material: function untuk add data materi ke database
+    *   - edit_material: function untuk update data materi
+    *   - delete_material: function untuk menghapus data materi
+    */
+    public function material()
+    {
+        $data['title'] = 'Material';
+        $data['devisi'] = $this->db->get('tbl_division')->result();
+        $data['modul_pelatihan'] = $this->Admin_model->tampil_material('MODUL');
+        $data['modul_rekaman'] = $this->Admin_model->tampil_material('RECORD');
+        $this->template->load('template/template_admin', 'server/materi', $data);
+    }
+
+    public function add_material()
+    {
+        $judul = $this->input->post('judul', true);
+        $training = $this->input->post('training', true);
+        $divisi = $this->input->post('divisi', true);
+        $kategori = $this->input->post('kategori', true);
+        $kategori = $this->input->post('kategori', true);
+        $link = $this->input->post('link', true);
+
+        $data_insert = array(
+            "name" => $judul,
+            "division_id" => $divisi,
+            "category" => $kategori,
+            "training_to" => $training,
+            "link" => $link,
+            "users_id" => $this->session->userdata('nim')
+        );
+        $insert = $this->db->insert('tbl_material', $data_insert);
+        if ($insert) {
+            $this->session->set_flashdata('flash', 'Data materi berhasil ditambahkan');
+            redirect('materi');
         } else {
-            $this->db->set('status', 'off');
-            $this->db->where('event_id', $param2);
-            $this->db->update('tbl_event');
-            redirect('events');
+            $this->session->set_flashdata('flash-gagal', 'Data materi gagal ditambahkan');
+            redirect('materi');
         }
     }
 
-    public function user_edit($role)
+    public function edit_material()
     {
+        $id = $this->input->post('id');
+        $judul = $this->input->post('judul');
+        $link = $this->input->post('link');
+
+        $data_update = array(
+            'name' => $judul,
+            'link' => $link
+        );
+
+        $update = $this->db->set($data_update)
+            ->where('id', $id)
+            ->update('tbl_material');
+
+        if ($update) {
+            $this->session->set_flashdata('flash', 'data materi berhasil di edit');
+            redirect('materi');
+        } else {
+            $this->session->set_flashdata('flash-gagal', 'data materi gagal di edit');
+            redirect('materi');
+        }
+    }
+
+    public function delete_material($id)
+    {
+        $hapus = $this->db->where('id', $id)
+            ->delete('tbl_material');
+
+        if ($hapus) {
+            $this->session->set_flashdata('flash', 'data materi berhasil di hapus');
+            redirect('materi');
+        } else {
+            $this->session->set_flashdata('flash-gagal', 'data materi gagal di hapus');
+            redirect('materi');
+        }
+    }
+
+    /*
+    *   User Data related action
+    *   - edit_user: functin untuk mengedit data user (pengurus/member)
+    *   - promote_admin: mengubah role user (member) menjadi admin (pengurus)
+    *   - demote_member: mengubah role user (pengurus) menjadi member 
+    */
+    public function edit_user($role)
+    {
+
+        // validate password, ensure that password matches with password confirmation and length >= 5
         $this->form_validation->set_rules('pass1', 'pass1', 'matches[pass2]|min_length[5]', [
             "min_length" => 'Panjang minimal password 5 karakter',
             "matches" => 'Password yang kamu inputkan berbeda'
@@ -267,14 +419,6 @@ class Dashboard extends CI_Controller
         }
     }
 
-    public function hapus_pengurus($nim)
-    {
-        $this->db->where('nim', $nim);
-        $this->db->delete('tbl_user');
-        $this->session->set_flashdata('flash', 'Data berhasil di hapus');
-        redirect('pengurus');
-    }
-
     public function promote_admin($nim)
     {
         $data = array(
@@ -295,110 +439,5 @@ class Dashboard extends CI_Controller
         $this->db->update('tbl_user', $data);
         $this->session->set_flashdata('flash', 'Berhasil Demote to Member');
         redirect('member');
-    }
-
-    public function member_action()
-    {
-
-        $this->form_validation->set_rules('pass1', 'pass1', 'matches[pass2]', [
-            'matches' => 'Password tidak sama'
-        ]);
-        $this->form_validation->set_rules('pass2', 'pass2', 'matches[pass1]', [
-            'matches' => 'Password tidak sama'
-        ]);
-        $this->form_validation->set_rules('nim', 'nim', 'is_unique[tbl_user.nim]', [
-            'is_unique' => 'NIM sudah digunakan'
-        ]);
-
-        if ($this->form_validation->run() == false) {
-            $data['title'] = 'Member';
-            $data['division'] = $this->db->get('tbl_division')->result();
-            $data['member'] =  $this->Mmember->member();
-            $this->template->load('template/template_admin', 'server/member', $data);
-        } else {
-            $nama = $this->input->post('nama');
-            $nim = $this->input->post('nim');
-            $email = $this->input->post('email');
-            $pass = $this->input->post('pass1');
-            $divisi = $this->input->post('divisi');
-            $tahun = $this->input->post('tahun');
-
-            $data_insert = array(
-                "nim" => $nim,
-                "role_user" => "B",
-                "name" => $nama,
-                "email" => $email,
-                "division_id" => $divisi,
-                "year" => $tahun,
-                "pass" => md5($pass),
-            );
-
-            $insert = $this->db->insert('tbl_user', $data_insert);
-
-            if ($insert) {
-                $this->session->set_flashdata('flash', 'data member berhasil di tambahkan');
-                redirect('member');
-            } else {
-                $this->session->set_flashdata('flash-gagal', 'data member gagal di tambahkan');
-                redirect('member');
-            }
-        }
-    }
-
-    public function materi_edit()
-    {
-        $id = $this->input->post('id');
-        $judul = $this->input->post('judul');
-        $link = $this->input->post('link');
-
-        $data_update = array(
-            'name' => $judul,
-            'link' => $link
-        );
-
-        $update = $this->db->set($data_update)
-            ->where('id', $id)
-            ->update('tbl_material');
-
-        if ($update) {
-            $this->session->set_flashdata('flash', 'data materi berhasil di edit');
-            redirect('materi');
-        } else {
-            $this->session->set_flashdata('flash-gagal', 'data materi gagal di edit');
-            redirect('materi');
-        }
-    }
-
-    public function hapus_materi($id)
-    {
-        $hapus = $this->db->where('id', $id)
-            ->delete('tbl_material');
-
-        if ($hapus) {
-            $this->session->set_flashdata('flash', 'data materi berhasil di hapus');
-            redirect('materi');
-        } else {
-            $this->session->set_flashdata('flash-gagal', 'data materi gagal di hapus');
-            redirect('materi');
-        }
-    }
-
-    public function profiling()
-    {
-        $data['title'] = 'Profiling Skill';
-        $data['pengurus_card'] = $this->Madmin->pengurus_card();
-        $this->template->load('template/template_admin', 'server/profiling', $data);
-    }
-
-    public function get_assesment($id)
-    {
-        $data = $this->Madmin->pengurus_assesment($id);
-        echo json_encode($data);
-    }
-
-    public function get_portfolio($id)
-    {
-        $data = $this->Madmin->pengurus_portfolio($id);
-        echo json_encode($data);
     }
 }

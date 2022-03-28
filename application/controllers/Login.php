@@ -7,7 +7,7 @@ class Login extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model('M_login');
+        $this->load->model('Login_model');
     }
 
     public function index()
@@ -16,7 +16,7 @@ class Login extends CI_Controller
             redirect('dashboard');
         }
         $data['title'] = 'AMCC PRESENCE APP LOGIN';
-        $this->load->view('form_login', $data);
+        $this->load->view('forLogin_model', $data);
     }
 
     public function login_action()
@@ -24,10 +24,10 @@ class Login extends CI_Controller
         $email = $this->input->post('email', true);
         $pass =  md5($this->input->post('password', true));
 
-        $cek = $this->M_login->cek_login($email);
+        $cek = $this->Login_model->cek_login($email);
         if ($cek) {
             if ($pass == $cek['pass']) {
-                $cek_devision = $this->M_login->get_division($email);
+                $cek_devision = $this->Login_model->get_division($email);
                 $userdata = array(
                     'nim' => $cek['nim'],
                     'name' => $cek['name'],

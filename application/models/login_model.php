@@ -1,6 +1,6 @@
 <?php
 
-class M_login extends CI_Model
+class Login_model extends CI_Model
 {
 
     public function cek_login($e)

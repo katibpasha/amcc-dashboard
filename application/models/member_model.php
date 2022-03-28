@@ -1,6 +1,6 @@
 <?php
 
-class Mmember extends CI_Model
+class Member_model extends CI_Model
 {
 
     public function tampil_material($string, $str2)

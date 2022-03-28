@@ -9,8 +9,8 @@ class Member extends CI_Controller
     {
         parent::__construct();
         date_default_timezone_set('Asia/Jakarta');
-        $this->load->model('Mmember');
-        $this->load->model('M_login');
+        $this->load->model('Member_model');
+        $this->load->model('Login_model');
         if (!$this->session->logged_in) {
             redirect('Login');
         }
@@ -23,7 +23,7 @@ class Member extends CI_Controller
     private function convertDevisi()
     {
         $email = $this->session->userdata('email');
-        $nama_devisi = $this->M_login->get_division($email);
+        $nama_devisi = $this->Login_model->get_division($email);
         $divisi_name = $this->session->userdata('division_name');
 
         if ($divisi_name == $nama_devisi['division_name']) {
@@ -49,9 +49,9 @@ class Member extends CI_Controller
     {
         $division = $this->session->userdata("division_name");
         $data['title'] = 'Dashboard Member';
-        $data['modul_pelatihan'] = $this->Mmember->tampil_material('MODUL', $division);
-        $data['modul_rekaman'] = $this->Mmember->tampil_material('RECORD', $division);
-        $data['presensi'] = $this->Mmember->cek_eventStatus("Pelatihan" . " " . $this->session->userdata('division_name'));
+        $data['modul_pelatihan'] = $this->Member_model->tampil_material('MODUL', $division);
+        $data['modul_rekaman'] = $this->Member_model->tampil_material('RECORD', $division);
+        $data['presensi'] = $this->Member_model->cek_eventStatus("Pelatihan" . " " . $this->session->userdata('division_name'));
         $data['jmh_presensi'] = $this->db->get_where('tbl_presence', array('nim' => $this->session->userdata('nim')))->num_rows();
         $this->template->load('template/template_member', 'client/index', $data);
     }
@@ -60,8 +60,8 @@ class Member extends CI_Controller
     {
         // Ada masalah di bagian tampil nama divisi
         $data['title'] = 'Member Presensi';
-        $data['riwayat_presensi'] = $this->Mmember->riwayat_presensi($this->session->userdata('nim'));
-        $data['presensi'] = $this->Mmember->cek_eventStatus("Pelatihan" . " " . $this->session->userdata('division_name'));
+        $data['riwayat_presensi'] = $this->Member_model->riwayat_presensi($this->session->userdata('nim'));
+        $data['presensi'] = $this->Member_model->cek_eventStatus("Pelatihan" . " " . $this->session->userdata('division_name'));
         $this->template->load('template/template_member', 'client/presensi', $data);
     }
 
