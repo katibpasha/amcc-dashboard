@@ -6,7 +6,7 @@
             <!-- Card stats -->
             <h6 class="h2 text-white d-inline-block mb-4">Modul dan Rekaman Pelatihan</h6>
             <div class="row">
-                <div class="px-2 mb-4">
+                <div class="px-3 mb-4">
                     <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-add-material">
                         <span class="btn-inner--icon"><i class="ni ni-fat-add"></i></span>
                         <span class="btn-inner--text">Tambah Materi</span>
@@ -166,7 +166,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <form role="form" action="<?= site_url('Dashboard/material_action') ?>" method="POST">
+                    <form role="form" action="<?= site_url('materi/add') ?>" method="POST">
                         <div class="form-group mb-3">
                             <div class="input-group input-group-merge input-group-alternative">
                                 <div class="input-group-prepend">
@@ -236,7 +236,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form role="form" action="<?= site_url('Dashboard/materi_edit') ?>" method="POST">
+                    <form role="form" action="<?= site_url('materi/edit') ?>" method="POST">
                         <div class="form-group mb-3">
                             <div class="input-group input-group-merge input-group-alternative">
                                 <div class="input-group-prepend">

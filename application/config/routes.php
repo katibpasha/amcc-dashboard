@@ -53,13 +53,36 @@ $route['default_controller'] = 'Login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-// Dashboard Pengurus
+// main Dashboard Pengurus routes
 $route['dashboard/pengurus'] = 'Dashboard';
 $route['events'] = 'Dashboard/events';
 $route['materi'] = 'Dashboard/material';
+
+// routes for member
 $route['member'] = 'Dashboard/member';
+$route['member/add'] = 'Dashboard/member_action';
+
+// routes for material
+$route['materi/add'] = 'Dashboard/material_action';
+$route['materi/delete/(:any)'] = 'Dashboard/hapus_materi/$1';
+$route['materi/edit'] = 'Dashboard/materi_edit';
+
+// routes for pengurus
 $route['pengurus'] = 'Dashboard/pengurus';
+$route['pengurus/add'] = 'Dashboard/pengurus_action';
+$route['pengurus/delete/(:any)'] = 'Dashboard/hapus_pengurus/$1';
 $route['pengurus/profiling'] = 'Dashboard/profiling';
+$route['pengurus/assesment/(:any)'] = 'Dashboard/get_assesment/$1';
+$route['pengurus/portofolio/(:any)'] = 'Dashboard/get_portofolio/$1';
+
+// routes for user action
+$route['user/edit/(:any)'] = 'Dashboard/user_edit/$1';
+$route['user/promote/(:any)'] = 'Dashboard/promote_admin/$1';
+$route['user/demote/(:any)'] = 'Dashboard/demote_member/$1';
+
+
+// routes for chart
+$route['dashboard/chart/(:num)'] = 'Dashboard/chart_details/$1';
 $route['dashboard/chart/(:num)'] = 'Dashboard/chart_details/$1';
 
 // Dashboard member

@@ -11,6 +11,12 @@
             <!-- Card stats -->
             <h6 class="h2 text-white d-inline-block mb-4">Assessment Keahlian Pengurus AMCC</h6>
             <div class="row">
+                <div class="px-3 mb-4">
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-add-member">
+                        <span class="btn-inner--icon"><i class="ni ni-fat-add"></i></span>
+                        <span class="btn-inner--text">Tambah Profiling</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -132,7 +138,7 @@
                 function load_content() {
                     $.ajax({
                         type: 'POST',
-                        url: "<?= site_url() . '/Dashboard/get_assesment/' ?>" + nim,
+                        url: "<?= site_url() . '/pengurus/assesment/' ?>" + nim,
                         dataType: 'json',
                         success: function(data) {
                             let myTable = ''
@@ -151,7 +157,7 @@
                     })
                     $.ajax({
                         type: 'POST',
-                        url: "<?= site_url() . '/Dashboard/get_portfolio/' ?>" + nim,
+                        url: "<?= site_url() . '/pengurus/portfolio/' ?>" + nim,
                         dataType: 'json',
                         success: function(data) {
 

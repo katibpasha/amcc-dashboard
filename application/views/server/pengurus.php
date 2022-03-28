@@ -4,7 +4,7 @@
             <!-- Card stats -->
             <h6 class="h2 text-white d-inline-block mb-4">Pengurus AMCC</h6>
             <div class="row">
-                <div class="px-2 mb-4">
+                <div class="px-3 mb-4">
                     <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-add-pengurus">
                         <span class="btn-inner--icon"><i class="ni ni-fat-add"></i></span>
                         <span class="btn-inner--text">Tambah Pengurus Baru</span>
@@ -119,7 +119,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <form role="form" action="<?= site_url('Dashboard/pengurus_action') ?>" method="POST">
+                    <form role="form" action="<?= site_url('pengurus/add') ?>" method="POST">
                         <div class="form-group mb-3">
                             <div class="input-group input-group-merge input-group-alternative">
                                 <div class="input-group-prepend">
@@ -199,7 +199,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form role="form" action="<?= site_url('Dashboard/user_edit/pengurus') ?>" method="POST">
+                    <form role="form" action="<?= site_url('user/edit/pengurus') ?>" method="POST">
                         <div class="form-group mb-3">
                             <div class="input-group input-group-merge input-group-alternative">
                                 <div class="input-group-prepend">

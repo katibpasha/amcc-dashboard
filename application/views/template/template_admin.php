@@ -298,7 +298,7 @@
         $(document).ready(function() {
             $(document).on('click', '#hapusBtn', function() {
                 var nim = $(this).data('nim');
-                $('#btnHapus').attr('href', '<?= site_url() ?>/Dashboard/hapus_pengurus/' + nim);
+                $('#btnHapus').attr('href', '<?= site_url() ?>/pengurus/delete/' + nim);
             });
         });
 
@@ -318,15 +318,15 @@
         $(document).ready(function() {
             $(document).on('click', '#btnHapusMateri', function() {
                 var id = $(this).data('id');
-                $('#btnMateriHapus').attr('href', '<?= site_url() ?>/Dashboard/hapus_materi/' + id);
+                $('#btnMateriHapus').attr('href', '<?= site_url() ?>/materi/delete/' + id);
             });
             $(document).on('click', '#btn-promote', function() {
                 var nim = $(this).data('nim');
-                $('#btn-promote-admin').attr('href', '<?= site_url() ?>/Dashboard/promote_admin/' + nim);
+                $('#btn-promote-admin').attr('href', '<?= site_url() ?>/user/promote/' + nim);
             });
             $(document).on('click', '#btn-demote', function() {
                 var nim = $(this).data('nim');
-                $('#btn-demote-admin').attr('href', '<?= site_url() ?>/Dashboard/demote_member/' + nim);
+                $('#btn-demote-admin').attr('href', '<?= site_url() ?>/user/demote/' + nim);
             });
         });
     </script>

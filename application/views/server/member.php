@@ -16,19 +16,19 @@
             <!-- Card stats -->
             <h6 class="h2 text-white d-inline-block mb-4">Member AMCC</h6>
             <div class="row">
-                <div class="px-2 mb-4">
+                <div class="px-3 mb-4">
                     <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-add-member">
                         <span class="btn-inner--icon"><i class="ni ni-fat-add"></i></span>
                         <span class="btn-inner--text">Tambah Member Baru</span>
                     </button>
                 </div>
-                <div class="px-2 mb-4">
+                <div class="px-3 mb-4">
                     <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-import">
                         <span class="btn-inner--icon"><i class="ni ni-collection"></i></span>
                         <span class="btn-inner--text">Import Data</span>
                     </button>
                 </div>
-                <div class="px-2 mb-4">
+                <div class="px-3 mb-4">
                     <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-export">
                         <span class="btn-inner--icon"><i class="ni ni-collection"></i></span>
                         <span class="btn-inner--text">Export Data</span>
@@ -144,7 +144,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <form role="form" action="<?= site_url('Dashboard/member_action') ?>" method="POST">
+                    <form role="form" action="<?= site_url('member/add') ?>" method="POST">
                         <div class="form-group mb-3">
                             <div class="input-group input-group-merge input-group-alternative">
                                 <div class="input-group-prepend">
@@ -289,7 +289,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form role="form" action="<?= site_url('Dashboard/user_edit/member') ?>" method="POST">
+                    <form role="form" action="<?= site_url('user/edit/member') ?>" method="POST">
                         <div class="form-group mb-3">
                             <div class="input-group input-group-merge input-group-alternative">
                                 <div class="input-group-prepend">
