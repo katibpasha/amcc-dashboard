@@ -52,6 +52,53 @@ class Dashboard extends CI_Controller
         $this->template->load('template/template_admin', 'server/events', $data);
     }
 
+    public function events_edit()
+    {
+
+        
+        $start = $this->input->post('event-start', true);
+        $end = $this->input->post('event-end', true);
+
+        $error = false;
+        $error_message = '';
+
+
+        if($start >= $end) {
+            $error = true;
+            $error_message = 'Event Start tidak boleh sama/lebih dari Event End';
+        } 
+        
+        if($end <= $start) {
+            $error = true;
+            $error_message = 'Event End tidak boleh sama/lebih dari Event Start';
+        }
+
+        if ($error) {
+            $error1 = form_error('event-start');
+            $error2 = form_error('event-end');
+
+            $this->session->set_flashdata('flash-gagal', $error_message);
+            redirect('events');
+        } else {
+            $id = $this->input->post('event-id', true);
+            $nama = $this->input->post('event-name', true);
+
+
+            $data = array(
+                'event_id' => $id,
+                'event_name' => $nama,
+                'event_start' => $start,
+                'event_end' => $end,
+            );
+
+            $this->db->set($data);
+            $this->db->where('event_id', $id);
+            $this->db->update('tbl_event');
+            $this->session->set_flashdata('flash', "Data event berhasil diubah");
+            redirect('events');
+        }
+    }
+
     public function chart_details($division_id)
     {
         $data['data_member'] = $this->db->get_where('tbl_user', array('role_user' => 'B', 'division_id' => $division_id, 'year' => date('Y', strtotime("-1 Year", strtotime(date('Y'))))))->num_rows();

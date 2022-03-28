@@ -293,6 +293,18 @@
                 $('#phone-field').val(phone);
 
             });
+            $(document).on('click', '#edit-event-btn', function() {
+                var id = $(this).data('id');
+                var nama = $(this).data('name');
+                var eventStart = $(this).data('event-start');
+                var eventEnd = $(this).data('event-end');
+
+                $('#event-id').val(id);
+                $('#event-name').val(nama);
+                $('#event-start').val(eventStart);
+                $('#event-end').val(eventEnd);
+
+            });
         });
 
         $(document).ready(function() {

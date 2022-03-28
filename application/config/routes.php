@@ -58,6 +58,10 @@ $route['dashboard/pengurus'] = 'Dashboard';
 $route['events'] = 'Dashboard/events';
 $route['materi'] = 'Dashboard/material';
 
+// routes for events
+$route['events/action/(:any)/(:any)'] = 'Dashboard/turn_action/$1/$2';
+$route['events/edit'] = 'Dashboard/events_edit';
+
 // routes for member
 $route['member'] = 'Dashboard/member';
 $route['member/add'] = 'Dashboard/member_action';

@@ -18,6 +18,24 @@
 </div>
 <!-- Page content -->
 <div class="container-fluid mt--6">
+    <?php if ($this->session->flashdata('flash')) : ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Yeayyy !</strong> <?= $this->session->flashdata('flash') ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php unset($_SESSION['flash']);
+    endif ?>
+    <?php if ($this->session->flashdata('flash-gagal')) : ?>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Yahhhh :(</strong> <?= $this->session->flashdata('flash-gagal') ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php unset($_SESSION['flash-gagal']);
+    endif ?>
     <div class="row">
         <div class="col-xl-12">
             <div class="card bg-default shadow">
@@ -47,10 +65,12 @@
                                     </td>
 
                                     <td class="d-flex justify-content-center">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-event" id="edit-event-btn" data-id="<?= $item->event_id ?>" data-name="<?= $item->event_name ?>" data-event-start="<?= $item->event_start ?>" data-event-end="<?= $item->event_end ?>">Edit</button>
+
                                         <?php if ($item->status == 'off') { ?>
-                                            <a href="<?= site_url('Dashboard/turn_action/' . 'on' . '/' . $item->event_id) ?>" class="btn btn-success px-5" title="Click untuk mengaktifkan presensi">Turn On</a>
+                                            <a href="<?= site_url('events/action/' . 'on' . '/' . $item->event_id) ?>" class="btn btn-success px-5" title="Click untuk mengaktifkan presensi">Turn On</a>
                                         <?php } else { ?>
-                                            <a href="<?= site_url('Dashboard/turn_action/' . 'off' . '/' . $item->event_id) ?>" class="btn btn-danger px-5" title="Click untuk menonaktifkan presensi">Turn Off</a>
+                                            <a href="<?= site_url('events/action/' . 'off' . '/' . $item->event_id) ?>" class="btn btn-danger px-5" title="Click untuk menonaktifkan presensi">Turn Off</a>
                                         <?php } ?>
 
                                     </td>
@@ -135,19 +155,20 @@
 
                 <div class="modal-header">
                     <h6 class="modal-title" id="modal-title-default" data-toggle="modal" data-target="#modal-edit-event">Edit Event Pelatihan</h6>
-                    <button type="button" class="close" data-dismiss="modal" aria data-toggle="modal" data-target="#modal-delete-event" -label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
 
                 <div class="modal-body">
-                    <form role="form">
+                    <form role="form" action="<?= site_url('events/edit') ?>" method="POST">
                         <div class="form-group mb-3">
                             <div class="input-group input-group-merge input-group-alternative">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-tag"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Nama Event" type="text">
+                                <input class="form-control" type="hidden" id="event-id" name="event-id">
+                                <input class="form-control" placeholder="Nama Event" type="text" id="event-name" name="event-name">
                             </div>
                         </div>
                         <div class="form-group mb-3">
@@ -155,7 +176,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-time-alarm"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Waktu Mulai" type="time">
+                                <input class="form-control" placeholder="Waktu Mulai" type="time" id="event-start" name="event-start">
                             </div>
                         </div>
                         <div class="form-group mb-3">
@@ -163,29 +184,14 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-time-alarm"></i></span>
                                 </div>
-                                <input class="form-control" placeholder="Waktu Akhir" type="time">
+                                <input class="form-control" placeholder="Waktu Akhir" type="time" id="event-end" name="event-end">
                             </div>
                         </div>
-                        <div class="form-group mb-3">
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="ni ni-pin-3"></i></span>
-                                </div>
-                                <input class="form-control" placeholder="Lokasi" type="text">
-                            </div>
-                        </div>
-                        <div class="form-group mb-3">
-                            <div class="input-group input-group-merge input-group-alternative">
-                                <textarea class="form-control" placeholder="Deskripsi" rows="5"></textarea>
-                            </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
                     </form>
                 </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Simpan</button>
-                </div>
-
             </div>
         </div>
     </div>
