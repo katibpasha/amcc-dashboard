@@ -16,7 +16,7 @@ class Login extends CI_Controller
             redirect('dashboard');
         }
         $data['title'] = 'AMCC PRESENCE APP LOGIN';
-        $this->load->view('forLogin_model', $data);
+        $this->load->view('form_login', $data);
     }
 
     public function login_action()
