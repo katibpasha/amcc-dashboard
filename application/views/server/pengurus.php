@@ -153,12 +153,17 @@
                             </div>
                         </div>
                         <div class="form-group mb-3">
-                            <select class="form-control input-group input-group-merge input-group-alternative" id="exampleFormControlSelect1" name="divisi" required>
-                                <option>Pilih Divisi</option>
-                                <?php foreach ($devisi as $item) : ?>
-                                    <option value="<?= $item->division_id ?>"><?= $item->division_name ?></option>
-                                <?php endforeach ?>
-                            </select>
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-th-large"></i></span>
+                                </div>
+                                <select name="divisi" class="form-control">
+                                    <option>-- Pilih Divisi --</option>
+                                    <?php foreach ($divisi as $item) : ?>
+                                        <option value="<?= $item->division_id ?>"><?= $item->division_name ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
                         </div>
                         <div class="form-group mb-3">
                             <div class="input-group input-group-merge input-group-alternative">
@@ -214,6 +219,19 @@
                                     <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
                                 </div>
                                 <input class="form-control" placeholder="Nama Pengurus" type="text" id="name-field" name="nama">
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-th-large"></i></span>
+                                </div>
+                                <select name="divisi" class="form-control">
+                                    <option>-- Pilih Divisi --</option>
+                                    <?php foreach ($divisi as $item) : ?>
+                                        <option value="<?= $item->division_id ?>"><?= $item->division_name ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group mb-3">

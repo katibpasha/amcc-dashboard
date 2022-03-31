@@ -32,7 +32,7 @@ class Dashboard extends CI_Controller
         $data['title'] = 'Dashboard';
         $data['data_member_all'] = $this->db->get_where('tbl_user', array('role_user' => 'B'))->num_rows();
         $data['data_member_year'] = $this->db->get_where('tbl_user', array('role_user' => 'B', 'year' => date('Y', strtotime("-1 Year", strtotime(date('Y'))))))->num_rows();
-        $data['jmlh_devisi'] = $this->db->get('tbl_division')->num_rows();
+        $data['jmlh_divisi'] = $this->db->get('tbl_division')->num_rows();
         $data['presensi'] = [
             "web" => $this->Admin_model->dashboard_graph(1),
             "desktop" => $this->Admin_model->dashboard_graph(2),
@@ -50,7 +50,7 @@ class Dashboard extends CI_Controller
         $data['surpel'] = $this->Admin_model->surpel_get($division_id);
         $data['presensi'] = $this->Admin_model->dashboard_graph($division_id);
         $data['data_member_year'] = $this->db->get_where('tbl_user', array('role_user' => 'B', 'year' => date('Y', strtotime("-1 Year", strtotime(date('Y'))))))->num_rows();
-        $data['jmlh_devisi'] = $this->db->get('tbl_division')->num_rows();
+        $data['jmlh_divisi'] = $this->db->get('tbl_division')->num_rows();
         $data['title'] = 'Chart Details';
         $data['pie'] = [
             "materi" => $this->Admin_model->materi_graph('understanding', $division_id),
@@ -135,7 +135,7 @@ class Dashboard extends CI_Controller
     {
         $data['data_member_all'] = $this->db->get_where('tbl_user', array('role_user' => 'B'))->num_rows();
         $data['data_member_year'] = $this->db->get_where('tbl_user', array('role_user' => 'B', 'year' => date('Y')))->num_rows();
-        $data['jmlh_devisi'] = $this->db->get('tbl_division')->num_rows();
+        $data['jmlh_divisi'] = $this->db->get('tbl_division')->num_rows();
         $data['events'] = $this->db->get('tbl_event')->result();
         $data['title'] = 'Events';
         $this->template->load('template/template_admin', 'server/events', $data);
@@ -210,7 +210,7 @@ class Dashboard extends CI_Controller
     public function pengurus()
     {
         $data['title'] = 'Pengurus';
-        $data['devisi'] = $this->db->get('tbl_division')->result();
+        $data['divisi'] = $this->db->get('tbl_division')->result();
         $data['pengurus'] = $this->db->get_where('tbl_user', array('role_user' => 'A'))->result();
         $this->template->load('template/template_admin', 'server/pengurus', $data);
     }
@@ -229,7 +229,7 @@ class Dashboard extends CI_Controller
 
         if ($this->form_validation->run() == false) {
             $data['title'] = 'Pengurus';
-            $data['devisi'] = $this->db->get('tbl_division')->result();
+            $data['divisi'] = $this->db->get('tbl_division')->result();
             $data['pengurus'] = $this->db->get_where('tbl_user', array('role_user' => 'A'))->result();
             $this->template->load('template/template_admin', 'server/pengurus', $data);
         } else {
@@ -300,7 +300,7 @@ class Dashboard extends CI_Controller
     public function material()
     {
         $data['title'] = 'Material';
-        $data['devisi'] = $this->db->get('tbl_division')->result();
+        $data['divisi'] = $this->db->get('tbl_division')->result();
         $data['modul_pelatihan'] = $this->Admin_model->tampil_material('MODUL');
         $data['modul_rekaman'] = $this->Admin_model->tampil_material('RECORD');
         $this->template->load('template/template_admin', 'server/materi', $data);

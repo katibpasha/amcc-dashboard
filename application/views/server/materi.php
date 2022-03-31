@@ -195,7 +195,7 @@
                         <div class="form-group mb-3">
                             <select class="form-control input-group input-group-merge input-group-alternative" id="exampleFormControlSelect1" name="divisi" required>
                                 <option>Pilih Divisi</option>
-                                <?php foreach ($devisi as $item) : ?>
+                                <?php foreach ($divisi as $item) : ?>
                                     <option value="<?= $item->division_id ?>"><?= $item->division_name ?></option>
                                 <?php endforeach ?>
                             </select>

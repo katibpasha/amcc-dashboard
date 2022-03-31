@@ -27,13 +27,13 @@ class Login extends CI_Controller
         $cek = $this->Login_model->cek_login($email);
         if ($cek) {
             if ($pass == $cek['pass']) {
-                $cek_devision = $this->Login_model->get_division($email);
+                $cek_division = $this->Login_model->get_division($email);
                 $userdata = array(
                     'nim' => $cek['nim'],
                     'name' => $cek['name'],
                     'role_user' => $cek['role_user'],
                     'email' => $cek['email'],
-                    'division_name' => $cek_devision['division_name'],
+                    'division_name' => $cek_division['division_name'],
                     'logged_in' => true
                 );
                 $this->session->set_userdata($userdata);

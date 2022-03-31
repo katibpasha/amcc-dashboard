@@ -20,14 +20,14 @@ class Member extends CI_Controller
         }
     }
 
-    private function convertDevisi()
+    private function convertdivisi()
     {
         $email = $this->session->userdata('email');
-        $nama_devisi = $this->Login_model->get_division($email);
+        $nama_divisi = $this->Login_model->get_division($email);
         $divisi_name = $this->session->userdata('division_name');
 
-        if ($divisi_name == $nama_devisi['division_name']) {
-            return $nama_devisi['division_id'];
+        if ($divisi_name == $nama_divisi['division_name']) {
+            return $nama_divisi['division_id'];
         }
     }
 
@@ -87,7 +87,7 @@ class Member extends CI_Controller
         $kendala = $this->input->post('kendala', true);
         $kritik = $this->input->post('kritik', true);
         $id_survey = strtotime(date('h:m:s')) . $this->session->userdata('nim');
-        $event_id = $this->convertDevisi();
+        $event_id = $this->convertdivisi();
 
         $data_insert_survey = array(
             'survey_id' => $id_survey,
