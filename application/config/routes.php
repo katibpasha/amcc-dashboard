@@ -65,6 +65,8 @@ $route['events/edit'] = 'Dashboard/events_edit';
 // routes for member
 $route['member'] = 'Dashboard/member';
 $route['member/add'] = 'Dashboard/add_member';
+$route['member/export'] = 'Dashboard/export_to_csv';
+$route['member/import'] = 'Dashboard/import_csv';
 
 // routes for material
 $route['materi/add'] = 'Dashboard/add_material';

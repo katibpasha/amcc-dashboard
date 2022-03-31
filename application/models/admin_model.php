@@ -112,4 +112,22 @@ class Admin_model extends CI_Model
             return array();
         }
     }
+
+    public function get_all_users()
+    {
+        $sql = "SELECT u.nim, u.name, u.email, u.phone, u.division_id, u.year, u.note, u.created_at, u.mdd FROM tbl_user u";
+        $query = $this->db->query($sql);
+
+        if($query->num_rows() > 0) {
+            return $query;
+        } else {
+            return array();
+        }
+    }
+
+    public function check_user_exist($nim)
+    {
+        $sql = "SELECT * FROM tbl_user WHERE nim='$nim'";
+        return $this->db->query($sql)->num_rows();
+    }
 }

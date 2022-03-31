@@ -9,6 +9,9 @@ class Dashboard extends CI_Controller
         parent::__construct();
         $this->load->model('Admin_model');
         $this->load->model('Member_model');
+        $this->load->helper('file');
+        $this->load->library('CSVReader');
+
         if (!$this->session->logged_in) {
             redirect('Login');
         }
@@ -439,5 +442,112 @@ class Dashboard extends CI_Controller
         $this->db->update('tbl_user', $data);
         $this->session->set_flashdata('flash', 'Berhasil Demote to Member');
         redirect('member');
+    }
+
+    // export all member users to csv
+    public function export_to_csv()
+    {
+        $this->load->helper("download");
+        $this->load->dbutil();
+
+        $delimiter = ",";
+        $file_name = "data-member-" . date('d-M-Y', strtotime(date("Y-m-d"))) . ".csv";
+
+        $data = $this->dbutil->csv_from_result($this->Admin_model->get_all_users(), $delimiter, "\r\n", '"');
+
+        force_download("$file_name", $data);
+
+        $this->session->set_flashdata("flash", "Data member berhasil diexport");
+        redirect("member");
+    }
+
+    // import csv to mysql
+
+    public function import_csv()
+    {
+
+        // $data = $this->csvreader->parse_file('');
+
+        $insertCount = $prevCount = $updateCount = $rowCount = 0;
+
+        $this->form_validation->set_rules('import-data', 'CSV file', 'callback_file_check');
+
+        if ($this->form_validation->run()) {
+            $insertCount = $updateCount = $rowCount = $notAddCount = 0;
+
+            $tmp_name = $_FILES['import-data']['tmp_name'];
+
+            if (is_uploaded_file($tmp_name)) {
+                $data = $this->csvreader->parse_file($tmp_name);
+
+                if (!empty($data)) {
+                    foreach ($data as $data) {
+                        $rowCount++;
+
+                        $tmp = array(
+                            'nim' => $data['nim'],
+                            'name' => $data['name'],
+                            'division_id' => $data['division_id'],
+                            'email' => $data['email'],
+                            'phone' => $data['phone'],
+                            'year' => $data['year'],
+                            'note' => $data['note'],
+                            'pass' => md5($data['phone']),
+                            'role_user' => 'B',
+                        );
+
+                        $prevCount = $this->Admin_model->check_user_exist($data['nim']);
+
+
+                        if ($prevCount > 0) {
+                            // UPDATE DATA
+                            $this->db->set($tmp);
+                            $this->db->where('nim', $data['nim']);
+                            $update = $this->db->update('tbl_user');
+
+                            if ($update) {
+                                $updateCount++;
+                            }
+                        } else {
+                            // INSERT DATA
+
+                            $insert = $this->db->insert('tbl_user', $tmp);
+
+                            if ($insert) {
+                                $insertCount++;
+                            }
+                        }
+                    }
+
+                    $message = "Data member berhasil diimport. Total rows: $rowCount | inserted: $insertCount | updated: $updateCount";
+                    $this->session->set_flashdata("flash", $message);
+                } else {
+                    $message = "Tidak bisa parsing file CSV, coba periksa formatnya";
+                    $this->session->set_flashdata("flash-gagal", $message);
+                }
+            }
+
+            redirect('member');
+        }
+    }
+
+    // rules used to check file extension
+    public function file_check($str)
+    {
+        $allowed_mime_types = array('text/x-comma-separated-values', 'text/comma-separated-values', 'application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 'text/csv', 'application/csv', 'application/excel', 'application/vnd.msexcel', 'text/plain');
+        if (isset($_FILES['import-data']['name']) && $_FILES['import-data']['name'] != "") {
+            $mime = get_mime_by_extension($_FILES['import-data']['name']);
+            $fileAr = explode('.', $_FILES['import-data']['name']);
+            $ext = end($fileAr);
+            if (($ext == 'csv') && in_array($mime, $allowed_mime_types)) {
+                return true;
+            } else {
+                $this->form_validation->set_message('file_check', 'Please select only CSV file to upload.');
+                return false;
+            }
+        } else {
+            $this->form_validation->set_message('file_check', 'Please select a CSV file to upload.');
+            return false;
+        }
     }
 }

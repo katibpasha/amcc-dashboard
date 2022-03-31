@@ -16,23 +16,23 @@
             <!-- Card stats -->
             <h6 class="h2 text-white d-inline-block mb-4">Member AMCC</h6>
             <div class="row">
-                <div class="px-3 mb-4">
+                <div class="px-2 pl-3 mb-4">
                     <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-add-member">
                         <span class="btn-inner--icon"><i class="ni ni-fat-add"></i></span>
                         <span class="btn-inner--text">Tambah Member Baru</span>
                     </button>
                 </div>
-                <div class="px-3 mb-4">
+                <div class="px-2 mb-4">
                     <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-import">
                         <span class="btn-inner--icon"><i class="ni ni-collection"></i></span>
                         <span class="btn-inner--text">Import Data</span>
                     </button>
                 </div>
-                <div class="px-3 mb-4">
-                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-export">
+                <div class="px-2 mb-4">
+                    <a href="<?= site_url('member/export') ?>" target="_BLANK" type="button" class="btn btn-secondary">
                         <span class="btn-inner--icon"><i class="ni ni-collection"></i></span>
                         <span class="btn-inner--text">Export Data</span>
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -114,9 +114,9 @@
                                             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit-member" id="editBtn" data-name="<?= $item->name ?>" data-email="<?= $item->email ?>" data-phone="<?= $item->phone ?>" data-nim="<?= $item->nim ?>" data-role="member">Edit</button>
                                             <?php if ($item->role_user == 'A') : ?>
                                                 <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-demote-member" id="btn-demote" data-nim="<?= $item->nim ?>">Demote to Member</button>
-                                            <?php else: ?>
+                                            <?php else : ?>
                                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-promote-member" id="btn-promote" data-nim="<?= $item->nim ?>">Promote to Admin</button>
-                                            <?php endif; ?>            
+                                            <?php endif; ?>
                                         </td>
                                     </tr>
                                 <?php endforeach ?>
@@ -230,47 +230,14 @@
                 </div>
 
                 <div class="modal-body">
-                    <div class="input-group mb-3">
-                        <input type="file" class="filepond" name="filepond" data-max-file-size="5MB" id="import-data">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-primary" type="button">Import Data</button>
+                    <form action="<?= site_url('member/import') ?>" method="POST" enctype="multipart/form-data">
+                        <div class="input-group mb-3">
+                            <input type="file" class="filepond" data-max-file-size="5MB" id="import-data" name="import-data">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-primary rounded" type="submit">Import Data</button>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 3. Modal export data -->
-
-    <div class="modal fade" id="modal-export" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-" role="document">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <h6 class="modal-title" id="modal-title-default">Export Data</h6>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-
-                <div class="modal-body">
-                    <div class="input-group mb-3">
-                        <form action="">
-                            <div class="custom-control custom-radio mb-3">
-                                <input type="radio" id="export-csv" name="customRadio" class="custom-control-input">
-                                <label class="custom-control-label" for="export-csv">Export to CSV</label>
-                            </div>
-                            <div class="custom-control custom-radio mb-3">
-                                <input type="radio" id="export-excel" name="customRadio" class="custom-control-input">
-                                <label class="custom-control-label" for="export-excel">Export to Excel</label>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Export Data</button>
+                    </form>
                 </div>
             </div>
         </div>
