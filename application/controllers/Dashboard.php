@@ -403,6 +403,7 @@ class Dashboard extends CI_Controller
             $nim = $this->input->post('nim', true);
             $nama = $this->input->post('nama', true);
             $email = $this->input->post('email', true);
+            $divisi = $this->input->post('divisi', true);
             $phone = $this->input->post('phone', true);
             $pass = $this->input->post('pass1', true);
 
@@ -414,10 +415,16 @@ class Dashboard extends CI_Controller
                 'pass' => empty($pass) ? md5($phone) : md5($pass)
             );
 
+            if ($divisi) {
+                array_push($data_update, [
+                    'division_id' => $divisi,
+                ]);
+            }
+
             $this->db->set($data_update);
             $this->db->where('nim', $nim);
             $this->db->update('tbl_user');
-            $this->session->set_flashdata('flash', "Data $role berhasil diubah");
+            $this->session->set_flashdata('flash', "Data $nama berhasil diubah");
             redirect($role);
         }
     }

@@ -276,6 +276,19 @@
                         <div class="form-group mb-3">
                             <div class="input-group input-group-merge input-group-alternative">
                                 <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-th-large"></i></span>
+                                </div>
+                                <select name="divisi" class="form-control">
+                                    <option>-- Pilih Divisi --</option>
+                                    <?php foreach ($division as $item) : ?>
+                                        <option value="<?= $item->division_id ?>"><?= $item->division_name ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                 </div>
                                 <input class="form-control" placeholder="Email" type="email" id="email-field" name="email">
@@ -284,7 +297,7 @@
                         <div class="form-group mb-3">
                             <div class="input-group input-group-merge input-group-alternative">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                 </div>
                                 <input class="form-control" placeholder="Nomor HP" type="number" id="phone-field" name="phone">
                             </div>
