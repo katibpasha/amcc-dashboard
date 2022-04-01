@@ -3,9 +3,9 @@
 class Member_model extends CI_Model
 {
 
-    public function tampil_material($string, $str2)
+    public function tampil_material($category, $division_name)
     {
-        $sql = "SELECT m.name as modul ,m.link, m.training_to, u.name as user, m.created_at FROM tbl_material m INNER JOIN tbl_user u ON m.users_id=u.nim INNER JOIN tbl_division d ON m.division_id=d.division_id WHERE m.category='$string' AND d.division_name='$str2' ";
+        $sql = "SELECT m.name as modul ,m.link, m.training_to, u.name as user, m.created_at FROM tbl_material m INNER JOIN tbl_user u ON m.users_id=u.nim INNER JOIN tbl_division d ON m.division_id=d.division_id WHERE m.category='$category' AND d.division_name='$division_name' ORDER BY m.training_to ASC";
         $query = $this->db->query($sql);
 
         if ($query->num_rows() > 0) {
@@ -29,9 +29,9 @@ class Member_model extends CI_Model
         }
     }
 
-    public function cek_eventStatus($division_name)
+    public function cek_eventStatus($division_id)
     {
-        $sql = "SELECT `status` FROM tbl_event WHERE event_name = '$division_name' ";
+        $sql = "SELECT `status` FROM tbl_event WHERE event_id = '$division_id' ";
         $query = $this->db->query($sql);
 
         if ($query->num_rows() > 0) {

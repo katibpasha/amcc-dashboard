@@ -34,6 +34,7 @@ class Login extends CI_Controller
                     'role_user' => $cek['role_user'],
                     'email' => $cek['email'],
                     'division_name' => $cek_division['division_name'],
+                    'division_id' => $cek_division['division_id'],
                     'logged_in' => true
                 );
                 $this->session->set_userdata($userdata);
