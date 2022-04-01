@@ -81,6 +81,10 @@ $route['pengurus/profiling'] = 'Dashboard/profiling';
 $route['pengurus/assesment/(:any)'] = 'Dashboard/get_assesment/$1';
 $route['pengurus/portfolio/(:any)'] = 'Dashboard/get_portfolio/$1';
 
+// routes for superadmin
+$route['superadmin'] = 'Dashboard/super_admin';
+$route['superadmin/add'] = 'Dashboard/add_sa';
+
 // routes for user action
 $route['user/edit/(:any)'] = 'Dashboard/edit_user/$1';
 $route['user/promote/(:any)'] = 'Dashboard/promote_admin/$1';

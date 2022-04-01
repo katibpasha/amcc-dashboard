@@ -3,9 +3,9 @@
 class Admin_model extends CI_Model
 {
 
-    public function tampil_material($string)
+    public function tampil_material($category, $division_id)
     {
-        $sql = "SELECT d.division_name, m.*, m.name as modul, u.name as user FROM tbl_material m INNER JOIN tbl_user u ON m.users_id=u.nim INNER JOIN tbl_division d ON m.division_id =d.division_id WHERE m.category='$string' ORDER BY m.training_to ASC";
+        $sql = "SELECT d.division_name, m.*, m.name as modul, u.name as user FROM tbl_material m INNER JOIN tbl_user u ON m.users_id=u.nim INNER JOIN tbl_division d ON m.division_id =d.division_id WHERE m.category='$category' AND d.division_id=$division_id ORDER BY m.training_to ASC";
         $query = $this->db->query($sql);
 
         if ($query->num_rows() > 0) {

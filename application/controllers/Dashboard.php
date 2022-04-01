@@ -15,9 +15,8 @@ class Dashboard extends CI_Controller
         if (!$this->session->logged_in) {
             redirect('Login');
         }
-
         // check user role
-        if ($this->session->userdata('role_user') != 'A' && $this->session->logged_in) {
+        if ($this->session->userdata('role_user') == 'B' && $this->session->logged_in) {
             redirect('dashboard/member');
         }
     }
@@ -33,17 +32,22 @@ class Dashboard extends CI_Controller
         $data['data_member_all'] = $this->db->get_where('tbl_user', array('role_user' => 'B'))->num_rows();
         $data['data_member_year'] = $this->db->get_where('tbl_user', array('role_user' => 'B', 'year' => date('Y', strtotime("-1 Year", strtotime(date('Y'))))))->num_rows();
         $data['jmlh_divisi'] = $this->db->get('tbl_division')->num_rows();
-        $data['presensi'] = [
-            "web" => $this->Admin_model->dashboard_graph(1),
-            "desktop" => $this->Admin_model->dashboard_graph(2),
-            "mobile" => $this->Admin_model->dashboard_graph(3),
-            "network" => $this->Admin_model->dashboard_graph(4),
-            "hs" => $this->Admin_model->dashboard_graph(5),
-        ];
-        $this->template->load('template/template_admin', 'server/index', $data);
+
+        if ($this->session->role_user != 'SA') {
+            $this->chart_details($this->session->division_id, $data['title']);
+        } else {
+            $data['presensi'] = [
+                "web" => $this->Admin_model->dashboard_graph(1),
+                "desktop" => $this->Admin_model->dashboard_graph(2),
+                "mobile" => $this->Admin_model->dashboard_graph(3),
+                "network" => $this->Admin_model->dashboard_graph(4),
+                "hs" => $this->Admin_model->dashboard_graph(5),
+            ];
+            $this->template->load('template/template_admin', 'server/index', $data);
+        }
     }
 
-    public function chart_details($division_id)
+    public function chart_details($division_id, $title = 'Chart Details')
     {
         $data['data_member'] = $this->db->get_where('tbl_user', array('role_user' => 'B', 'division_id' => $division_id, 'year' => date('Y', strtotime("-1 Year", strtotime(date('Y'))))))->num_rows();
         $data['divisi'] = $this->db->get_where('tbl_event', array('event_id' => $division_id))->row_object();
@@ -51,13 +55,14 @@ class Dashboard extends CI_Controller
         $data['presensi'] = $this->Admin_model->dashboard_graph($division_id);
         $data['data_member_year'] = $this->db->get_where('tbl_user', array('role_user' => 'B', 'year' => date('Y', strtotime("-1 Year", strtotime(date('Y'))))))->num_rows();
         $data['jmlh_divisi'] = $this->db->get('tbl_division')->num_rows();
-        $data['title'] = 'Chart Details';
+        $data['title'] = $title;
         $data['pie'] = [
             "materi" => $this->Admin_model->materi_graph('understanding', $division_id),
             "penyampaian" => $this->Admin_model->materi_graph('effectivity', $division_id),
             "kelas" => $this->Admin_model->materi_graph('interactive', $division_id),
             "jawaban" => $this->Admin_model->materi_graph('answer_satisfy', $division_id)
         ];
+
         $this->template->load('template/template_admin', 'server/chart-details', $data);
     }
 
@@ -68,9 +73,10 @@ class Dashboard extends CI_Controller
     */
     public function member()
     {
+        $division_id = $this->session->division_id;
         $data['title'] = 'Member';
         $data['division'] = $this->db->get('tbl_division')->result();
-        $data['member'] =  $this->Member_model->member();
+        $data['member'] =  $this->Member_model->member($division_id);
         $this->template->load('template/template_admin', 'server/member', $data);
     }
 
@@ -290,6 +296,53 @@ class Dashboard extends CI_Controller
         echo json_encode($data);
     }
 
+    public function super_admin()
+    {
+        $data['title'] = 'Super Admin';
+        $data['superadmin'] = $this->db->get_where('tbl_user', array('role_user' => 'SA'))->result();
+        $this->template->load('template/template_admin', 'server/superadmin', $data);
+    }
+
+    public function add_sa()
+    {
+        $this->form_validation->set_rules('pass1', 'pass1', 'matches[pass2]', [
+            'matches' => 'Password tidak sama'
+        ]);
+        $this->form_validation->set_rules('pass2', 'pass2', 'matches[pass1]', [
+            'matches' => 'Password tidak sama'
+        ]);
+
+        if ($this->form_validation->run() == false) {
+            $data['title'] = 'Pengurus';
+            $data['pengurus'] = $this->db->get_where('tbl_user', array('role_user' => 'SA'))->result();
+            $this->template->load('template/template_admin', 'server/superadmin', $data);
+        } else {
+            $nama = $this->input->post('nama', true);
+            $email = $this->input->post('email', true);
+            $pass = md5($this->input->post('pass1', true));
+            $year = date('Y');
+
+            $data_insert = array(
+                "nim" => rand(2618461836, 9999999999),
+                "role_user" => "SA",
+                "division_id" => 1,
+                "name" => $nama,
+                "email" => $email,
+                "year" => $year,
+                "pass" => $pass
+            );
+
+            $insert = $this->db->insert('tbl_user', $data_insert);
+            if ($insert) {
+                $this->session->set_flashdata('flash', 'Data Super Admin berhasil ditambahkan');
+                redirect('superadmin');
+            } else {
+                $this->session->set_flashdata('flash-gagal', 'Data Super Admin gagal ditambahkan');
+                redirect('superadmin');
+            }
+        }
+    }
+
     /*
     *   Material Data related action
     *   - material: get all material data and display it
@@ -299,10 +352,11 @@ class Dashboard extends CI_Controller
     */
     public function material()
     {
+        $division_id = $this->session->division_id;
         $data['title'] = 'Material';
         $data['divisi'] = $this->db->get('tbl_division')->result();
-        $data['modul_pelatihan'] = $this->Admin_model->tampil_material('MODUL');
-        $data['modul_rekaman'] = $this->Admin_model->tampil_material('RECORD');
+        $data['modul_pelatihan'] = $this->Admin_model->tampil_material('MODUL', $division_id);
+        $data['modul_rekaman'] = $this->Admin_model->tampil_material('RECORD', $division_id);
         $this->template->load('template/template_admin', 'server/materi', $data);
     }
 
@@ -415,11 +469,11 @@ class Dashboard extends CI_Controller
                 'pass' => empty($pass) ? md5($phone) : md5($pass)
             );
 
-            if ($divisi) {
-                array_push($data_update, [
-                    'division_id' => $divisi,
-                ]);
+            if (!empty($divisi)) {
+                $data_update += array('division_id' => $divisi);
             }
+
+            var_dump($data_update);
 
             $this->db->set($data_update);
             $this->db->where('nim', $nim);

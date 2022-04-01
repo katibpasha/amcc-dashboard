@@ -38,10 +38,10 @@ class Login extends CI_Controller
                     'logged_in' => true
                 );
                 $this->session->set_userdata($userdata);
-                if ($cek['role_user'] == 'A') {
-                    redirect('dashboard/pengurus');
-                } else {
+                if ($cek['role_user'] == 'B') {
                     redirect('dashboard/member');
+                } else {
+                    redirect('dashboard/pengurus');
                 }
             } else {
                 $this->session->set_flashdata('flash', 'Password anda salah');

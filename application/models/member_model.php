@@ -42,9 +42,13 @@ class Member_model extends CI_Model
         }
     }
 
-    public function member()
+    public function member($division_id)
     {
-        $sql = "SELECT * FROM tbl_user u INNER JOIN tbl_division d ON u.division_id = d.division_id ORDER BY u.year DESC";
+        if ($this->session->role_user != 'SA' ) {
+            $sql = "SELECT * FROM tbl_user u INNER JOIN tbl_division d ON u.division_id = d.division_id WHERE d.division_id=$division_id ORDER BY u.year DESC";
+        } else {
+            $sql = "SELECT * FROM tbl_user u INNER JOIN tbl_division d ON u.division_id = d.division_id WHERE u.role_user != 'SA' ORDER BY u.year DESC";
+        }
         $query = $this->db->query($sql);
 
         if ($query->num_rows() > 0) {

@@ -138,12 +138,14 @@
                                 <span class="nav-link-text">Dashboard </span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a <?= $this->uri->segment(1) == 'events' ? 'class="nav-link active"' : 'class="nav-link"' ?> href="<?= site_url('events') ?>">
-                                <i class="ni ni-calendar-grid-58 text-yellow"></i>
-                                <span class="nav-link-text">Event</span>
-                            </a>
-                        </li>
+                        <?php if ($this->session->role_user == 'SA') : ?>
+                            <li class="nav-item">
+                                <a <?= $this->uri->segment(1) == 'events' ? 'class="nav-link active"' : 'class="nav-link"' ?> href="<?= site_url('events') ?>">
+                                    <i class="ni ni-calendar-grid-58 text-yellow"></i>
+                                    <span class="nav-link-text">Event</span>
+                                </a>
+                            </li>
+                        <?php endif; ?>
                         <li class="nav-item">
                             <a <?= $this->uri->segment(1) == 'materi' ? 'class="nav-link active"' : 'class="nav-link"' ?> href="<?= site_url('materi') ?>">
                                 <i class="ni ni-app text-brown"></i>
@@ -151,20 +153,31 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a <?= $this->uri->segment(1) == 'member' ? 'class="nav-link active"' : 'class="nav-link"' ?>href="<?= site_url('member') ?>">
+                            <a <?= $this->uri->segment(1) == 'member' ? 'class="nav-link active"' : 'class="nav-link"' ?>href="<?= site_url("member") ?>">
                                 <i class="fas fa-user-friends text-info"></i>
                                 <span class="nav-link-text">Member</span>
                             </a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a <?= $this->uri->segment(2) == 'profiling' || $this->uri->segment(1) == 'pengurus'  ? 'class="nav-link active"' : 'class="nav-link"' ?> href="#" class="nav-link has-dropdown" data-toggle="dropdown">
-                                <i class="fas fa-user-friends text-orange"></i> <span>Pengurus</span>
+                        <li class="nav-item">
+                            <a <?= $this->uri->segment(2) == 'profiling' && $this->uri->segment(1) == 'pengurus'  ? 'class="nav-link active"' : 'class="nav-link"' ?> href="<?= site_url('pengurus/profiling') ?>">
+                                <i class="fas fa-user-friends text-green"></i>
+                                <span class="nav-link-text">Profiling</span>
                             </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="nav-link" href="<?= site_url('pengurus') ?>">Akun Pengurus</a></li>
-                                <li><a class="nav-link" href="<?= site_url('pengurus/profiling') ?>">Profiling Pengurus</a></li>
-                            </ul>
                         </li>
+                        <?php if ($this->session->role_user == 'SA') : ?>
+                            <li class="nav-item">
+                                <a <?= $this->uri->segment(1) == 'pengurus' && $this->uri->segment(2) == ''  ? 'class="nav-link active"' : 'class="nav-link"' ?> href="<?= site_url('pengurus') ?>">
+                                    <i class="fas fa-user-friends text-red"></i>
+                                    <span class="nav-link-text">Pengurus</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a <?= $this->uri->segment(1) == 'superadmin' && $this->uri->segment(2) == ''  ? 'class="nav-link active"' : 'class="nav-link"' ?> href="<?= site_url('superadmin') ?>">
+                                    <i class="fas fa-user-friends text-purple"></i>
+                                    <span class="nav-link-text">Super Admin</span>
+                                </a>
+                            </li>
+                        <?php endif; ?>
                     </ul>
                 </div>
             </div>

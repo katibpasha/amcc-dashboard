@@ -3,14 +3,14 @@
         <div class="header-body">
             <!-- Card stats -->
             <h6 class="h2 text-white d-inline-block mb-4">Pengurus AMCC</h6>
-            <div class="row">
+            <!-- <div class="row">
                 <div class="px-3 mb-4">
                     <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-add-pengurus">
                         <span class="btn-inner--icon"><i class="ni ni-fat-add"></i></span>
                         <span class="btn-inner--text">Tambah Pengurus Baru</span>
                     </button>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
@@ -107,7 +107,7 @@
 
     <!-- modal -->
     <!-- 1. modal tambah pengurus -->
-    <div class="modal fade" id="modal-add-pengurus" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- <div class="modal fade" id="modal-add-pengurus" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-" role="document">
             <div class="modal-content">
 
@@ -189,7 +189,7 @@
 
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- 2. modal edit -->
 
@@ -227,7 +227,7 @@
                                     <span class="input-group-text"><i class="fas fa-th-large"></i></span>
                                 </div>
                                 <select name="divisi" class="form-control">
-                                    <option>-- Pilih Divisi --</option>
+                                    <option value="">-- Pilih Divisi --</option>
                                     <?php foreach ($divisi as $item) : ?>
                                         <option value="<?= $item->division_id ?>"><?= $item->division_name ?></option>
                                     <?php endforeach; ?>
