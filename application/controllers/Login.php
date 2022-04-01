@@ -10,6 +10,7 @@ class Login extends CI_Controller
         $this->load->model('Login_model');
     }
 
+    // check session, already logged in or not, and load view login page
     public function index()
     {
         if ($this->session->logged_in) {
@@ -19,6 +20,10 @@ class Login extends CI_Controller
         $this->load->view('form_login', $data);
     }
 
+    /*
+    * This method check user input data
+    * If exist, will save user data into session
+    */
     public function login_action()
     {
         $email = $this->input->post('email', true);
@@ -55,7 +60,6 @@ class Login extends CI_Controller
 
     public function logout()
     {
-
         session_destroy();
         redirect('Login');
     }

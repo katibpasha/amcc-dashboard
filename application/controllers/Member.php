@@ -20,6 +20,17 @@ class Member extends CI_Controller
         }
     }
 
+    public function index()
+    {
+        $division = $this->session->userdata("division_name");
+        $data['title'] = 'Dashboard Member';
+        $data['modul_pelatihan'] = $this->Member_model->tampil_material('MODUL', $division);
+        $data['modul_rekaman'] = $this->Member_model->tampil_material('RECORD', $division);
+        $data['presensi'] = $this->Member_model->cek_eventStatus($this->session->userdata('division_id'));
+        $data['jmh_presensi'] = $this->db->get_where('tbl_presence', array('nim' => $this->session->userdata('nim')))->num_rows();
+        $this->template->load('template/template_member', 'client/index', $data);
+    }
+
     private function convertdivisi()
     {
         $email = $this->session->userdata('email');
@@ -31,6 +42,10 @@ class Member extends CI_Controller
         }
     }
 
+    /*
+    * Check Presensi
+    * If event pelatihan status is active/on AND the time is matches, member can presence
+    */
     private function cekPresensi()
     {
 
@@ -45,17 +60,9 @@ class Member extends CI_Controller
         }
     }
 
-    public function index()
-    {
-        $division = $this->session->userdata("division_name");
-        $data['title'] = 'Dashboard Member';
-        $data['modul_pelatihan'] = $this->Member_model->tampil_material('MODUL', $division);
-        $data['modul_rekaman'] = $this->Member_model->tampil_material('RECORD', $division);
-        $data['presensi'] = $this->Member_model->cek_eventStatus($this->session->userdata('division_id'));
-        $data['jmh_presensi'] = $this->db->get_where('tbl_presence', array('nim' => $this->session->userdata('nim')))->num_rows();
-        $this->template->load('template/template_member', 'client/index', $data);
-    }
-
+    /*
+     * Load presensi page 
+     */
     public function presensi()
     {
         // Ada masalah di bagian tampil nama divisi
@@ -65,6 +72,9 @@ class Member extends CI_Controller
         $this->template->load('template/template_member', 'client/presensi', $data);
     }
 
+    /*
+     * Load profile page 
+     */
     public function profile()
     {
         $data['title'] = 'Member Profile';
