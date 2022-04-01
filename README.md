@@ -9,11 +9,13 @@ Ivan Nur Ilhamsyah, Ahmad Fauzi, Vicky Irwanto, Titan Bagus Br.
 - Framework : Codeigniter 3
 - Frontend	: Bootstrap
 
-## Todo Feature
+## Todo
 - [x] Data Visualization
 - [x] CRUD Modul/Record
 - [x] Export Data User to CSV
 - [x] Import Data User from CSV
 - [x] Promote/Demote Member
 - [x] Dashboard Super Admin/Admin/Member
-- [] CRUD Profiling Pengurus
+- [ ] CRUD Profiling Pengurus
+- [ ] Migrasi Hashing Password Method (current: MD5)
+- [ ] Cek Security
