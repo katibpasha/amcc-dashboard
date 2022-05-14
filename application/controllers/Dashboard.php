@@ -215,6 +215,9 @@ class Dashboard extends CI_Controller
     */
     public function pengurus()
     {
+        if ($this->session->userdata('role_user') == 'A' && $this->session->logged_in) {
+            redirect('dashboard/member');
+        }
         $data['title'] = 'Pengurus';
         $data['divisi'] = $this->db->get('tbl_division')->result();
         $data['pengurus'] = $this->db->get_where('tbl_user', array('role_user' => 'A'))->result();
@@ -298,6 +301,9 @@ class Dashboard extends CI_Controller
 
     public function super_admin()
     {
+        if ($this->session->userdata('role_user') == 'A' && $this->session->logged_in) {
+            redirect('dashboard/member');
+        }
         $data['title'] = 'Super Admin';
         $data['superadmin'] = $this->db->get_where('tbl_user', array('role_user' => 'SA'))->result();
         $this->template->load('template/template_admin', 'server/superadmin', $data);
@@ -452,6 +458,7 @@ class Dashboard extends CI_Controller
             } else if ($error2) {
                 $this->session->set_flashdata('flash-gagal', substr($error2, 3, 35));
             }
+            die;
             redirect($role);
         } else {
             $nim = $this->input->post('nim', true);
